@@ -11,8 +11,13 @@ config_version=5
 [application]
 
 config/name="DDUEksamen"
+run/main_scene="uid://d2tv5ygyyb64y"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*uid://dqyxr4w7bpxel"
 
 [physics]
 
