@@ -7,6 +7,18 @@ var assignment_dict:Dictionary = {}
 var name_array =  ["Alice", "Bob", "Jones", "Lones", "Eliot","Frederik", "Sirius", "Jens", "Sofie", "David", "Christian"]
 var genetics_array = []
 
+var trait_dict = {
+	000:{"name":"Neutral","productivity_mod":1,"happiness_mod":1,"sickness_chance":1},
+	001:{"name":"Sanguine","productivity_mod":1,"happiness_mod":1.1,"sickness_chance":1},
+	002:{"name":"Pessimistic","productivity_mod":1,"happiness_mod":0.9,"sickness_chance":1},
+	003:{"name":"Effective","productivity_mod":1.2,"happiness_mod":1,"sickness_chance":1},
+	004:{"name":"Lazy","productivity_mod":0.8,"happiness_mod":1,"sickness_chance":1},
+	005:{"name":"Healthy","productivity_mod":1,"happiness_mod":1,"sickness_chance":0.5},
+	006:{"name":"Sickly","productivity_mod":1,"happiness_mod":1,"sickness_chance":2},
+}
+#----------------------------------------------------------------------
+
+
 func add_colonist(name, trait_1, trait_2, trait_3, trait_4, trait_5, trait_6):
 	var data := {
 		"trait_1": trait_1,
