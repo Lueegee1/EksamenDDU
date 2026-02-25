@@ -10,8 +10,8 @@ var minerals: int = 0
 #	pass # Replace with function body.
 
 
-#func _process(delta: float) -> void:
-#	pass
+func _process(delta: float) -> void:
+	pass
 
 #func _tick():
 	#Food
