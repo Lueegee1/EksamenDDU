@@ -7,6 +7,8 @@ var minerals: int = 0
 
 #Defining global scripts
 var Constants
+var GameController
+
 
 #func _ready() -> void:
 #	pass # Replace with function body.

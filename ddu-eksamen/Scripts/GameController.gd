@@ -1,6 +1,6 @@
 extends Node
 
-@export var default_scene = "Intro"
+@export var default_scene = "Main"
 @onready var scene := $'Scene'
 
 var scene_instance

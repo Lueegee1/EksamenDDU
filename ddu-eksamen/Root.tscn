@@ -1,10 +1,14 @@
 [gd_scene format=3 uid="uid://b0vspr48eyo5j"]
 
 [ext_resource type="Script" uid="uid://dyn0alw4xwhqg" path="res://Scripts/GameController.gd" id="1_gxo8o"]
-[ext_resource type="Script" uid="uid://oqyxqug1ljue" path="res://Scripts/Constants.gd" id="2_24d08"]
+[ext_resource type="Script" uid="uid://bkku6uxaohux3" path="res://Scripts/Constants.gd" id="2_24d08"]
+[ext_resource type="Script" uid="uid://dqyxr4w7bpxel" path="res://Scripts/Global.gd" id="3_170dk"]
 
 [node name="Gamecontroller" type="Node" unique_id=1385158725]
 script = ExtResource("1_gxo8o")
 
 [node name="Node" type="Node" parent="." unique_id=1398722299]
 script = ExtResource("2_24d08")
+
+[node name="Scene" type="Node2D" parent="." unique_id=425634529]
+script = ExtResource("3_170dk")
