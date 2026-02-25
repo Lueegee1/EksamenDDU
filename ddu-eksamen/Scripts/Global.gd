@@ -12,22 +12,14 @@ var Constants
 var GameController
 
 #func _ready() -> void:
-#	pass # Replace with function body.
 
-func tick():
-	emit_signal("tick_signal")
-	pass
-	#Food
-	#Spawn new colonist
-	#Ressources
-	#Spawn events
+
 
 func _process(delta: float) -> void:
 	
-	timer += delta
-	if timer > tick_interval:
-		tick()
-		timer = 0 
+
+	pass
+
 
 
 
