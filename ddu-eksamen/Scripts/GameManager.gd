@@ -1,5 +1,6 @@
 extends Node
 
+var amount:Array = [6,7,8]
 var colonist_amount 
 var colonist_dict:Dictionary = {}
 var assignment_dict:Dictionary = {}
@@ -28,10 +29,10 @@ var current_tick = 0
 func generate_colonist_name():
 	return name_array.pick_random()
 
-func generate_trait_array():
+func generate_starter_trait_array(amount):
 	var temp_trait_array = []
 	var duplicate_genetic_array = genetics_array.duplicate()
-	for number in 6:
+	for number in amount:
 		var random = duplicate_genetic_array.pick_random()
 		temp_trait_array.append(random)
 		duplicate_genetic_array.erase(random)
@@ -41,11 +42,13 @@ func generate_trait_array():
 		
 func _ready():
 	pass
+	#get_new_colony(amount)
 
 func get_new_colony(amount):
+	var number = amount.pick_random()
 	for colonist in amount:
 		var colonist_name = generate_colonist_name()
-		var trait_array:Array = generate_trait_array()
+		var trait_array:Array = generate_starter_trait_array(number)
 		pass
 
 #TICK SYSTEM
