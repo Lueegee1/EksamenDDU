@@ -5,7 +5,7 @@ var colonist_amount
 var colonist_dict:Dictionary = {}
 var assignment_dict:Dictionary = {}
 var name_array =  ["Alice", "Bob", "Jones", "Lones", "Eliot","Frederik", "Sirius", "Jens", "Sofie", "David", "Christian"]
-var genetics_array = []
+var genetics_array = trait_dict.keys()
 
 var trait_dict = {
 	000:{"name":"Neutral","productivity_mod":1,"happiness_mod":1,"sickness_chance":1},
@@ -68,3 +68,6 @@ func _on_tick_timer_timeout() -> void:
 	current_tick+=1
 	print(current_tick)
 	pass # Replace with function body.
+
+func _process(delta: float) -> void:
+	print(genetics_array)
