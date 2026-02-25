@@ -47,8 +47,11 @@ func generate_starter_trait_array():
 	var duplicate_genetic_array = trait_dict.keys()
 	for number in total_trait_amount:
 		var random = duplicate_genetic_array.pick_random()
-		temp_trait_array.append(random)
-		duplicate_genetic_array.erase(random)
+		if random != 000:
+			temp_trait_array.append(random)
+			duplicate_genetic_array.erase(random)
+		elif random == 000:
+			temp_trait_array.append(random)
 	return temp_trait_array
 
 # change so that you can generate multiple neutral traits (ID 000)
