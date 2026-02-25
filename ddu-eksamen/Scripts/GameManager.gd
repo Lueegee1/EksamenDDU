@@ -1,7 +1,8 @@
 extends Node
 
 var colonist_amount 
-var colonist_dict = {}
+var colonist_dict:Dictionary = {}
+var assignment_dict:Dictionary = {}
 
 func add_colonist(name, trait_1, trait_2, trait_3, trait_4, trait_5, trait_6):
 	var data := {
