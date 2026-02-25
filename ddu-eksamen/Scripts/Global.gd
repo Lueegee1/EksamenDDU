@@ -5,6 +5,8 @@ var food: int = 0
 var plant_matter: int = 0
 var minerals: int = 0
 
+#Defining global scripts
+var Constants
 
 #func _ready() -> void:
 #	pass # Replace with function body.
