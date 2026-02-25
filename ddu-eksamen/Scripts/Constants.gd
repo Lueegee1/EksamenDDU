@@ -6,4 +6,3 @@ func _ready():
 
 
 # World
-const GRAVITY := 6500.0
