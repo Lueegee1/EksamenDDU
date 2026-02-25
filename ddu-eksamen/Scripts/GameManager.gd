@@ -1,12 +1,9 @@
 extends Node
 
-var amount:Array = [6,7,8]
-var colonist_amount 
-var colonist_dict:Dictionary = {}
-var assignment_dict:Dictionary = {}
-var name_array =  ["Alice", "Bob", "Jones", "Lones", "Eliot","Frederik", "Sirius", "Jens", "Sofie", "David", "Christian"]
-var genetics_array = trait_dict.keys()
-
+var colony_start_amount = 6
+var colonist_dict: Dictionary = {}
+var assignment_dict: Dictionary = {}
+var name_array: Array = []
 var trait_dict = {
 	000:{"name":"Neutral","productivity_mod":1,"happiness_mod":1,"sickness_chance":1},
 	001:{"name":"Sanguine","productivity_mod":1,"happiness_mod":1.1,"sickness_chance":1},
@@ -16,30 +13,30 @@ var trait_dict = {
 	005:{"name":"Healthy","productivity_mod":1,"happiness_mod":1,"sickness_chance":0.5},
 	006:{"name":"Sickly","productivity_mod":1,"happiness_mod":1,"sickness_chance":2},
 }
-#----------------------------------------------------------------------
-
-
-func add_colonist(name, trait_1, trait_2, trait_3, trait_4, trait_5, trait_6):
-	var data := {
-		"trait_1": trait_1,
-		"trait_2": trait_2,
-		"trait_3": trait_3,
-		"trait_4": trait_4,
-		"trait_5": trait_5,
-		"trait_6": trait_6
-	}
-	colonist_dict[name] = data
+var genetics_array = trait_dict.keys()
 
 var current_tick = 0
 
-#func add_colonist(name,trait_1,trait_2,trait_3,trait_4,trait_5,trait_6):
-#	colonist_dict.append({
-#	"id":001,"name":name,trait 
-#})
-#	pass
+# Loading Data from JSON Files ----------------------------------------------------------------------------------
 
-func generate_colonist_name():
-	return name_array.pick_random()
+func load_names_from_json(path: String) -> void:
+	var file = FileAccess.open(path, FileAccess.READ)
+	var json_text = file.get_as_text()
+	file.close()
+	var json = JSON.new()
+	var _result = json.parse(json_text)
+	name_array = json.data["names"]
+
+# Game Setup ----------------------------------------------------------------------------------
+
+func generate_colonist_name() -> String:
+	if name_array.is_empty():
+		return "ERROR#NANINF/DIV0"
+	var generated_name = name_array.pick_random()
+# rerolls name if duplicate
+	while colonist_dict.has(generated_name):
+		generated_name = name_array.pick_random()
+	return generated_name
 
 func generate_starter_trait_array():
 	var temp_trait_array = []
@@ -48,26 +45,29 @@ func generate_starter_trait_array():
 		var random = duplicate_genetic_array.pick_random()
 		temp_trait_array.append(random)
 		duplicate_genetic_array.erase(random)
-	duplicate_genetic_array.clear()
 	return temp_trait_array
-	
-		
-func _ready():
-	pass
-	#get_new_colony(amount)
 
-func get_new_colony(amount):
-	var number = amount.pick_random()
-	for colonist in number:
+# change so that you can generate multiple neutral traits (ID 000)
+func get_new_colony(colony_population):
+	for colonist in colony_population:
 		var colonist_name = generate_colonist_name()
-		var trait_array:Array = generate_starter_trait_array()
+		var trait_array: Array = generate_starter_trait_array()
 		colonist_dict[colonist_name] = trait_array
+# Next lines of code are purely for printing to console
+		print("Created colonist # ", colonist +1, " Their name is ", colonist_name)
+		var traits_list_temp: Array = []
+		for i in trait_array:
+			traits_list_temp.append(trait_dict[i]["name"])
+		print(colonist_name, " traits: ", traits_list_temp)
 
-#TICK SYSTEM
+# On Startup Function calls --------------------------------------------------------------------------------------------------
+
+func _ready():
+	load_names_from_json("res://data/names.json")
+	get_new_colony(colony_start_amount)
+
+# Tick System --------------------------------------------------------------------------------------------------
+
 func _on_tick_timer_timeout() -> void:
-	current_tick+=1
+	current_tick += 1
 	print(current_tick)
-	pass # Replace with function body.
-
-func _process(delta: float) -> void:
-	print(genetics_array)
