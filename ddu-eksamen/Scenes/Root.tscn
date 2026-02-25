@@ -1,0 +1,40 @@
+[gd_scene format=3 uid="uid://b0vspr48eyo5j"]
+
+[ext_resource type="Script" uid="uid://dyn0alw4xwhqg" path="res://Scripts/GameController.gd" id="1_kqog5"]
+[ext_resource type="Script" uid="uid://c61wpuis0ddnr" path="res://Scripts/Constants.gd" id="2_knkkn"]
+
+[sub_resource type="GDScript" id="GDScript_sxhdm"]
+script/source = "extends Node2D
+#class prototype for colonist i guess
+var research_points: int = 0
+var food: int = 0
+var plant_matter: int = 0
+var minerals: int = 0
+
+#Defining global scripts
+
+
+
+#func _ready() -> void:
+#	pass # Replace with function body.
+
+
+func _process(delta: float) -> void:
+	pass
+
+#func _tick():
+	#Food
+	#Spawn new colonist
+	#Ressources
+	#Spawn events
+	
+"
+
+[node name="Gamecontroller" type="Node" unique_id=1385158725]
+script = ExtResource("1_kqog5")
+
+[node name="Node" type="Node" parent="." unique_id=1398722299]
+script = ExtResource("2_knkkn")
+
+[node name="Scene" type="Node2D" parent="." unique_id=425634529]
+script = SubResource("GDScript_sxhdm")

@@ -5,21 +5,29 @@ var food: int = 0
 var plant_matter: int = 0
 var minerals: int = 0
 
-#Defining global scripts
+var timer: float = 0
+var tick_interval: float = 1.0
+
 var Constants
 var GameController
-
 
 #func _ready() -> void:
 #	pass # Replace with function body.
 
-
-func _process(delta: float) -> void:
+func tick():
+	emit_signal("tick_signal")
 	pass
-
-#func _tick():
 	#Food
 	#Spawn new colonist
 	#Ressources
 	#Spawn events
+
+func _process(delta: float) -> void:
+	timer += delta
+	if timer > tick_interval:
+		tick()
+		timer = 0 
+
+
+
 	
