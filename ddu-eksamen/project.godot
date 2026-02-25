@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="DDUEksamen"
-run/main_scene="uid://b0vspr48eyo5j"
+run/main_scene="uid://ckqtpit808kw5"
 config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 

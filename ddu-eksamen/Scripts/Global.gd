@@ -23,6 +23,7 @@ func tick():
 	#Spawn events
 
 func _process(delta: float) -> void:
+	
 	timer += delta
 	if timer > tick_interval:
 		tick()
