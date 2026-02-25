@@ -2,7 +2,8 @@ extends Node
 class_name  Colonist
 
 func die():
-	pass
+	queue_free()
 
 @export var sprite: Sprite2D
 @export var productivity: int
+@export var hitbox: CollisionObject2D

@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://ckqtpit808kw5"]
+
+[ext_resource type="Script" uid="uid://btbc4hrupa1v2" path="res://Scripts/Colonist.gd" id="1_fhhcb"]
+
+[node name="Main" type="Node2D" unique_id=1552147815]
+
+[node name="Colonist_Prototype" type="Node" parent="." unique_id=1999986674]
+script = ExtResource("1_fhhcb")

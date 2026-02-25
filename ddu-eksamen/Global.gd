@@ -23,6 +23,7 @@ func _process(delta: float) -> void:
 	timer += delta
 	if timer > tick_interval:
 		tick()
+		timer = 0 
 
 
 
