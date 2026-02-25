@@ -41,10 +41,10 @@ var current_tick = 0
 func generate_colonist_name():
 	return name_array.pick_random()
 
-func generate_starter_trait_array(amount):
+func generate_starter_trait_array():
 	var temp_trait_array = []
 	var duplicate_genetic_array = genetics_array.duplicate()
-	for number in amount:
+	for number in 6:
 		var random = duplicate_genetic_array.pick_random()
 		temp_trait_array.append(random)
 		duplicate_genetic_array.erase(random)
@@ -58,10 +58,10 @@ func _ready():
 
 func get_new_colony(amount):
 	var number = amount.pick_random()
-	for colonist in amount:
+	for colonist in number:
 		var colonist_name = generate_colonist_name()
-		var trait_array:Array = generate_starter_trait_array(number)
-		pass
+		var trait_array:Array = generate_starter_trait_array()
+		colonist_dict[colonist_name] = trait_array
 
 #TICK SYSTEM
 func _on_tick_timer_timeout() -> void:
