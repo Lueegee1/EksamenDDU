@@ -10,7 +10,7 @@ var name_array: Array = []
 var colony_start_amount = 6                # the amount of colonists that starts in the colony
 var total_trait_amount = 6                 # the amount of traits each colonist has
 var current_tick = 0                       # sets current_tick to zero
-signal score_changed
+signal value_changed
 const SAVE_FILE = "user://database.json"
 
 
@@ -76,7 +76,7 @@ func _ready():
 	load_names_from_json("res://data/names.json")
 	load_traits_from_json("res://data/traits.json")
 	get_new_colony(colony_start_amount)
-	score_changed.connect(save_game)
+	value_changed.connect(save_game)
 
 # Save system---------------------------------------------------------------------------
 func save_game():
@@ -97,7 +97,15 @@ func _on_tick_timer_timeout() -> void:
 
 
 # Resource functions-------------------------------------------------------------------------------------------------
+func resource_tick():
+	pass
+	#Find out how many people are assigned to each work station
+	#determine the sum productivity of all people assigned
+	#call the get_new resource function for all resources being produced
+	#Call the consume_resource function:
 
+func resource_consumption():
+	pass
 
 func get_new_resource(resource: String, productivity: int, workers: int):
 	var prod_modifier
