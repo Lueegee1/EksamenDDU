@@ -11,6 +11,8 @@ var colony_start_amount = 6                # the amount of colonists that starts
 var total_trait_amount = 6                 # the amount of traits each colonist has
 var current_tick = 0                       # sets current_tick to zero
 signal score_changed
+const SAVE_FILE = "user://database.json"
+
 
 # Loading Data from JSON Files ----------------------------------------------------------------------------------
 
@@ -74,6 +76,11 @@ func _ready():
 	load_names_from_json("res://data/names.json")
 	load_traits_from_json("res://data/traits.json")
 	get_new_colony(colony_start_amount)
+	Manager.score_changed.connect(save_game)
+
+# Save system---------------------------------------------------------------------------
+func save_game():
+	pass
 
 # Tick System --------------------------------------------------------------------------------------------------
 
