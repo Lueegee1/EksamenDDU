@@ -1,7 +1,7 @@
 extends Node
 
 # Setting Up Dictionaries, Lists and Variables -----------------------------------------------------------------------
-
+var data: Dictionary = {}
 var colonist_dict: Dictionary = {}         
 var assignment_dict: Dictionary = {}
 var trait_dict: Dictionary = {}
@@ -76,12 +76,19 @@ func _ready():
 	load_names_from_json("res://data/names.json")
 	load_traits_from_json("res://data/traits.json")
 	get_new_colony(colony_start_amount)
-	Manager.score_changed.connect(save_game)
+	score_changed.connect(save_game)
 
 # Save system---------------------------------------------------------------------------
 func save_game():
-	pass
-
+	data = {
+		"food" = Global.food,
+		"plant_matter" = Global.plant_matter,
+		"minerals" = Global.minerals,
+		"research_points" = Global.research_points
+	}
+	var file = FileAccess.open(SAVE_FILE, FileAccess.WRITE)
+	file.store_string(JSON.stringify(data))
+	file.close()
 # Tick System --------------------------------------------------------------------------------------------------
 
 func _on_tick_timer_timeout() -> void:
