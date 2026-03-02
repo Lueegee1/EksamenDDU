@@ -94,3 +94,23 @@ func save_game():
 func _on_tick_timer_timeout() -> void:
 	current_tick += 1
 	print(current_tick)
+
+
+# Resource functions-------------------------------------------------------------------------------------------------
+
+
+func get_new_resource(resource: String, productivity: int, workers: int):
+	var prod_modifier
+	match resource:
+		"food":
+			prod_modifier = 1.0
+		"minerals":
+			prod_modifier = 1.0
+		"plant_matter":
+			prod_modifier = 1.0
+		"research_points":
+			prod_modifier = 0.1
+		_:
+			return 0
+	var base_yield: float = productivity * workers * prod_modifier
+	return base_yield
