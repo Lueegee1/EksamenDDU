@@ -18,7 +18,6 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*uid://bjw1gkbm8tlki"
-Manager="*uid://dwf1p31i5e803"
 
 [physics]
 
