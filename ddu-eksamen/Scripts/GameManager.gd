@@ -10,6 +10,7 @@ var name_array: Array = []
 var colony_start_amount = 6                # the amount of colonists that starts in the colony
 var total_trait_amount = 6                 # the amount of traits each colonist has
 var current_tick = 0                       # sets current_tick to zero
+signal score_changed
 
 # Loading Data from JSON Files ----------------------------------------------------------------------------------
 
