@@ -104,8 +104,24 @@ func resource_tick():
 	#call the get_new resource function for all resources being produced
 	#Call the consume_resource function:
 
-func resource_consumption():
-	pass
+func resource_consumption_tick(modifier = null):
+	var food_consumption_tick_value: float = 1.0
+	var num_of_colonist = len(colonist_dict) #finds the number of colonist
+	if modifier != null:
+		var food_consumption = num_of_colonist * modifier * food_consumption_tick_value
+		resource_consumption(Global.food, food_consumption)
+		return #calculates the food consumption if a modifier is passed into the funciton
+	else:
+		var food_consumption = num_of_colonist * food_consumption_tick_value
+		resource_consumption(Global.food, food_consumption)
+		return #calculates the food consumption if a modifier is not passed into the funciton
+	
+func resource_consumption(type, amount):
+	#helper function to subtract the amount of resources used for a specific action
+	if type < amount:
+		return false
+	type -= amount
+	return true
 
 func get_new_resource(resource: String, productivity: int, workers: int):
 	var prod_modifier
