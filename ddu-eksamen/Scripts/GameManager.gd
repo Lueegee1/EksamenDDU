@@ -82,7 +82,8 @@ func _ready():
 
 # Save system---------------------------------------------------------------------------
 func save_game():
-	data = {
+	data = { #updates a dictonary with new values for all resources. in the future this will a
+#also update with the completed endings and other factors.
 		"food" = Global.food,
 		"plant_matter" = Global.plant_matter,
 		"minerals" = Global.minerals,
