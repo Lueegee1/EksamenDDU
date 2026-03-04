@@ -3,6 +3,7 @@ extends Node
 # Setting Up Dictionaries, Lists and Variables -----------------------------------------------------------------------
 var data: Dictionary = {}
 var colonist_dict: Dictionary = {}         
+var workers_dict: Dictionary = {}
 var assignment_dict: Dictionary = {}
 var trait_dict: Dictionary = {}
 var name_array: Array = []
@@ -63,6 +64,7 @@ func get_new_colony(colony_population):
 		var colonist_name = generate_colonist_name()
 		var trait_array: Array = generate_starter_trait_array()
 		colonist_dict[colonist_name] = trait_array
+		workers_dict[colonist_name] = "Unemployed"
 # Next lines of code are purely for printing to console
 		print("Created colonist # ", colonist +1, " Their name is ", colonist_name)
 		var traits_list_temp: Array = []
@@ -94,9 +96,22 @@ func save_game():
 func _on_tick_timer_timeout() -> void:
 	current_tick += 1
 	print(current_tick)
-
-
+	
 # Resource functions-------------------------------------------------------------------------------------------------
+func worker_productivity(worker):
+	var traits = colonist_dict[colonist_dict.keys()[worker]]
+	var temp_prod = 1
+	for i in traits:
+		temp_prod*=trait_dict[i]["productivity_mod"]
+	return temp_prod
+
+func workplace_productivity(Workplace):
+	var temp_prod = 0
+	for worker in range(len(workers_dict)):
+		if workers_dict[workers_dict.keys()[worker]] == Workplace:
+			temp_prod+=float(worker_productivity(worker))
+	return temp_prod
+
 func resource_tick():
 	pass
 	#Find out how many people are assigned to each work station
