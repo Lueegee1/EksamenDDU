@@ -7,6 +7,12 @@ var workers_dict: Dictionary = {}
 var assignment_dict: Dictionary = {}
 var trait_dict: Dictionary = {}
 var name_array: Array = []
+var workplaces: Dictionary = {
+	"food": "farm",
+	"plant_matter": "plants",
+	"minerals" : "mine", 
+	"research_points": "research_lab", 
+}
 
 var colony_start_amount = 6                # the amount of colonists that starts in the colony
 var total_trait_amount = 6                 # the amount of traits each colonist has
@@ -114,11 +120,12 @@ func workplace_productivity(Workplace):
 	return temp_prod
 
 func resource_tick():
-	pass
-	#Find out how many people are assigned to each work station
-	#determine the sum productivity of all people assigned
-	#call the get_new resource function for all resources being produced
-	#Call the consume_resource function:
+	var possible_resources = ["food", "minerals", "plant_matter", "research_points"]
+	for resource in possible_resources:
+		var productivity = workplace_productivity(workplaces[resource])
+		get_new_resource(resource, productivity)
+	resource_consumption_tick()
+	#need to be looked through
 
 func resource_consumption_tick(modifier = null):
 	var food_consumption_tick_value: float = 1.0
@@ -139,7 +146,7 @@ func resource_consumption(type, amount):
 	type -= amount
 	return true
 
-func get_new_resource(resource: String, productivity: int, workers: int):
+func get_new_resource(resource: String, productivity: int):
 	var prod_modifier
 	match resource:
 		"food":
@@ -152,5 +159,5 @@ func get_new_resource(resource: String, productivity: int, workers: int):
 			prod_modifier = 0.1
 		_:
 			return 0
-	var base_yield: float = productivity * workers * prod_modifier
+	var base_yield: float = productivity *  prod_modifier
 	return base_yield
