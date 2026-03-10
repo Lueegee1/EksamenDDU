@@ -113,8 +113,9 @@ func save_game():
 
 func _on_tick_timer_timeout() -> void:
 	current_tick += 1
-	research(1)
-	print(can_research(2))
+	
+	
+
 	
 # Resource functions-------------------------------------------------------------------------------------------------
 func worker_productivity(worker):
@@ -176,7 +177,7 @@ func get_new_resource(resource: String, productivity: int):
 
 # Research funtions
 
-func can_research(index: int):
+func meet_research_requirements(index: int):
 	if researches[index]["researched"]==1:
 		return false
 	for i in researches[index]["requirements"]:
@@ -184,8 +185,24 @@ func can_research(index: int):
 			return false	
 	return true
 
-#STRUGGLE INTEGRATING RESSOURCES INTO RESEARH
+func can_afford_research(index: int):
+	var price_array = researches[index]["cost"]
+	if Global.research_points< price_array[0]:
+		return false
+	if Global.plant_matter < price_array[1]:
+		return false
+	if Global.minerals < price_array[2]:
+		return false
+	if Global.food < price_array [3]:
+		return false
+	return true
 
 func research(index: int):
-	if can_research(index):
+	if meet_research_requirements(index) and can_afford_research(index):
+		var price_index = researches[index]["cost"]
+		Global.research_points -=price_index[0]
+		Global.plant_matter -= price_index[1]
+		Global.minerals -= price_index[2]
+		Global.food -= price_index[3]
 		researches[index]["researched"]=1
+		print(researches[index]["name"] + " has been researched")
