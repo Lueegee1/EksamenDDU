@@ -7,6 +7,7 @@ var workers_dict: Dictionary = {}
 var assignment_dict: Dictionary = {}
 var trait_dict: Dictionary = {}
 var name_array: Array = []
+var researches: Dictionary = {}
 var workplaces: Dictionary = {
 	"food": "farm",
 	"plant_matter": "plants",
@@ -41,6 +42,15 @@ func load_traits_from_json(path: String) -> void:
 	for key in temp_dict.keys():
 		trait_dict[int(key)] = temp_dict[key]
 
+func load_researches_from_json(path: String) -> void:
+	var file = FileAccess.open(path, FileAccess.READ)
+	var json_text = file.get_as_text()
+	file.close()
+	var json = JSON.new()
+	var _result = json.parse(json_text)
+	var temp_dict = json.data["research"]
+	for key in temp_dict.keys():
+		researches[int(key)] = temp_dict[key]
 # Game Setup ----------------------------------------------------------------------------------
 
 func generate_colonist_name() -> String:
@@ -83,6 +93,7 @@ func get_new_colony(colony_population):
 func _ready():
 	load_names_from_json("res://data/names.json")
 	load_traits_from_json("res://data/traits.json")
+	load_researches_from_json("res://data/research.json")
 	get_new_colony(colony_start_amount)
 	value_changed.connect(save_game)
 
@@ -102,7 +113,8 @@ func save_game():
 
 func _on_tick_timer_timeout() -> void:
 	current_tick += 1
-	print(current_tick)
+	research(1)
+	print(can_research(2))
 	
 # Resource functions-------------------------------------------------------------------------------------------------
 func worker_productivity(worker):
@@ -161,3 +173,19 @@ func get_new_resource(resource: String, productivity: int):
 			return 0
 	var base_yield: float = productivity *  prod_modifier
 	return base_yield
+
+# Research funtions
+
+func can_research(index: int):
+	if researches[index]["researched"]==1:
+		return false
+	for i in researches[index]["requirements"]:
+		if researches[int(i)]["researched"] == 0:
+			return false	
+	return true
+
+#STRUGGLE INTEGRATING RESSOURCES INTO RESEARH
+
+func research(index: int):
+	if can_research(index):
+		researches[index]["researched"]=1

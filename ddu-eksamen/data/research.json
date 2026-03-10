@@ -1,0 +1,33 @@
+{
+"research" : {
+	"1": {"name":"Research table","cost":[0,10,0,0],"requirements":[], "description": "A nice place to think. Here colonists can generate research points", "icons": "", "researched":0},
+	"2": {"name":"Explore the caves","cost":[1,0,0,0],"requirements":[1],"description": "The dark caves seem to contain useful ressources. Here colonists can gather minerals", "icons": "", "researched":0},
+	"3": {"name":"Fields","cost":[1.5,50,0,10],"requirements":[1],"description": "Start toiling the fields, here the colonists can generate food", "icons": "", "researched":0},
+	"4": {"name":"Plant flowers","cost":[1,25,0,0],"requirements":[1],"description": "Pretty up the colony with some colorful flowers, the colonists will enjoy the decorations", "icons": "", "researched":0},
+	"5": {"name":"Husbandry","cost":[4,100,10,25],"requirements":[3],"description": "Start raising livestock for food, this will generate food for our colonists", "icons": "", "researched":0},
+	"6": {"name":"Axes","cost":[1.5,10,25,0],"requirements":[2],"description": "Make axes for your colonists, this will help them gather more plantmatter", "icons": "", "researched":0},
+	"7": {"name":"Huts","cost":[2,100,25,0],"requirements":[6],"description": "One man huts for your colonists, finally a place to rest", "icons": "", "researched":0},
+	"8": {"name":"Pickaxes","cost":[2,10,30,0],"requirements":[6],"description": "Make pickaxes for your colonists, this will help them extract minerals from the mines more efficiently", "icons": "", "researched":0},
+	"9": {"name":"Two man huts","cost":[2,150,40,0],"requirements":[7],"description": "", "icons": "", "researched":0},
+	"10": {"name":"Library","cost":[4,150,75,0],"requirements":[6,8,9],"description": "", "icons": "", "researched":0},
+	"11": {"name":"Statues","cost":[2,0,50,0],"requirements":[8],"description": "", "icons": "", "researched":0},
+	"12": {"name":"Fountain","cost":[3,0,75,0],"requirements":[11],"description": "", "icons": "", "researched":0},
+	"13": {"name":"Milker pails andn Roosts","cost":[6,100,50,0],"requirements":[2,5],"description": "", "icons": "", "researched":0},
+	"14": {"name":"Electronics","cost":[6,0,100,0],"requirements":[10],"description": "", "icons": "", "researched":0},
+	"15": {"name":"Biotech","cost":[6,100,0,0],"requirements":[10],"description": "", "icons": "", "researched":0},
+	"16": {"name":"Drills","cost":[8,0,200,0],"requirements":[14],"description": "", "icons": "", "researched":0},
+	"17": {"name":"Streetlights","cost":[5,0,100,0],"requirements":[14],"description": "", "icons": "", "researched":0},
+	"18": {"name":"Lumbermill","cost":[8,200,50,0],"requirements":[1],"description": "", "icons": "", "researched":0},
+	"19": {"name":"Cameras","cost":[10,0,200,0],"requirements":[17],"description": "", "icons": "", "researched":0},
+	"20": {"name":"Gene Sequencing","cost":[12,0,200,0],"requirements":[15],"description": "", "icons": "", "researched":0},
+	"21": {"name":"GMO","cost":[8,0,300,0],"requirements":[20],"description": "", "icons": "", "researched":0},
+	"22": {"name":"Medicine","cost":[10,0,300,0],"requirements":[15],"description": "", "icons": "", "researched":0},
+	"23": {"name":"Lethal injection","cost":[12,0,400,0],"requirements":[22],"description": "", "icons": "", "researched":0},
+	"24": {"name":"Axe murder","cost":[3,0,0,0],"requirements":[6],"description": "", "icons": "", "researched":0},
+	"25": {"name":"Explore the caves","cost":[1,0,0,0],"requirements":[1],"description": "", "icons": "", "researched":0},
+	"26": {"name":"Explore the caves","cost":[1,0,0,0],"requirements":[1],"description": "", "icons": "", "researched":0},
+	"27": {"name":"Explore the caves","cost":[1,0,0,0],"requirements":[1],"description": "", "icons": "", "researched":0},
+	"28": {"name":"Explore the caves","cost":[1,0,0,0],"requirements":[1],"description": "", "icons": "", "researched":0},
+																											
+	}
+}
