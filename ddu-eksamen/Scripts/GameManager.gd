@@ -225,7 +225,7 @@ func breed_colonist(parent1: String, parent2: String):
 	child_traits.append_array(traits2)
 	var child_name = generate_colonist_name()
 	if child_name == parent1 or child_name == parent2:
-		child_name = "Junior " + child_name
+		child_name = "Jr. " + child_name
 	colonist_dict[child_name] = child_traits
 	workers_dict[child_name] = "Unemployed"
 	happiness_dict[child_name] = base_happiness
