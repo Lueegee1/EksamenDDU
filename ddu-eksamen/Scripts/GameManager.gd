@@ -115,7 +115,8 @@ func save_game():
 func _on_tick_timer_timeout() -> void:
 	current_tick += 1
 	happiness_tick()
-	breed_colonist(colonist_dict[1],colonist_dict[2])
+	print(average_happiness())
+	
 	
 # Resource functions-----------------------------------------------------------------------------------------------
 
