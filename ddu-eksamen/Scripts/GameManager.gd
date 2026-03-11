@@ -4,7 +4,6 @@ extends Node
 var data: Dictionary = {}
 var colonist_dict: Dictionary = {}         
 var workers_dict: Dictionary = {}
-var assignment_dict: Dictionary = {}
 var happiness_dict: Dictionary = {}
 var trait_dict: Dictionary = {}
 var name_array: Array = []
@@ -212,6 +211,33 @@ func research(index: int):
 	else:
 		print("Couldnt afford research")
 
+# Breeding
+
+func breed_colonist(parent1: String, parent2: String):
+	var traits1 = colonist_dict[parent1].duplicate()
+	var traits2 = colonist_dict[parent2].duplicate()
+	var child_traits:Array = []
+	traits1.shuffle()
+	traits1 = traits1.slice(0, traits1.size() / 2)
+	traits2 = traits2.shuffle()
+	traits2 = traits2.slice(0, traits2.size() / 2)
+	child_traits.append_array(traits1)
+	child_traits.append_array(traits2)
+	var child_name = generate_colonist_name()
+	if child_name == parent1 or child_name == parent2:
+		child_name = "Junior " + child_name
+	colonist_dict[child_name] = child_traits
+	workers_dict[child_name] = "Unemployed"
+	happiness_dict[child_name] = base_happiness
+	
+
+# Backend assignment
+
+func assign_colonist(colonist_name: String, workplace: String) -> bool:
+	if colonist_name not in colonist_dict:
+		return false
+	workers_dict[colonist_name] = workplace
+	return true
 
 # Happiness calcs
 

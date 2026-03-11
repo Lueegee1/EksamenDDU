@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dyn0alw4xwhqg" path="res://Scripts/SceneChanger.gd" id="1_kqog5"]
 [ext_resource type="Script" uid="uid://c61wpuis0ddnr" path="res://Scripts/Constants.gd" id="2_knkkn"]
-[ext_resource type="Script" uid="uid://b4xuwnefu4th4" path="res://Scripts/Global.gd" id="3_knkkn"]
+[ext_resource type="Script" uid="uid://bjw1gkbm8tlki" path="res://Scripts/Global.gd" id="3_knkkn"]
 
 [node name="Gamecontroller" type="Node" unique_id=1385158725]
 script = ExtResource("1_kqog5")
