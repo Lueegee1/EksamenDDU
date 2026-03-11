@@ -4,6 +4,7 @@ var research_points: int = 0
 var food: int = 0
 var plant_matter: int = 0
 var minerals: int = 0
+var decorations: int = -10
 
 var timer: float = 0
 var tick_interval: float = 1.0

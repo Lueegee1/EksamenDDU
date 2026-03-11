@@ -5,6 +5,7 @@ var data: Dictionary = {}
 var colonist_dict: Dictionary = {}         
 var workers_dict: Dictionary = {}
 var assignment_dict: Dictionary = {}
+var happiness_dict: Dictionary = {}
 var trait_dict: Dictionary = {}
 var name_array: Array = []
 var researches: Dictionary = {}
@@ -14,7 +15,7 @@ var workplaces: Dictionary = {
 	"minerals" : "mine", 
 	"research_points": "research_lab", 
 }
-
+var base_happiness = 50
 var colony_start_amount = 6                # the amount of colonists that starts in the colony
 var total_trait_amount = 6                 # the amount of traits each colonist has
 var current_tick = 0                       # sets current_tick to zero
@@ -81,6 +82,7 @@ func get_new_colony(colony_population):
 		var trait_array: Array = generate_starter_trait_array()
 		colonist_dict[colonist_name] = trait_array
 		workers_dict[colonist_name] = "Unemployed"
+		happiness_dict[colonist_name] = {"happiness": base_happiness, "sick" : 0, "grieving": 0}
 # Next lines of code are purely for printing to console
 		print("Created colonist # ", colonist +1, " Their name is ", colonist_name)
 		var traits_list_temp: Array = []
@@ -113,7 +115,8 @@ func save_game():
 
 func _on_tick_timer_timeout() -> void:
 	current_tick += 1
-	
+	happiness_tick()
+	print(average_happiness())
 	
 
 	
@@ -206,3 +209,31 @@ func research(index: int):
 		Global.food -= price_index[3]
 		researches[index]["researched"]=1
 		print(researches[index]["name"] + " has been researched")
+	else:
+		print("Couldnt afford research")
+
+
+# Happiness calcs
+
+func happiness_tick():
+	var happy_base = Global.decorations
+	if Global.food < 0:
+		happy_base-=15
+	else:
+		happy_base+=15
+	for colonist in happiness_dict:
+		var happy_modifier = 1
+		for mod in colonist_dict[colonist]:
+			happy_modifier*=trait_dict[mod]["happiness_mod"]
+		if happiness_dict[colonist]["sick"] == true:
+			happy_base-=20
+		happiness_dict[colonist] = base_happiness + happy_base*happy_modifier
+		if happiness_dict[colonist] >= 100:
+			happiness_dict[colonist] = 100
+
+func average_happiness():
+	var avg_happy = 0
+	for colonist in happiness_dict:
+		avg_happy += happiness_dict[colonist]
+	avg_happy/=len(happiness_dict)
+	return(avg_happy)
