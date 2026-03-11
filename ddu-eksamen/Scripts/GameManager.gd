@@ -116,7 +116,7 @@ func _on_tick_timer_timeout() -> void:
 	current_tick += 1
 	happiness_tick()
 	breed_colonist(colonist_dict.keys()[1],colonist_dict.keys()[2])
-	
+
 # Resource functions-----------------------------------------------------------------------------------------------
 
 func worker_productivity(worker):
