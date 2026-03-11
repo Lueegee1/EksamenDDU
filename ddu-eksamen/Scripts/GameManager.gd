@@ -1,11 +1,14 @@
 extends Node
 
 # Setting Up Dictionaries, Lists and Variables -----------------------------------------------------------------------
+var food_security_constant: float = 1.0
 var data: Dictionary = {}
 var colonist_dict: Dictionary = {}         
 var workers_dict: Dictionary = {}
 var happiness_dict: Dictionary = {}
 var trait_dict: Dictionary = {}
+var housing_dictionary: Dictionary = {}
+var workstation_dictionary: Dictionary = {}
 var name_array: Array = []
 var researches: Dictionary = {}
 var workplaces: Dictionary = {
@@ -211,7 +214,14 @@ func research(index: int):
 		print("Couldnt afford research")
 
 # Breeding
-
+func breeding() ->bool:
+	for house in housing_dictionary:
+		if len(housing_dictionary[house]["assigned"]) == housing_dictionary[house]["capacity"]:
+			if Global.food > len(colonist_dict) * food_security_constant:
+				if randi_range(0, 500) == 212:
+					breed_colonist(housing_dictionary[house]["assigned"][0], housing_dictionary[house]["assigned"][1])
+					return true
+	return false
 func breed_colonist(parent1: String, parent2: String):
 	var traits1 = colonist_dict[parent1].duplicate()
 	var traits2 = colonist_dict[parent2].duplicate()
@@ -231,12 +241,43 @@ func breed_colonist(parent1: String, parent2: String):
 	
 
 # Backend assignment
-
+func assign_colonist_to_house(name, house):
+	if len(housing_dictionary[house]["assigned"]) < housing_dictionary[house]["capacity"]:
+		housing_dictionary[house]["assigned"].append(name)
+		
 func assign_colonist(colonist_name: String, workplace: String) -> bool:
 	if colonist_name not in colonist_dict:
 		return false
 	workers_dict[colonist_name] = workplace
 	return true
+
+# Backend building
+
+func build_new_building(type):
+	match type:
+		"house":
+			var id = "house" + str(housing_dictionary.size() + 1)
+			housing_dictionary[id] = {
+				"capacity": 1,
+				"assigned": []
+			}
+		"plant_station":
+			workstation_dictionary[type] = {
+				"assigned": []
+			}
+		"food":
+			workstation_dictionary[type] = {
+				"assigned": []
+			}
+		"research":
+			workstation_dictionary[type] = {
+				"assigned": []
+			}
+		"mine":
+			workstation_dictionary[type] = {
+				"assigned": []
+			}
+
 
 # Happiness calcs
 
