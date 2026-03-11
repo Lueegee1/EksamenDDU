@@ -82,7 +82,7 @@ func get_new_colony(colony_population):
 		var trait_array: Array = generate_starter_trait_array()
 		colonist_dict[colonist_name] = trait_array
 		workers_dict[colonist_name] = "Unemployed"
-		happiness_dict[colonist_name] = {"happiness": base_happiness, "sick" : 0, "grieving": 0}
+		happiness_dict[colonist_name] ={str(colonist_name): {"happiness": base_happiness, "sick" : false, "grieving": false}}
 # Next lines of code are purely for printing to console
 		print("Created colonist # ", colonist +1, " Their name is ", colonist_name)
 		var traits_list_temp: Array = []
@@ -225,8 +225,8 @@ func happiness_tick():
 		var happy_modifier = 1
 		for mod in colonist_dict[colonist]:
 			happy_modifier*=trait_dict[mod]["happiness_mod"]
-		if happiness_dict[colonist]["sick"] == true:
-			happy_base-=20
+#		if happiness_dict[colonist][sick]:
+#			happy_base-=20
 		happiness_dict[colonist] = base_happiness + happy_base*happy_modifier
 		if happiness_dict[colonist] >= 100:
 			happiness_dict[colonist] = 100
