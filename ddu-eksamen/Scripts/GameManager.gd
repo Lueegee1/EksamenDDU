@@ -97,6 +97,7 @@ func _ready():
 	load_researches_from_json("res://data/research.json")
 	get_new_colony(colony_start_amount)
 	value_changed.connect(save_game)
+	breed_colonist(colonist_dict.keys()[1],colonist_dict.keys()[2])
 
 # Save system---------------------------------------------------------------------------
 func save_game():
@@ -115,7 +116,6 @@ func save_game():
 func _on_tick_timer_timeout() -> void:
 	current_tick += 1
 	happiness_tick()
-	breed_colonist(colonist_dict[1],colonist_dict[2])
 	
 # Resource functions-----------------------------------------------------------------------------------------------
 
@@ -213,8 +213,11 @@ func research(index: int):
 # Breeding
 
 func breed_colonist(parent1: String, parent2: String):
+	print("start breeding")
 	var traits1 = colonist_dict[parent1].duplicate()
 	var traits2 = colonist_dict[parent2].duplicate()
+	print("the parents names are: ", parent1," and ", parent2)
+	print("the the childs parents traits are:", traits1, " and ", traits2)
 	var child_traits:Array = []
 	traits1.shuffle()
 	traits1 = traits1.slice(0, traits1.size() / 2)
@@ -222,9 +225,11 @@ func breed_colonist(parent1: String, parent2: String):
 	traits2 = traits2.slice(0, traits2.size() / 2)
 	child_traits.append_array(traits1)
 	child_traits.append_array(traits2)
+	print("the new childs traits are: ", child_traits)
 	var child_name = generate_colonist_name()
 	if child_name == parent1 or child_name == parent2:
 		child_name = "Jr. " + child_name
+	print("childs name is: ", child_name)
 	colonist_dict[child_name] = child_traits
 	workers_dict[child_name] = "Unemployed"
 	happiness_dict[child_name] = base_happiness
