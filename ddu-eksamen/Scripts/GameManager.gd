@@ -84,7 +84,7 @@ func get_new_colony(colony_population):
 		var trait_array: Array = generate_starter_trait_array()
 		colonist_dict[colonist_name] = trait_array
 		workers_dict[colonist_name] = "Unemployed"
-		happiness_dict[colonist_name] ={"happiness": base_happiness, "sick" : false, "grieving": false, "homeless" : false, "surgery": false, "blood_on_hands": false}
+		happiness_dict[colonist_name] = {"happiness": base_happiness, "sick" : false, "grieving": false, "homeless" : false, "surgery": false, "blood_on_hands": false}
 # Next lines of code are purely for printing to console
 		print("Created colonist # ", colonist +1, " Their name is ", colonist_name)
 		var traits_list_temp: Array = []
@@ -118,8 +118,7 @@ func save_game():
 func _on_tick_timer_timeout() -> void:
 	current_tick += 1
 	happiness_tick()
-	breed_colonist(colonist_dict[1],colonist_dict[2])
-	
+	print(average_happiness())
 # Resource functions-----------------------------------------------------------------------------------------------
 
 func worker_productivity(worker):
@@ -223,8 +222,11 @@ func breeding() ->bool:
 					return true
 	return false
 func breed_colonist(parent1: String, parent2: String):
+	print("start breeding")
 	var traits1 = colonist_dict[parent1].duplicate()
 	var traits2 = colonist_dict[parent2].duplicate()
+	print("the parents names are: ", parent1," and ", parent2)
+	print("the the childs parents traits are:", traits1, " and ", traits2)
 	var child_traits:Array = []
 	traits1.shuffle()
 	traits1 = traits1.slice(0, traits1.size() / 2)
@@ -232,9 +234,11 @@ func breed_colonist(parent1: String, parent2: String):
 	traits2 = traits2.slice(0, traits2.size() / 2)
 	child_traits.append_array(traits1)
 	child_traits.append_array(traits2)
+	print("the new childs traits are: ", child_traits)
 	var child_name = generate_colonist_name()
 	if child_name == parent1 or child_name == parent2:
 		child_name = "Jr. " + child_name
+	print("childs name is: ", child_name)
 	colonist_dict[child_name] = child_traits
 	workers_dict[child_name] = "Unemployed"
 	happiness_dict[child_name] = base_happiness
@@ -289,7 +293,7 @@ func happiness_tick():
 	else:
 		happy_base+=15
 	for colonist in happiness_dict:
-		if happiness_dict[colonist]["sick"]:
+		if happiness_dict[colonist]["sick"] == true:
 			happy_base-=10
 		if happiness_dict[colonist]["homeless"]:
 			happy_base-=10
@@ -300,12 +304,9 @@ func happiness_tick():
 		var happy_modifier = 1
 		for mod in colonist_dict[colonist]:
 			happy_modifier*=trait_dict[mod]["happiness_mod"]
-		happiness_dict[colonist]["happiness"] = (base_happiness + happy_base)*happy_modifier
-		if happiness_dict[colonist]["happiness"] >= 100:
-			happiness_dict[colonist]["happiness"] = 100
-		if happiness_dict[colonist]["happiness"] <= 0:
-			happiness_dict[colonist]["happiness"] = 0
-
+		var happiness = (base_happiness + happy_base) * happy_modifier
+		happiness = clamp(happiness, 0, 100)
+		happiness_dict[colonist]["happiness"] = happiness
 
 func average_happiness():
 	var avg_happy = 0
