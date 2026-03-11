@@ -1,7 +1,7 @@
 extends Node2D
 #class prototype for colonist i guess
 var research_points: int = 0
-var food: int = 0
+var food: int = 10
 var plant_matter: int = 0
 var minerals: int = 0
 var decorations: int = -10
