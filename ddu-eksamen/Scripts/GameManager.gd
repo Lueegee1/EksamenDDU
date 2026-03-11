@@ -217,7 +217,7 @@ func breed_colonist(parent1: String, parent2: String):
 	var child_traits:Array = []
 	traits1.shuffle()
 	traits1 = traits1.slice(0, traits1.size() / 2)
-	traits2 = traits2.shuffle()
+	traits2.shuffle()
 	traits2 = traits2.slice(0, traits2.size() / 2)
 	child_traits.append_array(traits1)
 	child_traits.append_array(traits2)
