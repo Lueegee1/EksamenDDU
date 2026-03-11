@@ -97,7 +97,6 @@ func _ready():
 	load_researches_from_json("res://data/research.json")
 	get_new_colony(colony_start_amount)
 	value_changed.connect(save_game)
-	breed_colonist(colonist_dict.keys()[1],colonist_dict.keys()[2])
 
 # Save system---------------------------------------------------------------------------
 func save_game():
@@ -116,6 +115,7 @@ func save_game():
 func _on_tick_timer_timeout() -> void:
 	current_tick += 1
 	happiness_tick()
+	breed_colonist(colonist_dict.keys()[1],colonist_dict.keys()[2])
 	
 # Resource functions-----------------------------------------------------------------------------------------------
 
@@ -247,14 +247,8 @@ func assign_colonist(colonist_name: String, workplace: String) -> bool:
 
 func happiness_tick():
 	var happy_base = 0 
-	happy_base += Global.decorations
-	if Global.food < 0:
-		happy_base-=10
-	else:
-		happy_base+=15
-	for colonist in happiness_dict:
-		if happiness_dict[colonist]["sick"]:
-			happy_base-=10
+
+
 		if happiness_dict[colonist]["homeless"]:
 			happy_base-=10
 		if happiness_dict[colonist]["surgery"]:
