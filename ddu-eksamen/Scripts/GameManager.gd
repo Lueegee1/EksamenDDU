@@ -265,19 +265,7 @@ func build_new_building(type):
 				"capacity": 1,
 				"assigned": []
 			}
-		"plant_station":
-			workstation_dictionary[type] = {
-				"assigned": []
-			}
-		"food":
-			workstation_dictionary[type] = {
-				"assigned": []
-			}
-		"research":
-			workstation_dictionary[type] = {
-				"assigned": []
-			}
-		"mine":
+		"food", "research", "mine", "plant_station":
 			workstation_dictionary[type] = {
 				"assigned": []
 			}
