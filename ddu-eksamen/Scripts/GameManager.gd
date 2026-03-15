@@ -23,7 +23,7 @@ var total_trait_amount = 6                 # the amount of traits each colonist 
 var current_tick = 0                       # sets current_tick to zero
 signal value_changed
 const SAVE_FILE = "user://database.json"
-
+var is_starving = false
 
 # Loading Data from JSON Files ----------------------------------------------------------------------------------
 
@@ -148,10 +148,13 @@ func resource_consumption_tick(modifier = null):
 	var num_of_colonist = len(colonist_dict) #finds the number of colonist
 	if modifier != null:
 		var food_consumption = num_of_colonist * modifier * food_consumption_tick_value
-		return resource_consumption(Global.food, food_consumption) #calculates the food consumption if a modifier is passed into the funciton
 	else:
 		var food_consumption = num_of_colonist * food_consumption_tick_value
-		return resource_consumption(Global.food, food_consumption) #calculates the food consumption if a modifier is not passed into the funciton
+		if resource_consumption(Global.food, food_consumption):
+			return 
+		else: 
+			is_starving = true
+			return 
 	
 func resource_consumption(type, amount):
 	#helper function to subtract the amount of resources used for a specific action
