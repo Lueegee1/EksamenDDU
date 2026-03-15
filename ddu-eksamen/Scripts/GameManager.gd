@@ -102,17 +102,40 @@ func _ready():
 	value_changed.connect(save_game)
 
 # Save system---------------------------------------------------------------------------
-func save_game():
-	data = { #updates a dictonary with new values for all resources. in the future this will a
-#also update with the completed endings and other factors.
-		"food" = Global.food,
-		"plant_matter" = Global.plant_matter,
-		"minerals" = Global.minerals,
-		"research_points" = Global.research_points
+#saves the game and return a true/false if the saving was succesfull
+func save_game() -> bool:
+	data = {
+		"resources": {
+			"food": Global.food,
+			"plant_matter": Global.plant_matter,
+			"minerals": Global.minerals,
+			"research_points": Global.research_points,
+			"decorations": Global.decorations
+		},
+		"simulation": {
+			"current_tick": current_tick,
+			"is_starving": is_starving
+		},
+		"colony": {
+			"colonist_dict": colonist_dict,
+			"workers_dict": workers_dict,
+			"happiness_dict": happiness_dict,
+			"housing_dictionary": housing_dictionary,
+			"workstation_dictionary": workstation_dictionary
+		},
+		"research": {
+			"researches": researches
+		}
 	}
 	var file = FileAccess.open(SAVE_FILE, FileAccess.WRITE)
+	if file == null:
+		return false
+
 	file.store_string(JSON.stringify(data))
 	file.close()
+	return true
+	
+
 # Tick System --------------------------------------------------------------------------------------------------
 
 func _on_tick_timer_timeout() -> void:
