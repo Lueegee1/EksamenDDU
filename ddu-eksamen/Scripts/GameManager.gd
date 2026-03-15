@@ -148,12 +148,10 @@ func resource_consumption_tick(modifier = null):
 	var num_of_colonist = len(colonist_dict) #finds the number of colonist
 	if modifier != null:
 		var food_consumption = num_of_colonist * modifier * food_consumption_tick_value
-		resource_consumption(Global.food, food_consumption)
-		return #calculates the food consumption if a modifier is passed into the funciton
+		return resource_consumption(Global.food, food_consumption) #calculates the food consumption if a modifier is passed into the funciton
 	else:
 		var food_consumption = num_of_colonist * food_consumption_tick_value
-		resource_consumption(Global.food, food_consumption)
-		return #calculates the food consumption if a modifier is not passed into the funciton
+		return resource_consumption(Global.food, food_consumption) #calculates the food consumption if a modifier is not passed into the funciton
 	
 func resource_consumption(type, amount):
 	#helper function to subtract the amount of resources used for a specific action
