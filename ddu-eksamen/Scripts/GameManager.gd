@@ -138,7 +138,44 @@ func save_game() -> bool:
 func load_game() -> bool:
 	if not FileAccess.file_exists(SAVE_FILE):
 		return false
-	var file 
+	var file = FileAccess.open(SAVE_FILE, FileAccess.READ)
+	if file == null:
+		return false
+	var save_text = file.get_as_text()
+	file.close()
+	var json_save_data = JSON.new()
+	var parsed_json_save_data = json_save_data.parse(save_text)
+	if parsed_json_save_data != OK:
+		return false
+	var saved_data = json_save_data.data
+	if saved_data.has("resources"):
+		var resources = saved_data["resources"]
+		Global.food = resources.get("food", 0)
+		Global.plant_matter = resources.get("plant_matter", 0)
+		Global.minerals = resources.get("minerals", 0)
+		Global.research_points = resources.get("research_points", 0)
+		Global.decorations = resources.get("decorations", 0)
+
+	# Simulation
+	if saved_data.has("simulation"):
+		var simulation = saved_data["simulation"]
+		current_tick = simulation.get("current_tick", 0)
+		is_starving = simulation.get("is_starving", false)
+
+	# Colony
+	if saved_data.has("colony"):
+		var colony = saved_data["colony"]
+		colonist_dict = colony.get("colonist_dict", {})
+		workers_dict = colony.get("workers_dict", {})
+		happiness_dict = colony.get("happiness_dict", {})
+		housing_dictionary = colony.get("housing_dictionary", {})
+		workstation_dictionary = colony.get("workstation_dictionary", {})
+
+	# Research/ not really sure this works but fuck it we ball
+	if saved_data.has("research"):
+		var research_data = saved_data["research"]
+		researches = research_data.get("researches", researches)
+	return true
 
 # Tick System --------------------------------------------------------------------------------------------------
 
