@@ -135,6 +135,10 @@ func save_game() -> bool:
 	file.close()
 	return true
 	
+func load_game() -> bool:
+	if not FileAccess.file_exists(SAVE_FILE):
+		return false
+	var file 
 
 # Tick System --------------------------------------------------------------------------------------------------
 
