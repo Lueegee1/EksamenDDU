@@ -98,6 +98,8 @@ func _ready():
 	load_names_from_json("res://data/names.json")
 	load_traits_from_json("res://data/traits.json")
 	load_researches_from_json("res://data/research.json")
+	#if not load_game():
+	#	get_new_colony(colony_start_amount)
 	get_new_colony(colony_start_amount)
 	value_changed.connect(save_game)
 
@@ -131,7 +133,9 @@ func save_game() -> bool:
 	if file == null:
 		return false
 
-	file.store_string(JSON.stringify(data))
+	if file.store_string(JSON.stringify(data)) != true:
+		return false
+		file.close()
 	file.close()
 	return true
 	
@@ -183,6 +187,8 @@ func _on_tick_timer_timeout() -> void:
 	current_tick += 1
 	happiness_tick()
 	print(average_happiness())
+
+
 # Resource functions-----------------------------------------------------------------------------------------------
 
 func worker_productivity(worker):
