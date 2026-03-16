@@ -2,14 +2,30 @@
 
 [ext_resource type="Script" uid="uid://dwf1p31i5e803" path="res://Scripts/GameManager.gd" id="1_gl6un"]
 [ext_resource type="Script" uid="uid://btbc4hrupa1v2" path="res://Scripts/Colonist.gd" id="1_iukft"]
+[ext_resource type="Script" uid="uid://c2o6yqv04gdrn" path="res://Scenes/UI.gd" id="3_j5yw3"]
 
 [node name="Main" type="Node2D" unique_id=1552147815]
 script = ExtResource("1_gl6un")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=235406444]
+position = Vector2(578, 323)
 
 [node name="Colonist_Prototype" type="Node" parent="." unique_id=1999986674]
 script = ExtResource("1_iukft")
 
 [node name="TickTimer" type="Timer" parent="." unique_id=642013667]
 autostart = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=150449304]
+script = ExtResource("3_j5yw3")
+
+[node name="HappinessBar" type="Control" parent="CanvasLayer" unique_id=1952716547]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="HappinessBarColorRect" type="ColorRect" parent="CanvasLayer/HappinessBar" unique_id=2003544463]
+layout_mode = 0
+offset_right = 100.0
+offset_bottom = 100.0
 
 [connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]
