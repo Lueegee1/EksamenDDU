@@ -381,35 +381,35 @@ func apply_research(index):
 
 		# PLANTS
 		6:
-			plant_prod_modifier += 0.25
+			plant_prod_modifier *= 1.25
 
 		18:
-			plant_prod_modifier += 0.40
+			plant_prod_modifier *= 1.40
 
 
 		# FOOD
 		3:
-			food_prod_modifier += 0.15
+			food_prod_modifier *= 1.15
 
 		5:
-			food_prod_modifier += 0.25
+			food_prod_modifier *= 1.25
 
 		13:
-			food_prod_modifier += 0.30
+			food_prod_modifier *= 1.30
 
 		21:
-			food_prod_modifier += 0.50
+			food_prod_modifier *= 1.50
 
 
 		# MINERALS
 		2:
-			minerals_prod_modifier += 0.10
+			minerals_prod_modifier *= 1.10
 
 		8:
-			minerals_prod_modifier += 0.25
+			minerals_prod_modifier *= 1.25
 
 		16:
-			minerals_prod_modifier += 0.45
+			minerals_prod_modifier *= 1.45
 
 # Happiness calcs
 
