@@ -349,6 +349,9 @@ func build_new_building(type):
 				"assigned": []
 			}
 
+func upgrade_building(building) -> bool:
+	pass
+	return true
 
 # Happiness calcs
 

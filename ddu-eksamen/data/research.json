@@ -23,11 +23,6 @@
 	"21": {"name":"GMO","cost":[8,0,300,0],"requirements":[20],"description": "", "icons": "", "researched":0},
 	"22": {"name":"Medicine","cost":[10,0,300,0],"requirements":[15],"description": "", "icons": "", "researched":0},
 	"23": {"name":"Lethal injection","cost":[12,0,400,0],"requirements":[22],"description": "", "icons": "", "researched":0},
-	"24": {"name":"Axe murder","cost":[3,0,0,0],"requirements":[6],"description": "", "icons": "", "researched":0},
-	"25": {"name":"Explore the caves","cost":[1,0,0,0],"requirements":[1],"description": "", "icons": "", "researched":0},
-	"26": {"name":"Explore the caves","cost":[1,0,0,0],"requirements":[1],"description": "", "icons": "", "researched":0},
-	"27": {"name":"Explore the caves","cost":[1,0,0,0],"requirements":[1],"description": "", "icons": "", "researched":0},
-	"28": {"name":"Explore the caves","cost":[1,0,0,0],"requirements":[1],"description": "", "icons": "", "researched":0},
-																											
+	"24": {"name":"Axe murder","cost":[3,0,0,0],"requirements":[6],"description": "", "icons": "", "researched":0}																											
 	}
 }
