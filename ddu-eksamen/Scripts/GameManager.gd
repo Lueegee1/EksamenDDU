@@ -297,12 +297,10 @@ func breeding() ->bool:
 					breed_colonist(housing_dictionary[house]["assigned"][0], housing_dictionary[house]["assigned"][1])
 					return true
 	return false
+
 func breed_colonist(parent1: String, parent2: String):
-	print("start breeding")
 	var traits1 = colonist_dict[parent1].duplicate()
 	var traits2 = colonist_dict[parent2].duplicate()
-	print("the parents names are: ", parent1," and ", parent2)
-	print("the the childs parents traits are:", traits1, " and ", traits2)
 	var child_traits:Array = []
 	traits1.shuffle()
 	traits1 = traits1.slice(0, traits1.size() / 2)
@@ -310,11 +308,9 @@ func breed_colonist(parent1: String, parent2: String):
 	traits2 = traits2.slice(0, traits2.size() / 2)
 	child_traits.append_array(traits1)
 	child_traits.append_array(traits2)
-	print("the new childs traits are: ", child_traits)
 	var child_name = generate_colonist_name()
 	if child_name == parent1 or child_name == parent2:
 		child_name = "Jr. " + child_name
-	print("childs name is: ", child_name)
 	colonist_dict[child_name] = child_traits
 	workers_dict[child_name] = "Unemployed"
 	happiness_dict[child_name] = base_happiness
