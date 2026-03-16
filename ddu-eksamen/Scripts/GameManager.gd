@@ -56,7 +56,7 @@ func load_researches_from_json(path: String) -> void:
 		researches[int(key)] = temp_dict[key]
 # Game Setup ----------------------------------------------------------------------------------
 
-func generate_colonist_name() -> String:
+func generate_colonist_name() -> String: # generates the colonists name
 	if name_array.is_empty():
 		return "ERROR#NANINF/DIV0" # good luck getting this name lol
 	var generated_name = name_array.pick_random()
@@ -65,7 +65,7 @@ func generate_colonist_name() -> String:
 		generated_name = name_array.pick_random()
 	return generated_name
 
-func generate_starter_trait_array():
+func generate_starter_trait_array(): #generates the starter trait array for the colonist
 	var temp_trait_array = []
 	var duplicate_genetic_array = trait_dict.keys()
 	for number in total_trait_amount:
@@ -79,11 +79,11 @@ func generate_starter_trait_array():
 
 # change so that you can generate multiple neutral traits (ID 000)
 func get_new_colony(colony_population):
-	for colonist in colony_population:
-		var colonist_name = generate_colonist_name()
-		var trait_array: Array = generate_starter_trait_array()
-		colonist_dict[colonist_name] = trait_array
-		workers_dict[colonist_name] = "Unemployed"
+	for colonist in colony_population: # for each colonist in the colony population 
+		var colonist_name = generate_colonist_name() #get a name
+		var trait_array: Array = generate_starter_trait_array() # the trait array
+		colonist_dict[colonist_name] = trait_array #adds them to the colonist dict
+		workers_dict[colonist_name] = "Unemployed" #adds them as unemployed to the workers dict
 		happiness_dict[colonist_name] = {"happiness": base_happiness, "sick" : false, "grieving": false, "homeless" : false, "surgery": false, "blood_on_hands": false}
 # Next lines of code are purely for printing to console
 		print("Created colonist # ", colonist +1, " Their name is ", colonist_name)
@@ -98,6 +98,7 @@ func _ready():
 	load_names_from_json("res://data/names.json")
 	load_traits_from_json("res://data/traits.json")
 	load_researches_from_json("res://data/research.json")
+	# the below two lines should be turned into real lines when we want to test the save sytem
 	#if not load_game():
 	#	get_new_colony(colony_start_amount)
 	get_new_colony(colony_start_amount)
@@ -106,18 +107,19 @@ func _ready():
 # Save system---------------------------------------------------------------------------
 #saves the game and return a true/false if the saving was succesfull
 func save_game() -> bool:
-	data = {
+	#defines data to hold all the variables we need to store
+	data = { #saves resources and decorations added
 		"resources": {
 			"food": Global.food,
 			"plant_matter": Global.plant_matter,
 			"minerals": Global.minerals,
 			"research_points": Global.research_points,
 			"decorations": Global.decorations
-		},
+		}, #saves current tick and is_starving
 		"simulation": {
 			"current_tick": current_tick,
 			"is_starving": is_starving
-		},
+		},# saves all relevant dictionaries to the colony
 		"colony": {
 			"colonist_dict": colonist_dict,
 			"workers_dict": workers_dict,
@@ -125,15 +127,16 @@ func save_game() -> bool:
 			"housing_dictionary": housing_dictionary,
 			"workstation_dictionary": workstation_dictionary
 		},
-		"research": {
+		"research": { #saves research
 			"researches": researches
 		}
 	}
 	var file = FileAccess.open(SAVE_FILE, FileAccess.WRITE)
-	if file == null:
+	if file == null: #creates a file variable that holds the opened save_file and checks if it was succesfully opened
 		return false
 
-	if file.store_string(JSON.stringify(data)) != true:
+	if file.store_string(JSON.stringify(data)) != true: #stores the json stringified version of data and if it was saved
+		#succesfully it returns true else it returns false
 		return false
 		file.close()
 	file.close()
@@ -142,17 +145,18 @@ func save_game() -> bool:
 func load_game() -> bool:
 	if not FileAccess.file_exists(SAVE_FILE): #checker om save filen eksiterer
 		return false
-	var file = FileAccess.open(SAVE_FILE, FileAccess.READ)
+	var file = FileAccess.open(SAVE_FILE, FileAccess.READ) #opens the file and saves it in read mode as variable file and checks if opening
+#it was succesfull
 	if file == null:
 		return false
 	var save_text = file.get_as_text()
 	file.close()
 	var json_save_data = JSON.new()
 	var parsed_json_save_data = json_save_data.parse(save_text)
-	if parsed_json_save_data != OK:
+	if parsed_json_save_data != OK: #checks if the json was parsed succesfully
 		return false
 	var saved_data = json_save_data.data
-	if saved_data.has("resources"):
+	if saved_data.has("resources"): #checks if saved_data has all the resource variables and loads thjem into game
 		var resources = saved_data["resources"]
 		Global.food = resources.get("food", 0)
 		Global.plant_matter = resources.get("plant_matter", 0)
@@ -161,13 +165,13 @@ func load_game() -> bool:
 		Global.decorations = resources.get("decorations", 0)
 
 	# tick and hungry yes/no 
-	if saved_data.has("simulation"):
+	if saved_data.has("simulation"): #checks if saved data has tick and is_starving saved
 		var simulation = saved_data["simulation"]
 		current_tick = simulation.get("current_tick", 0)
 		is_starving = simulation.get("is_starving", false)
 
 	# Colony 
-	if saved_data.has("colony"):
+	if saved_data.has("colony"): #checks if saved_data has colony variables saved
 		var colony = saved_data["colony"]
 		colonist_dict = colony.get("colonist_dict", {})
 		workers_dict = colony.get("workers_dict", {})
@@ -191,29 +195,30 @@ func _on_tick_timer_timeout() -> void:
 
 # Resource functions-----------------------------------------------------------------------------------------------
 
-func worker_productivity(worker):
+func worker_productivity(worker): #calculates the individual workers productivity
 	var traits = colonist_dict[colonist_dict.keys()[worker]]
 	var temp_prod = 1
 	for i in traits:
 		temp_prod*=trait_dict[i]["productivity_mod"]
 	return temp_prod
 
-func workplace_productivity(Workplace):
+func workplace_productivity(Workplace): #calculates the workplaces productivity
 	var temp_prod = 0
 	for worker in range(len(workers_dict)):
 		if workers_dict[workers_dict.keys()[worker]] == Workplace:
 			temp_prod+=float(worker_productivity(worker))
 	return temp_prod
 
-func resource_tick():
+func resource_tick(): #tick that handles resource consumption and getting the new resources
 	var possible_resources = ["food", "minerals", "plant_matter", "research_points"]
 	for resource in possible_resources:
 		var productivity = workplace_productivity(workplaces[resource])
-		get_new_resource(resource, productivity)
+		Global.resource -= get_new_resource(resource, productivity) # here the resources are subtracted
 	resource_consumption_tick()
 	#need to be looked through
 
-func resource_consumption_tick(modifier = null):
+func resource_consumption_tick(modifier = null): #calculates resource consumption and 
+	#checks if the colony is starving
 	var food_consumption_tick_value: float = 1.0
 	var num_of_colonist = len(colonist_dict) #finds the number of colonist
 	if modifier != null:
@@ -239,7 +244,7 @@ func resource_consumption(type, amount):
 	return true
 
 func get_new_resource(resource: String, productivity: int):
-	var prod_modifier
+	var prod_modifier #gets the new resource and returns how much of it is produced
 	match resource:
 		"food":
 			prod_modifier = 1.0
@@ -289,7 +294,7 @@ func research(index: int):
 		print("Couldnt afford research")
 
 # Breeding
-func breeding() ->bool:
+func breeding() ->bool: #functions that calculates if two colonist are gonna breed together and returns false if somebody didnt and somebody did
 	for house in housing_dictionary:
 		if len(housing_dictionary[house]["assigned"]) == housing_dictionary[house]["capacity"]:
 			if Global.food > len(colonist_dict) * food_security_constant:
@@ -298,7 +303,7 @@ func breeding() ->bool:
 					return true
 	return false
 
-func breed_colonist(parent1: String, parent2: String):
+func breed_colonist(parent1: String, parent2: String): #helper function to breed to colonist
 	var traits1 = colonist_dict[parent1].duplicate()
 	var traits2 = colonist_dict[parent2].duplicate()
 	var child_traits:Array = []
@@ -317,11 +322,13 @@ func breed_colonist(parent1: String, parent2: String):
 	
 
 # Backend assignment
-func assign_colonist_to_house(name, house):
+func assign_colonist_to_house(name, house): #helper funciton to assign a specific colonist to a specific house
 	if len(housing_dictionary[house]["assigned"]) < housing_dictionary[house]["capacity"]:
 		housing_dictionary[house]["assigned"].append(name)
+		return true
+	return false #returns false if the assignment was unsuccesfull
 		
-func assign_colonist(colonist_name: String, workplace: String) -> bool:
+func assign_colonist(colonist_name: String, workplace: String) -> bool: #helper function to assign a specific colonist to a specific workplace
 	if colonist_name not in colonist_dict:
 		return false
 	workers_dict[colonist_name] = workplace
