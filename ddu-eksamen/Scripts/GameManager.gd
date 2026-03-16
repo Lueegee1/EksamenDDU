@@ -136,7 +136,7 @@ func save_game() -> bool:
 	return true
 	
 func load_game() -> bool:
-	if not FileAccess.file_exists(SAVE_FILE):
+	if not FileAccess.file_exists(SAVE_FILE): #checker om save filen eksiterer
 		return false
 	var file = FileAccess.open(SAVE_FILE, FileAccess.READ)
 	if file == null:
@@ -162,7 +162,7 @@ func load_game() -> bool:
 		current_tick = simulation.get("current_tick", 0)
 		is_starving = simulation.get("is_starving", false)
 
-	# Colony
+	# Colony 
 	if saved_data.has("colony"):
 		var colony = saved_data["colony"]
 		colonist_dict = colony.get("colonist_dict", {})
@@ -212,6 +212,11 @@ func resource_consumption_tick(modifier = null):
 	var num_of_colonist = len(colonist_dict) #finds the number of colonist
 	if modifier != null:
 		var food_consumption = num_of_colonist * modifier * food_consumption_tick_value
+		if resource_consumption(Global.food, food_consumption):
+			return
+		else:
+			is_starving = true
+			return
 	else:
 		var food_consumption = num_of_colonist * food_consumption_tick_value
 		if resource_consumption(Global.food, food_consumption):
