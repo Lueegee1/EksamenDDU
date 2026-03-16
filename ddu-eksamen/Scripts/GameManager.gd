@@ -21,6 +21,10 @@ var base_happiness = 50
 var colony_start_amount = 6                # the amount of colonists that starts in the colony
 var total_trait_amount = 6                 # the amount of traits each colonist has
 var current_tick = 0                       # sets current_tick to zero
+var research_prod_modifier:float = 0.1
+var plant_prod_modifier:float = 1.0
+var food_prod_modifier:float = 1.0
+var minerals_prod_modifier:float = 1.0
 signal value_changed
 const SAVE_FILE = "user://database.json"
 var is_starving = false
@@ -247,13 +251,13 @@ func get_new_resource(resource: String, productivity: int):
 	var prod_modifier #gets the new resource and returns how much of it is produced
 	match resource:
 		"food":
-			prod_modifier = 1.0
+			prod_modifier = food_prod_modifier
 		"minerals":
-			prod_modifier = 1.0
+			prod_modifier = minerals_prod_modifier
 		"plant_matter":
-			prod_modifier = 1.0
+			prod_modifier = plant_prod_modifier
 		"research_points":
-			prod_modifier = 0.1
+			prod_modifier = research_prod_modifier
 		_:
 			return 0
 	var base_yield: float = productivity *  prod_modifier
@@ -351,7 +355,26 @@ func build_new_building(type):
 
 func upgrade_building(building) -> bool:
 	pass
-	return true
+	match building:
+		"house":
+			for house in housing_dictionary:
+				if house == building:
+					if housing_dictionary[house]["capacity"] == 2:
+						if researches[9]["researched"] == 1:
+							housing_dictionary[house]["capacity"] == 2
+							return true
+				else:
+					return false
+		"food":
+			food_prod_modifier
+		"research":
+			research_prod_modifier
+		"minerals":
+			minerals_prod_modifier
+		"plant_station":
+			plant_prod_modifier
+				
+	return false
 
 # Happiness calcs
 
