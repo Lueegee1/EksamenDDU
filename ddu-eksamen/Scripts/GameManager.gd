@@ -294,6 +294,7 @@ func research(index: int):
 		Global.food -= price_index[3]
 		researches[index]["researched"]=1
 		print(researches[index]["name"] + " has been researched")
+		apply_research(index)
 	else:
 		print("Couldnt afford research")
 
@@ -354,27 +355,61 @@ func build_new_building(type):
 			}
 
 func upgrade_building(building) -> bool:
-	pass
-	match building:
-		"house":
-			for house in housing_dictionary:
-				if house == building:
-					if housing_dictionary[house]["capacity"] == 2:
-						if researches[9]["researched"] == 1:
-							housing_dictionary[house]["capacity"] == 2
-							return true
-				else:
-					return false
-		"food":
-			food_prod_modifier
-		"research":
-			research_prod_modifier
-		"minerals":
-			minerals_prod_modifier
-		"plant_station":
-			plant_prod_modifier
-				
+	for house in housing_dictionary:
+		if house == building:
+			if housing_dictionary[house]["capacity"] == 2:
+				if researches[9]["researched"] == 1:
+					housing_dictionary[house]["capacity"] == 2
+					return true
 	return false
+	
+	
+# apply research buff
+func apply_research(index):
+	match index:
+
+		# RESEARCH
+		1:
+			research_prod_modifier += 0.05
+
+		10:
+			research_prod_modifier += 0.20
+
+		14:
+			research_prod_modifier += 0.25
+
+
+		# PLANTS
+		6:
+			plant_prod_modifier += 0.25
+
+		18:
+			plant_prod_modifier += 0.40
+
+
+		# FOOD
+		3:
+			food_prod_modifier += 0.15
+
+		5:
+			food_prod_modifier += 0.25
+
+		13:
+			food_prod_modifier += 0.30
+
+		21:
+			food_prod_modifier += 0.50
+
+
+		# MINERALS
+		2:
+			minerals_prod_modifier += 0.10
+
+		8:
+			minerals_prod_modifier += 0.25
+
+		16:
+			minerals_prod_modifier += 0.45
 
 # Happiness calcs
 
