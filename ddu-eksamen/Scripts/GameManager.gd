@@ -351,7 +351,7 @@ func happiness_tick():
 	if Global.food < 0:
 		happy_base-=10
 	else:
-		happy_base+=15
+			happy_base+=15
 	for colonist in happiness_dict:
 		if happiness_dict[colonist]["sick"] == true:
 			happy_base-=10
