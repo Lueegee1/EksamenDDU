@@ -133,7 +133,9 @@ func save_game() -> bool:
 	if file == null:
 		return false
 
-	file.store_string(JSON.stringify(data))
+	if file.store_string(JSON.stringify(data)) != true:
+		return false
+		file.close()
 	file.close()
 	return true
 	
