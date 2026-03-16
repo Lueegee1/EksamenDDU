@@ -5,6 +5,35 @@
 [ext_resource type="Script" uid="uid://c2o6yqv04gdrn" path="res://Scenes/UI.gd" id="3_j5yw3"]
 [ext_resource type="Texture2D" uid="uid://dccge1esbw6pr" path="res://Assets/temp files/Happiness bar Temp.png" id="4_b2bpf"]
 [ext_resource type="Texture2D" uid="uid://gemrcnoujjvg" path="res://Assets/temp files/working template.png" id="4_kldst"]
+[ext_resource type="Texture2D" uid="uid://b6r7nqjjew102" path="res://Assets/temp files/buttons/Buttons Unpressed.png" id="6_fgofq"]
+[ext_resource type="Texture2D" uid="uid://f21m13miv6xw" path="res://Assets/temp files/buttons/Buttons Pressed.png" id="7_2irst"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bf53h"]
+atlas = ExtResource("6_fgofq")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_71axn"]
+atlas = ExtResource("7_2irst")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dahhg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bf53h")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_71axn")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
 
 [node name="Main" type="Node2D" unique_id=1552147815]
 script = ExtResource("1_gl6un")
@@ -38,5 +67,8 @@ texture = ExtResource("4_b2bpf")
 position = Vector2(578, 323)
 scale = Vector2(3.9999998, 3.9999998)
 texture = ExtResource("4_kldst")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=664931538]
+sprite_frames = SubResource("SpriteFrames_dahhg")
 
 [connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]
