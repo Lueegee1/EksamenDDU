@@ -3,8 +3,6 @@
 [ext_resource type="Script" uid="uid://dwf1p31i5e803" path="res://Scripts/GameManager.gd" id="1_gl6un"]
 [ext_resource type="Script" uid="uid://btbc4hrupa1v2" path="res://Scripts/Colonist.gd" id="1_iukft"]
 [ext_resource type="Script" uid="uid://c2o6yqv04gdrn" path="res://Scenes/UI.gd" id="3_j5yw3"]
-[ext_resource type="Texture2D" uid="uid://dccge1esbw6pr" path="res://Assets/temp files/Happiness bar Temp.png" id="4_b2bpf"]
-[ext_resource type="Texture2D" uid="uid://gemrcnoujjvg" path="res://Assets/temp files/working template.png" id="4_kldst"]
 
 [node name="Main" type="Node2D" unique_id=1552147815]
 script = ExtResource("1_gl6un")
@@ -30,13 +28,5 @@ anchors_preset = 0
 layout_mode = 0
 offset_right = 100.0
 offset_bottom = 100.0
-
-[node name="BarSprite1" type="Sprite2D" parent="CanvasLayer/HappinessBar" unique_id=1676383947]
-texture = ExtResource("4_b2bpf")
-
-[node name="WorkingTemplate" type="Sprite2D" parent="." unique_id=1840243623]
-position = Vector2(578, 323)
-scale = Vector2(3.9999998, 3.9999998)
-texture = ExtResource("4_kldst")
 
 [connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]

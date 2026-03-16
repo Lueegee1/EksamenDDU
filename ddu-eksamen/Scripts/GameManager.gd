@@ -190,7 +190,7 @@ func load_game() -> bool:
 func _on_tick_timer_timeout() -> void:
 	current_tick += 1
 	happiness_tick()
-	print(average_happiness())
+	Global.average_happiness = average_happiness()
 
 
 # Resource functions-----------------------------------------------------------------------------------------------
