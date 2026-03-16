@@ -156,7 +156,7 @@ func load_game() -> bool:
 		Global.research_points = resources.get("research_points", 0)
 		Global.decorations = resources.get("decorations", 0)
 
-	# Simulation
+	# tick and hungry yes/no 
 	if saved_data.has("simulation"):
 		var simulation = saved_data["simulation"]
 		current_tick = simulation.get("current_tick", 0)
