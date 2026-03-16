@@ -9,6 +9,7 @@ script = ExtResource("1_gl6un")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=235406444]
 position = Vector2(578, 323)
+scale = Vector2(5, 5)
 
 [node name="Colonist_Prototype" type="Node" parent="." unique_id=1999986674]
 script = ExtResource("1_iukft")
