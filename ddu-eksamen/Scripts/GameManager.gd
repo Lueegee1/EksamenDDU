@@ -72,7 +72,7 @@ func generate_colonist_name() -> String: # generates the colonists name
 func generate_starter_trait_array(): #generates the starter trait array for the colonist
 	var temp_trait_array = []
 	var duplicate_genetic_array = trait_dict.keys()
-	for number in total_trait_amount:
+	for number in range(total_trait_amount):
 		var random = duplicate_genetic_array.pick_random()
 		if random != 0:
 			temp_trait_array.append(random)
@@ -217,7 +217,7 @@ func resource_tick(): #tick that handles resource consumption and getting the ne
 	var possible_resources = ["food", "minerals", "plant_matter", "research_points"]
 	for resource in possible_resources:
 		var productivity = workplace_productivity(workplaces[resource])
-		Global.resource -= get_new_resource(resource, productivity) # here the resources are subtracted
+		Global.set(resource, Global.get(resource) + get_new_resource(resource, productivity))
 	resource_consumption_tick()
 	#need to be looked through
 
