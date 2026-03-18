@@ -103,9 +103,8 @@ func _ready():
 	load_traits_from_json("res://data/traits.json")
 	load_researches_from_json("res://data/research.json")
 	# the below two lines should be turned into real lines when we want to test the save sytem
-	#if not load_game():
-	#	get_new_colony(colony_start_amount)
-	get_new_colony(colony_start_amount)
+	if not load_game():
+		get_new_colony(colony_start_amount)
 	value_changed.connect(save_game)
 
 # Save system---------------------------------------------------------------------------
@@ -306,7 +305,7 @@ func breeding() ->bool: #functions that calculates if two colonist are gonna bre
 	for house in housing_dictionary:
 		if len(housing_dictionary[house]["assigned"]) == housing_dictionary[house]["capacity"]:
 			if Global.food > len(colonist_dict) * food_security_constant:
-				if randi_range(0, 500) == 212:
+				if randf() < 0.02:
 					breed_colonist(housing_dictionary[house]["assigned"][0], housing_dictionary[house]["assigned"][1])
 					return true
 	return false
