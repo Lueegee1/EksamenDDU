@@ -95,17 +95,19 @@ func get_new_colony(colony_population):
 		for i in trait_array:
 			traits_list_temp.append(trait_dict[i]["name"])
 		print(colonist_name, " traits: ", traits_list_temp)
+		value_changed.emit()
 
 # On Startup Function calls --------------------------------------------------------------------------------------------------
 
 func _ready():
+	value_changed.connect(save_game)
 	load_names_from_json("res://data/names.json")
 	load_traits_from_json("res://data/traits.json")
 	load_researches_from_json("res://data/research.json")
 	# the below two lines should be turned into real lines when we want to test the save sytem
 	if not load_game():
 		get_new_colony(colony_start_amount)
-	value_changed.connect(save_game)
+
 
 # Save system---------------------------------------------------------------------------
 #saves the game and return a true/false if the saving was succesfull
@@ -219,6 +221,7 @@ func resource_tick(): #tick that handles resource consumption and getting the ne
 		var productivity = workplace_productivity(workplaces[resource])
 		Global.set(resource, Global.get(resource) + get_new_resource(resource, productivity))
 	resource_consumption_tick()
+	value_changed.connect(save_game)
 	#need to be looked through
 
 func resource_consumption_tick(modifier = null): #calculates resource consumption and 
@@ -247,6 +250,7 @@ func resource_consumption(resource_name: String, amount: float) -> bool:
 	if current < amount:
 		return false
 	Global.set(resource_name, current - amount)
+	value_changed.connect(save_game)
 	return true
 
 func get_new_resource(resource: String, productivity: int):
@@ -297,6 +301,7 @@ func research(index: int):
 		researches[index]["researched"]=1
 		print(researches[index]["name"] + " has been researched")
 		apply_research(index)
+		value_changed.connect(save_game)
 	else:
 		print("Couldnt afford research")
 
@@ -307,6 +312,7 @@ func breeding() ->bool: #functions that calculates if two colonist are gonna bre
 			if Global.food > len(colonist_dict) * food_security_constant:
 				if randf() < 0.02:
 					breed_colonist(housing_dictionary[house]["assigned"][0], housing_dictionary[house]["assigned"][1])
+					value_changed.connect(save_game)
 					return true
 	return false
 
@@ -339,6 +345,7 @@ func breed_colonist(parent1: String, parent2: String): #helper function to breed
 func assign_colonist_to_house(name, house): #helper funciton to assign a specific colonist to a specific house
 	if len(housing_dictionary[house]["assigned"]) < housing_dictionary[house]["capacity"]:
 		housing_dictionary[house]["assigned"].append(name)
+		value_changed.connect(save_game)
 		return true
 	return false #returns false if the assignment was unsuccesfull
 		
@@ -346,6 +353,7 @@ func assign_colonist(colonist_name: String, workplace: String) -> bool: #helper 
 	if colonist_name not in colonist_dict:
 		return false
 	workers_dict[colonist_name] = workplace
+	value_changed.connect(save_game)
 	return true
 
 # Backend building
@@ -362,6 +370,7 @@ func build_new_building(type):
 			workstation_dictionary[type] = {
 				"assigned": []
 			}
+	value_changed.connect(save_game)
 
 func upgrade_building(building) -> bool:
 	for house in housing_dictionary:
@@ -369,6 +378,7 @@ func upgrade_building(building) -> bool:
 			if housing_dictionary[house]["capacity"] == 1:
 				if researches[9]["researched"] == 1:
 					housing_dictionary[house]["capacity"] = 2
+					value_changed.connect(save_game)
 					return true
 	return false
 	
@@ -444,6 +454,7 @@ func happiness_tick():
 		var happiness = (base_happiness + happy_base) * happy_modifier
 		happiness = clamp(happiness, 0, 100)
 		happiness_dict[colonist]["happiness"] = happiness
+		value_changed.connect(save_game)
 
 func average_happiness():
 	var avg_happy = 0
