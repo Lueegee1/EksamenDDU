@@ -378,10 +378,13 @@ func build_new_building(type):
 				"capacity": 1,
 				"assigned": []
 			}
+			resource_consumption("minerals", 10)
+			resource_consumption("plant_matter", 10)
 		"food", "research", "mine", "plant_station":
 			workstation_dictionary[type] = {
 				"assigned": []
 			}
+			resource_consumption("plant_matter", 10)
 	value_changed.connect(save_game)
 
 func upgrade_building(building) -> bool:
