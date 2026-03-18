@@ -137,12 +137,13 @@ func save_game() -> bool:
 	}
 	var file = FileAccess.open(SAVE_FILE, FileAccess.WRITE)
 	if file == null: #creates a file variable that holds the opened save_file and checks if it was succesfully opened
+		file.close()
 		return false
 
 	if file.store_string(JSON.stringify(data)) != true: #stores the json stringified version of data and if it was saved
 		#succesfully it returns true else it returns false
-		return false
 		file.close()
+		return false
 	file.close()
 	return true
 	
@@ -227,24 +228,26 @@ func resource_consumption_tick(modifier = null): #calculates resource consumptio
 	var num_of_colonist = len(colonist_dict) #finds the number of colonist
 	if modifier != null:
 		var food_consumption = num_of_colonist * modifier * food_consumption_tick_value
-		if resource_consumption(Global.food, food_consumption):
+		if resource_consumption("food", food_consumption):
 			return
 		else:
 			is_starving = true
 			return
 	else:
 		var food_consumption = num_of_colonist * food_consumption_tick_value
-		if resource_consumption(Global.food, food_consumption):
+		if resource_consumption("food", food_consumption):
 			return 
 		else: 
 			is_starving = true
 			return 
 	
-func resource_consumption(type, amount):
+
 	#helper function to subtract the amount of resources used for a specific action
-	if type < amount:
+func resource_consumption(resource_name: String, amount: float) -> bool:
+	var current = Global.get(resource_name)
+	if current < amount:
 		return false
-	type -= amount
+	Global.set(resource_name, current - amount)
 	return true
 
 func get_new_resource(resource: String, productivity: int):
@@ -323,7 +326,14 @@ func breed_colonist(parent1: String, parent2: String): #helper function to breed
 		child_name = "Jr. " + child_name
 	colonist_dict[child_name] = child_traits
 	workers_dict[child_name] = "Unemployed"
-	happiness_dict[child_name] = base_happiness
+	happiness_dict[child_name] = {
+		"happiness": base_happiness,
+		"sick": false,
+		"grieving": false,
+		"homeless": false,
+		"surgery": false,
+		"blood_on_hands": false
+}
 	
 
 # Backend assignment
@@ -357,9 +367,9 @@ func build_new_building(type):
 func upgrade_building(building) -> bool:
 	for house in housing_dictionary:
 		if house == building:
-			if housing_dictionary[house]["capacity"] == 2:
+			if housing_dictionary[house]["capacity"] == 1:
 				if researches[9]["researched"] == 1:
-					housing_dictionary[house]["capacity"] == 2
+					housing_dictionary[house]["capacity"] = 2
 					return true
 	return false
 	
@@ -440,5 +450,7 @@ func average_happiness():
 	var avg_happy = 0
 	for colonist in happiness_dict:
 		avg_happy += happiness_dict[colonist]["happiness"]
+	if len(happiness_dict) == 0:
+		return 0
 	avg_happy/=len(happiness_dict)
 	return(avg_happy)
