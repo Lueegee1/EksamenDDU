@@ -5,35 +5,23 @@
 [ext_resource type="Script" uid="uid://c2o6yqv04gdrn" path="res://Scenes/UI.gd" id="3_j5yw3"]
 [ext_resource type="Texture2D" uid="uid://dccge1esbw6pr" path="res://Assets/temp files/Happiness bar Temp.png" id="4_b2bpf"]
 [ext_resource type="Texture2D" uid="uid://gemrcnoujjvg" path="res://Assets/temp files/working template.png" id="4_kldst"]
-[ext_resource type="Texture2D" uid="uid://b6r7nqjjew102" path="res://Assets/temp files/buttons/Buttons Unpressed.png" id="6_fgofq"]
-[ext_resource type="Texture2D" uid="uid://f21m13miv6xw" path="res://Assets/temp files/buttons/Buttons Pressed.png" id="7_2irst"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_bf53h"]
-atlas = ExtResource("6_fgofq")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_71axn"]
-atlas = ExtResource("7_2irst")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_dahhg"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_bf53h")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_71axn")
-}],
-"loop": true,
-"name": &"new_animation",
-"speed": 5.0
-}]
+[ext_resource type="Texture2D" uid="uid://dsq0jh0ac8php" path="res://Assets/temp files/buttons/Sprite-0003-Sheet1.png" id="5_rajel"]
+[ext_resource type="Texture2D" uid="uid://b23bnaarcphjh" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet1.png" id="6_vvhu1"]
+[ext_resource type="Texture2D" uid="uid://dkpbq1ka4kp7i" path="res://Assets/temp files/buttons/Sprite-0003-Sheet2.png" id="7_lbihj"]
+[ext_resource type="Texture2D" uid="uid://cnd0b8vbk54m6" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet2.png" id="8_raj38"]
+[ext_resource type="Texture2D" uid="uid://vutiyivjesow" path="res://Assets/temp files/buttons/Sprite-0003-Sheet3.png" id="9_8e0uq"]
+[ext_resource type="Texture2D" uid="uid://c66v64ogejdjh" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet3.png" id="10_i0vto"]
+[ext_resource type="Texture2D" uid="uid://bof7pvd4tu0yp" path="res://Assets/temp files/buttons/Sprite-0003-Sheet4.png" id="11_3jf1l"]
+[ext_resource type="Texture2D" uid="uid://cvntgiahcs3h3" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet4.png" id="12_356ba"]
+[ext_resource type="Texture2D" uid="uid://cln01cjdoepx6" path="res://Assets/temp files/buttons/Sprite-0003-Sheet6.png" id="13_i4lct"]
+[ext_resource type="Texture2D" uid="uid://d00aen0r75kuh" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet6.png" id="14_iyesh"]
+[ext_resource type="Texture2D" uid="uid://t8q6w2csfxu7" path="res://Assets/temp files/buttons/Sprite-0003-Sheet8.png" id="15_i1pr2"]
+[ext_resource type="Texture2D" uid="uid://csbv60p3aqecs" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet8.png" id="16_4f4ik"]
+[ext_resource type="Texture2D" uid="uid://djnu61kuh6ddx" path="res://Assets/temp files/buttons/Sprite-0003-Sheet5.png" id="17_khs3t"]
+[ext_resource type="Texture2D" uid="uid://b024y86uuq6qs" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet5.png" id="18_0iyqm"]
+[ext_resource type="Texture2D" uid="uid://dno26u0libpru" path="res://Assets/temp files/buttons/Sprite-0003-Sheet7.png" id="19_jn8rg"]
+[ext_resource type="Texture2D" uid="uid://bronxu1ra3c4l" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet7.png" id="20_umnjm"]
+[ext_resource type="Texture2D" uid="uid://wf57ycnil5u2" path="res://icon.svg" id="21_vvhu1"]
 
 [node name="Main" type="Node2D" unique_id=1552147815]
 script = ExtResource("1_gl6un")
@@ -48,27 +36,95 @@ script = ExtResource("1_iukft")
 [node name="TickTimer" type="Timer" parent="." unique_id=642013667]
 autostart = true
 
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=150449304]
+[node name="UI" type="CanvasLayer" parent="." unique_id=150449304]
 script = ExtResource("3_j5yw3")
 
-[node name="HappinessBar" type="Control" parent="CanvasLayer" unique_id=1952716547]
+[node name="HappinessBar" type="Control" parent="UI" unique_id=1952716547]
 layout_mode = 3
 anchors_preset = 0
 
-[node name="HappinessBarColorRect" type="ColorRect" parent="CanvasLayer/HappinessBar" unique_id=2003544463]
+[node name="HappinessBarColorRect" type="ColorRect" parent="UI/HappinessBar" unique_id=2003544463]
 layout_mode = 0
 offset_right = 100.0
 offset_bottom = 100.0
 
-[node name="BarSprite1" type="Sprite2D" parent="CanvasLayer/HappinessBar" unique_id=1676383947]
+[node name="BarSprite1" type="Sprite2D" parent="UI/HappinessBar" unique_id=1676383947]
 texture = ExtResource("4_b2bpf")
+
+[node name="MenuButtons" type="Control" parent="UI" unique_id=1602124693]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(4, 4)
+
+[node name="Button1" type="TextureButton" parent="UI/MenuButtons" unique_id=410598297]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("5_rajel")
+texture_pressed = ExtResource("6_vvhu1")
+
+[node name="Button2" type="TextureButton" parent="UI/MenuButtons" unique_id=805578360]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("7_lbihj")
+texture_pressed = ExtResource("8_raj38")
+
+[node name="Button3" type="TextureButton" parent="UI/MenuButtons" unique_id=1836126800]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("9_8e0uq")
+texture_pressed = ExtResource("10_i0vto")
+
+[node name="Button4" type="TextureButton" parent="UI/MenuButtons" unique_id=33018113]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("11_3jf1l")
+texture_pressed = ExtResource("12_356ba")
+
+[node name="Button5" type="TextureButton" parent="UI/MenuButtons" unique_id=1574702413]
+layout_mode = 0
+offset_top = 184.0
+offset_right = 40.0
+offset_bottom = 224.0
+texture_normal = ExtResource("13_i4lct")
+texture_pressed = ExtResource("14_iyesh")
+
+[node name="Button6" type="TextureButton" parent="UI/MenuButtons" unique_id=1038432827]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("15_i1pr2")
+texture_pressed = ExtResource("16_4f4ik")
+
+[node name="Button7" type="TextureButton" parent="UI/MenuButtons" unique_id=229550736]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture_normal = ExtResource("17_khs3t")
+texture_pressed = ExtResource("18_0iyqm")
+
+[node name="Button8" type="TextureButton" parent="UI/MenuButtons" unique_id=882493678]
+layout_mode = 0
+offset_left = 100.0
+offset_right = 140.0
+offset_bottom = 40.0
+texture_normal = ExtResource("19_jn8rg")
+texture_pressed = ExtResource("20_umnjm")
+
+[node name="RootMenu" type="TextureRect" parent="UI" unique_id=1287248992]
+offset_left = 1920.0
+offset_right = 2048.0
+offset_bottom = 128.0
+texture = ExtResource("21_vvhu1")
 
 [node name="WorkingTemplate" type="Sprite2D" parent="." unique_id=1840243623]
 position = Vector2(578, 323)
 scale = Vector2(3.9999998, 3.9999998)
 texture = ExtResource("4_kldst")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=664931538]
-sprite_frames = SubResource("SpriteFrames_dahhg")
 
 [connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]

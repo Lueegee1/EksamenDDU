@@ -465,7 +465,7 @@ func happiness_tick():
 			happy_base-=10
 		var happy_modifier = 1
 		for mod in colonist_dict[colonist]:
-			happy_modifier*=trait_dict[mod]["happiness_mod"]
+			happy_modifier*=trait_dict[int(mod)]["happiness_mod"]
 		var happiness = (base_happiness + happy_base) * happy_modifier
 		happiness = clamp(happiness, 0, 100)
 		happiness_dict[colonist]["happiness"] = happiness
