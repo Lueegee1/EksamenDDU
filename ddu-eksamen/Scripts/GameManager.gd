@@ -120,6 +120,7 @@ func save_game() -> bool:
 			"minerals": Global.minerals,
 			"research_points": Global.research_points,
 			"decorations": Global.decorations
+			
 		}, #saves current tick and is_starving
 		"simulation": {
 			"current_tick": current_tick,
@@ -134,11 +135,16 @@ func save_game() -> bool:
 		},
 		"research": { #saves research
 			"researches": researches
+		},
+		"modifiers": {
+			"research": research_prod_modifier,
+			"plant": plant_prod_modifier,
+			"food": food_prod_modifier,
+			"minerals": minerals_prod_modifier
 		}
 	}
 	var file = FileAccess.open(SAVE_FILE, FileAccess.WRITE)
 	if file == null: #creates a file variable that holds the opened save_file and checks if it was succesfully opened
-		file.close()
 		return false
 
 	if file.store_string(JSON.stringify(data)) != true: #stores the json stringified version of data and if it was saved
@@ -169,7 +175,13 @@ func load_game() -> bool:
 		Global.minerals = resources.get("minerals", 0)
 		Global.research_points = resources.get("research_points", 0)
 		Global.decorations = resources.get("decorations", 0)
-
+	#checks if saved_data has the modifier variables and loads them into the game
+	if saved_data.has("modifiers"):
+		var modifiers = saved_data["modifiers"]
+		research_prod_modifier = modifiers.get("research", 0.1)
+		plant_prod_modifier = modifiers.get("plant", 1.0)
+		food_prod_modifier = modifiers.get("food", 1.0)
+		minerals_prod_modifier = modifiers.get("minerals", 1.0)
 	# tick and hungry yes/no 
 	if saved_data.has("simulation"): #checks if saved data has tick and is_starving saved
 		var simulation = saved_data["simulation"]
