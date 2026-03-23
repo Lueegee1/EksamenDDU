@@ -26,6 +26,15 @@ var research_prod_modifier:float = 0.1
 var plant_prod_modifier:float = 1.0
 var food_prod_modifier:float = 1.0
 var minerals_prod_modifier:float = 1.0
+var building_positions:Dictionary = {
+	"farm": [120,950],
+	"forest": [400,100],
+	"mine": [1300,200],
+	"house1": [840,125],
+	"house2": [600,370]
+	
+}
+
 signal value_changed
 const SAVE_FILE = "user://database.json"
 var is_starving = false
@@ -116,7 +125,18 @@ func _ready():
 	get_new_colony(colony_start_amount)
 
 
-#colonist pathfinding
+#colonist pathfinding and location functions:
+func get_workstation_position(workplace: String) -> Array:
+	return building_positions.get(workplace, [0.0,0.0])
+
+func get_home_position(colonist: String) -> Array:
+	var house = workers_dict.get(colonist, 0)
+	for house_id in housing_dictionary:
+		if colonist in housing_dictionary[house_id]["assigned"]:
+			return building_positions.get(house_id, [0.0,0.0])
+	return [0.0,0.0]
+		
+
 func colonist_move():
 	#each tick
 	#for colonist in colony 

@@ -127,4 +127,7 @@ position = Vector2(578, 323)
 scale = Vector2(3.9999998, 3.9999998)
 texture = ExtResource("4_kldst")
 
+[node name="Marker2D" type="Marker2D" parent="." unique_id=750165747]
+position = Vector2(608, 369)
+
 [connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]
