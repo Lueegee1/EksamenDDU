@@ -130,34 +130,61 @@ func get_workstation_position(workplace: String) -> Array:
 	return building_positions.get(workplace, [0.0,0.0])
 
 func get_home_position(colonist: String) -> Array:
-	var house = workers_dict.get(colonist, 0)
 	for house_id in housing_dictionary:
-		if colonist in housing_dictionary[house_id]["assigned"]:
+		if "assigned" in housing_dictionary[house_id] and colonist in housing_dictionary[house_id]["assigned"]:
 			return building_positions.get(house_id, [0.0,0.0])
 	return [0.0,0.0]
 		
 
-func colonist_move():
-	#each tick
-	#for colonist in colony 
-		#if at workstation
-			#go a little towards their house
-		#if at house
-			#go a little towards their workstation
-		#else if "Unemployed"
-			#walk in circles
+func colonist_move(delta: float) -> void:
 	for colonist in colonist_dict:
-		var position = movement_and_sprite_dictionary[colonist]["position"]
-		var workstation = workers_dict.get(colonist, "Unemployed")
-		match movement_and_sprite_dictionary[colonist]["state"]:
-			"idle":
-				pass
-			"going_to_work":
-				pass
-			"going_home":
-				pass
+		var mov = movement_and_sprite_dictionary[colonist]
+		var assignment = workers_dict.get(colonist, "Unemployed")
+		match mov["state"]:
+			"idle":# if the colonist is idle then set them to wandering if unemployed or to going to work
+				if assignment == "Unemployed":
+					mov["state"] = "wandering"
+				else:
+					mov["state"] = "going_to_work"
+			
+			"going_to_work": #if they are going to work then move them towards their workstation
+				#if they arrived then change it so theyre going home
+				var target = get_workstation_position(assignment)
+				mov["target"] = target
+				if move_toward_target(mov, delta):
+					mov["state"] = "going_home"
+			
+			"going_home": #if they're going home then go towards home or alse 
+				var target = get_home_position(colonist)
+				mov["target"] = target
+				if move_toward_target(mov, delta):
+					mov["state"] = "going_to_work"
+				# no home → wander
+				if target == null:
+					mov["state"] = "wandering"
+				elif move_toward_target(mov, delta):
+					mov["state"] = "going_to_work"
+			
 			"wandering":
-				pass
+				var pos = Vector2(mov["position"][0], mov["position"][1])
+				var target = Vector2(mov["target"][0], mov["target"][1])
+				if pos.distance_to(target) < 10.0:
+					mov["target"] = [randf_range(50, 1870), randf_range(50, 1030)]
+				move_toward_target(mov, delta)
+				# re-check if they got assigned a job
+				if assignment != "Unemployed":
+					mov["state"] = "idle"
+
+
+func move_toward_target(mov: Dictionary, delta: float) -> bool:
+	var pos = Vector2(mov["position"][0], mov["position"][1])
+	var target = Vector2(mov["target"][0], mov["target"][1])
+	var direction = target - pos
+	if direction.length() < 5.0:
+		return true  # if length less than 5.0 then the colonist has arrived
+	pos += direction.normalized() * mov["speed"] * delta
+	mov["position"] = [pos.x, pos.y]
+	return false
 #0,0 til 1920*1080 i hd	
 
 # Save system---------------------------------------------------------------------------
@@ -404,7 +431,7 @@ func breed_colonist(parent1: String, parent2: String): #helper function to breed
 }
 	movement_and_sprite_dictionary[child_name] = {
 			"position": [randf_range(0, 1920), randf_range(0, 1080)],
-			"target": Vector2.ZERO,
+			"target": [0.0,0.0],
 			"state": "idle", 
 			"speed": 5.0     
 		}
