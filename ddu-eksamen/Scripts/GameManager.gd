@@ -8,6 +8,7 @@ var workers_dict: Dictionary = {}
 var happiness_dict: Dictionary = {}
 var trait_dict: Dictionary = {}
 var housing_dictionary: Dictionary = {}
+var movement_and_sprite_dictionary: Dictionary = {}
 var workstation_dictionary: Dictionary = {}
 var name_array: Array = []
 var researches: Dictionary = {}
@@ -89,6 +90,12 @@ func get_new_colony(colony_population):
 		colonist_dict[colonist_name] = trait_array #adds them to the colonist dict
 		workers_dict[colonist_name] = "Unemployed" #adds them as unemployed to the workers dict
 		happiness_dict[colonist_name] = {"happiness": base_happiness, "sick" : false, "grieving": false, "homeless" : false, "surgery": false, "blood_on_hands": false}
+		movement_and_sprite_dictionary[colonist_name] = {
+			"position": [randf_range(0, 1920), randf_range(0, 1080)],
+			"target": Vector2.ZERO,
+			"state": "idle",  # idle | going_to_work | going_home | wandering
+			"speed": 5.0     # pixels per second
+		}
 # Next lines of code are purely for printing to console
 		print("Created colonist # ", colonist +1, " Their name is ", colonist_name)
 		var traits_list_temp: Array = []
@@ -108,6 +115,30 @@ func _ready():
 	#if not load_game():
 	get_new_colony(colony_start_amount)
 
+
+#colonist pathfinding
+func colonist_move():
+	#each tick
+	#for colonist in colony 
+		#if at workstation
+			#go a little towards their house
+		#if at house
+			#go a little towards their workstation
+		#else if "Unemployed"
+			#walk in circles
+	for colonist in colonist_dict:
+		var position = movement_and_sprite_dictionary[colonist]["position"]
+		var workstation = workers_dict.get(colonist, "Unemployed")
+		match movement_and_sprite_dictionary[colonist]["state"]:
+			"idle":
+				pass
+			"going_to_work":
+				pass
+			"going_home":
+				pass
+			"wandering":
+				pass
+#0,0 til 1920*1080 i hd	
 
 # Save system---------------------------------------------------------------------------
 #saves the game and return a true/false if the saving was succesfull
@@ -351,6 +382,12 @@ func breed_colonist(parent1: String, parent2: String): #helper function to breed
 		"surgery": false,
 		"blood_on_hands": false
 }
+	movement_and_sprite_dictionary[child_name] = {
+			"position": [randf_range(0, 1920), randf_range(0, 1080)],
+			"target": Vector2.ZERO,
+			"state": "idle", 
+			"speed": 5.0     
+		}
 	
 
 # Backend assignment
