@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dwf1p31i5e803" path="res://Scripts/GameManager.gd" id="1_gl6un"]
 [ext_resource type="Script" uid="uid://btbc4hrupa1v2" path="res://Scripts/Colonist.gd" id="1_iukft"]
-[ext_resource type="Script" uid="uid://c2o6yqv04gdrn" path="res://Scenes/UI.gd" id="3_j5yw3"]
+[ext_resource type="Script" uid="uid://c2o6yqv04gdrn" path="res://Scripts/UI.gd" id="3_j5yw3"]
 [ext_resource type="Texture2D" uid="uid://dccge1esbw6pr" path="res://Assets/temp files/Happiness bar Temp.png" id="4_b2bpf"]
 [ext_resource type="Texture2D" uid="uid://gemrcnoujjvg" path="res://Assets/temp files/working template.png" id="4_kldst"]
 [ext_resource type="Texture2D" uid="uid://dsq0jh0ac8php" path="res://Assets/temp files/buttons/Sprite-0003-Sheet1.png" id="5_rajel"]
@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://dno26u0libpru" path="res://Assets/temp files/buttons/Sprite-0003-Sheet7.png" id="19_jn8rg"]
 [ext_resource type="Texture2D" uid="uid://bronxu1ra3c4l" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet7.png" id="20_umnjm"]
 [ext_resource type="Texture2D" uid="uid://wf57ycnil5u2" path="res://icon.svg" id="21_vvhu1"]
+[ext_resource type="PackedScene" uid="uid://c51w70mvytncd" path="res://Scenes/ColonistCard.tscn" id="22_lbihj"]
 
 [node name="Main" type="Node2D" unique_id=1552147815]
 script = ExtResource("1_gl6un")
@@ -116,11 +117,32 @@ offset_bottom = 40.0
 texture_normal = ExtResource("19_jn8rg")
 texture_pressed = ExtResource("20_umnjm")
 
-[node name="RootMenu" type="TextureRect" parent="UI" unique_id=1287248992]
-offset_left = 1920.0
-offset_right = 2048.0
+[node name="RootMenu" type="Control" parent="UI" unique_id=2022202983]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="BuildMenu" type="TextureRect" parent="UI/RootMenu" unique_id=2041469533]
+layout_mode = 0
+offset_right = 128.0
 offset_bottom = 128.0
 texture = ExtResource("21_vvhu1")
+
+[node name="ResearchMenu" type="TextureRect" parent="UI/RootMenu" unique_id=1538214993]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 128.0
+texture = ExtResource("21_vvhu1")
+
+[node name="ColonistMenu" type="TextureRect" parent="UI/RootMenu" unique_id=1287248992]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 128.0
+texture = ExtResource("21_vvhu1")
+
+[node name="ColonistCard" parent="UI/RootMenu/ColonistMenu" unique_id=768999311 instance=ExtResource("22_lbihj")]
+layout_mode = 0
 
 [node name="WorkingTemplate" type="Sprite2D" parent="." unique_id=1840243623]
 position = Vector2(578, 323)
