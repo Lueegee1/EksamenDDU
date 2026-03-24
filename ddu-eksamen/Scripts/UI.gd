@@ -9,7 +9,7 @@ extends CanvasLayer
 @onready var work_menu = $RootMenu/WorkMenu
 @onready var colonist_menu = $RootMenu/ColonistMenu
 
-
+const character_card = preload("res://Scenes/ColonistCard.tscn")
 const bar_max_width = 768.0  # 2/5 of 1920
 const bar_height = 30
 const lerp_speed = 0.1
@@ -23,6 +23,9 @@ var root_open = false
 var build_open = false
 var research_open = false
 var colonist_open = false
+
+var colonists_card_dict: Dictionary = {}
+const card_spacing = 160
 
 func position_elements() -> void:
 	#Bar
@@ -50,7 +53,7 @@ func position_elements() -> void:
 	#Menus
 	for button in buttons:
 		button.pressed.connect(_on_button_pressed.bind(button))
-	root_menu.position=root_closed_pos
+	root_menu.position=root_closed_pos	
 
 func update_happiness_bar(delta: float) -> void:
 	var target_width = (Global.average_happiness / 100.0) * (2 * screen_dim.x / 5)
@@ -64,8 +67,26 @@ func update_menus(delta: float) -> void:
 	else:
 		root_pos = root_closed_pos
 	root_menu.position = root_menu.position.lerp(root_pos, 1.0-pow(lerp_speed, delta))
-	pass
+	if not build_open:
+		build_menu.visible = false
+	else:
+		build_menu.visible = true
+	if not research_open:
+		research_menu.visible = false
+	else:
+		research_menu.visible = true
+	if not colonist_open:
+		colonist_menu.visible = false
+	else:
+		colonist_menu.visible = true
 	
+	for character in Global.GameManager.colonist_dict:
+		if character not in colonists_card_dict:
+			var card = character_card.instantiate()
+			$RootMenu/ColonistMenu.add_child(card)
+			card.setup(character, "res://icon.svg")
+			colonists_card_dict[character] = card
+			card.position = Vector2(0,(len(colonists_card_dict)-1)*card_spacing)
 
 func _ready() -> void:
 	position_elements()

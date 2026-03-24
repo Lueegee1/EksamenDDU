@@ -22,7 +22,6 @@
 [ext_resource type="Texture2D" uid="uid://dno26u0libpru" path="res://Assets/temp files/buttons/Sprite-0003-Sheet7.png" id="19_jn8rg"]
 [ext_resource type="Texture2D" uid="uid://bronxu1ra3c4l" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet7.png" id="20_umnjm"]
 [ext_resource type="Texture2D" uid="uid://wf57ycnil5u2" path="res://icon.svg" id="21_vvhu1"]
-[ext_resource type="PackedScene" uid="uid://c51w70mvytncd" path="res://Scenes/ColonistCard.tscn" id="22_lbihj"]
 
 [node name="Main" type="Node2D" unique_id=1552147815]
 script = ExtResource("1_gl6un")
@@ -139,10 +138,6 @@ texture = ExtResource("21_vvhu1")
 layout_mode = 0
 offset_right = 128.0
 offset_bottom = 128.0
-texture = ExtResource("21_vvhu1")
-
-[node name="ColonistCard" parent="UI/RootMenu/ColonistMenu" unique_id=768999311 instance=ExtResource("22_lbihj")]
-layout_mode = 0
 
 [node name="WorkingTemplate" type="Sprite2D" parent="." unique_id=1840243623]
 position = Vector2(578, 323)

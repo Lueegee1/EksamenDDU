@@ -12,15 +12,11 @@ var tick_interval: float = 1.0
 
 
 var SceneChanger
+var GameManager
 
 #func _ready() -> void:
 
 
-
-func _process(delta: float) -> void:
-	
-
-	pass
 
 
 

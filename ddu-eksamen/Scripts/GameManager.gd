@@ -1,6 +1,7 @@
 extends Node
 
 # Setting Up Dictionaries, Lists and Variables -----------------------------------------------------------------------
+
 var food_security_constant: float = 1.0
 var data: Dictionary = {}
 var colonist_dict: Dictionary = {}         
@@ -34,7 +35,6 @@ var building_positions:Dictionary = {
 	"house2": [600,370]
 	
 }
-
 signal value_changed
 const SAVE_FILE = "user://database.json"
 var is_starving = false
@@ -116,6 +116,7 @@ func get_new_colony(colony_population):
 # On Startup Function calls --------------------------------------------------------------------------------------------------
 
 func _ready():
+	Global.GameManager = self
 	value_changed.connect(save_game)
 	load_names_from_json("res://data/names.json")
 	load_traits_from_json("res://data/traits.json")
@@ -123,7 +124,6 @@ func _ready():
 	# the below two lines should be turned into real lines when we want to test the save sytem
 	#if not load_game():
 	get_new_colony(colony_start_amount)
-
 
 #colonist pathfinding and location functions:
 func get_workstation_position(workplace: String) -> Array:
@@ -445,7 +445,7 @@ func assign_colonist_to_house(name, house): #helper funciton to assign a specifi
 		return true
 	return false #returns false if the assignment was unsuccesfull
 		
-func assign_colonist(colonist_name: String, workplace: String) -> bool: #helper function to assign a specific colonist to a specific workplace
+func assign_colonist_to_workplace(colonist_name: String, workplace: String) -> bool: #helper function to assign a specific colonist to a specific workplace
 	if colonist_name not in colonist_dict:
 		return false
 	workers_dict[colonist_name] = workplace
