@@ -439,7 +439,7 @@ func breed_colonist(parent1: String, parent2: String): #helper function to breed
 
 # Backend assignment
 func assign_colonist_to_house(name, house): #helper funciton to assign a specific colonist to a specific house
-	if len(housing_dictionary[house]["assigned"]) < housing_dictionary[house]["capacity"]:
+	if len(housing_dictionary[house]["assigned"]) < housing_dictionary[house]["capacity"] and name not in housing_dictionary[house]["assigned"]:
 		housing_dictionary[house]["assigned"].append(name)
 		value_changed.emit()
 		return true

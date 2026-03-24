@@ -37,13 +37,25 @@ func _on_work_pressed(id) -> void:
 func _on_house_pressed(id) -> void:
 	var popup = $HouseButton.get_popup()
 	var index = popup.get_item_index(id)
+	var house: String
+	if id == 0:
+		house = "house1"
+	if id == 1:
+		house = "house2"
+	if id == 2:
+		house = "house3"
+	if id == 3:
+		house = "house4"
 	
+#	if Global.GameManager.assign_colonist_to_house(name_tag.text, str(house)):
+		
 	# Uncheck all items first
 	for i in popup.item_count:
 		popup.set_item_checked(i, false)
 	
 	# Check the one that was pressed
-	popup.set_item_checked(index, true)
+		popup.set_item_checked(index, true)
+		#print(Global.GameManager.housing_dictionary[house])
 	
 func setup(colonist_name, colonist_sprite):
 	sprite.texture = load(colonist_sprite)
