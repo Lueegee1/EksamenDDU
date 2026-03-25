@@ -8,7 +8,13 @@ var colonist_dict: Dictionary = {}
 var workers_dict: Dictionary = {}
 var happiness_dict: Dictionary = {}
 var trait_dict: Dictionary = {}
-var housing_dictionary: Dictionary = {}
+var housing_dictionary: Dictionary = {
+	"not_built" :
+		{
+			"capacity" : 0,
+			"assigned" : []
+		}
+}
 var movement_and_sprite_dictionary: Dictionary = {}
 var workstation_dictionary: Dictionary = {}
 var name_array: Array = []
@@ -136,6 +142,11 @@ func get_home_position(colonist: String) -> Array:
 	return [0.0,0.0]
 		
 
+#func colonist_work_day(colonist_name)
+	#unload(colonist_name)
+	#set timer until the colonist workday is over
+	#add dicitonary with the working colonist
+
 func colonist_move(delta: float) -> void:
 	for colonist in colonist_dict:
 		var mov = movement_and_sprite_dictionary[colonist]
@@ -182,6 +193,7 @@ func move_toward_target(mov: Dictionary, delta: float) -> bool:
 	var direction = target - pos
 	if direction.length() < 5.0:
 		return true  # if length less than 5.0 then the colonist has arrived
+		#here we will call the colonist_work_day function
 	pos += direction.normalized() * mov["speed"] * delta
 	mov["position"] = [pos.x, pos.y]
 	return false
