@@ -8,7 +8,7 @@
 	"6": {"name":"Axes","cost":[1.5,10,25,0],"requirements":[2],"description": "Make axes for your colonists, this will help them gather more plantmatter", "icons": "", "researched":0},
 	"7": {"name":"Huts","cost":[2,100,25,0],"requirements":[6],"description": "One man huts for your colonists, finally a place to rest", "icons": "", "researched":0},
 	"8": {"name":"Pickaxes","cost":[2,10,30,0],"requirements":[6],"description": "Make pickaxes for your colonists, this will help them extract minerals from the mines more efficiently", "icons": "", "researched":0},
-	"9": {"name":"Two man huts","cost":[2,150,40,0],"requirements":[7],"description": "", "icons": "", "researched":0},
+	"9": {"name":"Two man huts","cost":[2,150,40,0],"requirements":[7],"description": "More spacious housing for your colonists, ", "icons": "", "researched":0},
 	"10": {"name":"Library","cost":[4,150,75,0],"requirements":[6,8,9],"description": "", "icons": "", "researched":0},
 	"11": {"name":"Statues","cost":[2,0,50,0],"requirements":[8],"description": "", "icons": "", "researched":0},
 	"12": {"name":"Fountain","cost":[3,0,75,0],"requirements":[11],"description": "", "icons": "", "researched":0},
