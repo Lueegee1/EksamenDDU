@@ -185,6 +185,7 @@ func colonist_move(delta: float) -> void:
 				# re-check if they got assigned a job
 				if assignment != "Unemployed":
 					mov["state"] = "idle"
+	value_changed.emit()
 
 
 func move_toward_target(mov: Dictionary, delta: float) -> bool:
