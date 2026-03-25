@@ -229,7 +229,8 @@ func save_game() -> bool:
 			"workers_dict": workers_dict,
 			"happiness_dict": happiness_dict,
 			"housing_dictionary": housing_dictionary,
-			"workstation_dictionary": workstation_dictionary
+			"workstation_dictionary": workstation_dictionary,
+			 "movement_and_sprite_dictionary": movement_and_sprite_dictionary
 		},
 		"research": { #saves research
 			"researches": researches
@@ -287,13 +288,14 @@ func load_game() -> bool:
 		is_starving = simulation.get("is_starving", false)
 
 	# Colony 
-	if saved_data.has("colony"): #checks if saved_data has colony variables saved
+	if saved_data.has("colony"):
 		var colony = saved_data["colony"]
 		colonist_dict = colony.get("colonist_dict", {})
 		workers_dict = colony.get("workers_dict", {})
 		happiness_dict = colony.get("happiness_dict", {})
 		housing_dictionary = colony.get("housing_dictionary", {})
 		workstation_dictionary = colony.get("workstation_dictionary", {})
+		movement_and_sprite_dictionary = colony.get("movement_and_sprite_dictionary", {}) 
 
 	# Research/ not really sure this works but fuck it we ball
 	if saved_data.has("research"):
