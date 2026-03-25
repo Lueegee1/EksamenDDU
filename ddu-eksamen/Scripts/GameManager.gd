@@ -18,6 +18,7 @@ var housing_dictionary: Dictionary = {
 var movement_and_sprite_dictionary: Dictionary = {}
 var workstation_dictionary: Dictionary = {}
 var name_array: Array = []
+var working_colonist:Array = []
 var researches: Dictionary = {}
 var workplaces: Dictionary = {
 	"food": "farm",
@@ -141,8 +142,14 @@ func get_home_position(colonist: String) -> Array:
 			return building_positions.get(house_id, [0.0,0.0])
 	return [0.0,0.0]
 		
+func remove_working_colonist(colonist_name):
+	working_colonist.erase(colonist_name)
+	
 
-#func colonist_work_day(colonist_name)
+func colonist_work_day_addition(colonist_name):
+	working_colonist.append(colonist_name)
+	await get_tree().create_timer(30.0)
+	remove_working_colonist(colonist_name)
 	#unload(colonist_name)
 	#set timer until the colonist workday is over
 	#add dicitonary with the working colonist
