@@ -104,7 +104,7 @@ func get_new_colony(colony_population):
 		var colonist_name = generate_colonist_name() #get a name
 		var trait_array: Array = generate_starter_trait_array() # the trait array
 		colonist_dict[colonist_name] = trait_array #adds them to the colonist dict
-		workers_dict[colonist_name] = "Unemployed" #adds them as unemployed to the workers dict
+		workers_dict[colonist_name] = "unemployed" #adds them as unemployed to the workers dict
 		happiness_dict[colonist_name] = {"happiness": base_happiness, "sick" : false, "grieving": false, "homeless" : false, "surgery": false, "blood_on_hands": false}
 		movement_and_sprite_dictionary[colonist_name] = {
 			"position": [randf_range(0, 1920), randf_range(0, 1080)],
@@ -157,10 +157,10 @@ func colonist_work_day_addition(colonist_name):
 func colonist_move(delta: float) -> void:
 	for colonist in colonist_dict:
 		var mov = movement_and_sprite_dictionary[colonist]
-		var assignment = workers_dict.get(colonist, "Unemployed")
+		var assignment = workers_dict.get(colonist, "unemployed")
 		match mov["state"]:
 			"idle":# if the colonist is idle then set them to wandering if unemployed or to going to work
-				if assignment == "Unemployed":
+				if assignment == "unemployed":
 					mov["state"] = "wandering"
 				else:
 					mov["state"] = "going_to_work"
@@ -190,7 +190,7 @@ func colonist_move(delta: float) -> void:
 					mov["target"] = [randf_range(50, 1870), randf_range(50, 1030)]
 				move_toward_target(mov, delta)
 				# re-check if they got assigned a job
-				if assignment != "Unemployed":
+				if assignment != "unemployed":
 					mov["state"] = "idle"
 	value_changed.emit()
 
@@ -442,7 +442,7 @@ func breed_colonist(parent1: String, parent2: String): #helper function to breed
 	if child_name == parent1 or child_name == parent2:
 		child_name = "Jr. " + child_name
 	colonist_dict[child_name] = child_traits
-	workers_dict[child_name] = "Unemployed"
+	workers_dict[child_name] = "unemployed"
 	happiness_dict[child_name] = {
 		"happiness": base_happiness,
 		"sick": false,

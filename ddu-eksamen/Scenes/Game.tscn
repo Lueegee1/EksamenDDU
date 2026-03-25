@@ -21,7 +21,6 @@
 [ext_resource type="Texture2D" uid="uid://b024y86uuq6qs" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet5.png" id="18_0iyqm"]
 [ext_resource type="Texture2D" uid="uid://dno26u0libpru" path="res://Assets/temp files/buttons/Sprite-0003-Sheet7.png" id="19_jn8rg"]
 [ext_resource type="Texture2D" uid="uid://bronxu1ra3c4l" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet7.png" id="20_umnjm"]
-[ext_resource type="Texture2D" uid="uid://wf57ycnil5u2" path="res://icon.svg" id="21_vvhu1"]
 
 [node name="Main" type="Node2D" unique_id=1552147815]
 script = ExtResource("1_gl6un")
@@ -122,22 +121,44 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="BuildMenu" type="TextureRect" parent="UI/RootMenu" unique_id=2041469533]
+[node name="ColonistScroll" type="ScrollContainer" parent="UI/RootMenu" unique_id=476092129]
 layout_mode = 0
-offset_right = 128.0
-offset_bottom = 128.0
-texture = ExtResource("21_vvhu1")
+offset_right = 480.0
+offset_bottom = 720.0
+follow_focus = true
+scroll_hint_mode = 2
 
-[node name="ResearchMenu" type="TextureRect" parent="UI/RootMenu" unique_id=1538214993]
-layout_mode = 0
-offset_right = 128.0
-offset_bottom = 128.0
-texture = ExtResource("21_vvhu1")
+[node name="ColonistMenu" type="VBoxContainer" parent="UI/RootMenu/ColonistScroll" unique_id=1601956046]
+layout_mode = 2
 
-[node name="ColonistMenu" type="TextureRect" parent="UI/RootMenu" unique_id=1287248992]
+[node name="TextureRect" type="TextureRect" parent="UI/RootMenu/ColonistScroll/ColonistMenu" unique_id=1524399466]
+layout_mode = 2
+
+[node name="ResearchScroll" type="ScrollContainer" parent="UI/RootMenu" unique_id=685978377]
 layout_mode = 0
-offset_right = 128.0
-offset_bottom = 128.0
+offset_right = 480.0
+offset_bottom = 720.0
+follow_focus = true
+scroll_hint_mode = 2
+
+[node name="ResearchMenu" type="VBoxContainer" parent="UI/RootMenu/ResearchScroll" unique_id=463807632]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/RootMenu/ResearchScroll/ResearchMenu" unique_id=793408828]
+layout_mode = 2
+
+[node name="BuildScroll" type="ScrollContainer" parent="UI/RootMenu" unique_id=1474596978]
+layout_mode = 0
+offset_right = 480.0
+offset_bottom = 720.0
+follow_focus = true
+scroll_hint_mode = 2
+
+[node name="BuildMenu" type="VBoxContainer" parent="UI/RootMenu/BuildScroll" unique_id=1605618231]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/RootMenu/BuildScroll/BuildMenu" unique_id=338443339]
+layout_mode = 2
 
 [node name="WorkingTemplate" type="Sprite2D" parent="." unique_id=1840243623]
 position = Vector2(578, 323)

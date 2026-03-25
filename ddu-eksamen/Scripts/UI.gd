@@ -4,10 +4,10 @@ extends CanvasLayer
 @onready var bar_sprite_1 = $HappinessBar/BarSprite1
 @onready var buttons = $MenuButtons.get_children()
 @onready var root_menu = $RootMenu
-@onready var build_menu = $RootMenu/BuildMenu
-@onready var research_menu = $RootMenu/ResearchMenu
+@onready var build_menu = $RootMenu/BuildScroll
+@onready var research_menu = $RootMenu/ResearchScroll
 @onready var work_menu = $RootMenu/WorkMenu
-@onready var colonist_menu = $RootMenu/ColonistMenu
+@onready var colonist_menu = $RootMenu/ColonistScroll
 
 const character_card = preload("res://Scenes/ColonistCard.tscn")
 const bar_max_width = 768.0  # 2/5 of 1920
@@ -25,7 +25,6 @@ var research_open = false
 var colonist_open = false
 
 var colonists_card_dict: Dictionary = {}
-const card_spacing = 160
 
 func position_elements() -> void:
 	#Bar
@@ -66,7 +65,8 @@ func update_menus(delta: float) -> void:
 		root_pos = root_open_pos
 	else:
 		root_pos = root_closed_pos
-	root_menu.position = root_menu.position.lerp(root_pos, 1.0-pow(lerp_speed, delta))
+	var speed = 500 # pixels per second
+	root_menu.position.x = move_toward(root_menu.position.x, root_pos.x, speed * delta)
 	if not build_open:
 		build_menu.visible = false
 	else:
@@ -83,10 +83,12 @@ func update_menus(delta: float) -> void:
 	for character in Global.GameManager.colonist_dict:
 		if character not in colonists_card_dict:
 			var card = character_card.instantiate()
-			$RootMenu/ColonistMenu.add_child(card)
+			$RootMenu/ColonistScroll/ColonistMenu.add_child(card)
 			card.setup(character, "res://icon.svg")
 			colonists_card_dict[character] = card
-			card.position = Vector2(0,(len(colonists_card_dict)-1)*card_spacing)
+	for character in colonists_card_dict:
+		if character not in Global.GameManager.colonist_dict:
+			$RootMenu/ColonistMenu.remove_child(colonists_card_dict[character])
 
 func _ready() -> void:
 	position_elements()
@@ -97,6 +99,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	update_happiness_bar(delta)
 	update_menus(delta)
+	
 
 func _on_button_pressed(button):
 	if button == buttons[0]:

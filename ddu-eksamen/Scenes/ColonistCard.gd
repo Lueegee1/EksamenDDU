@@ -56,11 +56,34 @@ func _on_house_pressed(id) -> void:
 	# Check the one that was pressed
 		popup.set_item_checked(index, true)
 		#print(Global.GameManager.housing_dictionary[house])
-	
+func update_work_checkbox(workplace: String) -> void:
+	var popup = $WorkButton.get_popup()
+		
+		# Uncheck all first
+	for i in popup.item_count:
+		popup.set_item_checked(i, false)
+		
+		# Check the matching item
+	match workplace:
+		"farm": popup.set_item_checked(0, true)
+		"mine": popup.set_item_checked(1, true)
+		"plants": popup.set_item_checked(2, true)
+		"research_lab": popup.set_item_checked(3, true)
+		"unemployed": popup.set_item_checked(4, true)
+	match workplace:
+		"farm": workplace = "Foraging"
+		"mine": workplace ="Mining"
+		"plants": workplace = "Lumbering"
+		"research_lab": workplace= "Studying"
+		"unemployed": workplace="Leisure"
+	$WorkButton.text = "Currently: " + workplace + "
+	Assign to"
+
 func setup(colonist_name, colonist_sprite):
 	sprite.texture = load(colonist_sprite)
 	name_tag.text = colonist_name
 	pass
 # Called every frame. 'delta' is the elapsed time since the u frame.
 func _process(delta: float) -> void:
+	update_work_checkbox(Global.GameManager.workers_dict[name_tag.text])
 	pass

@@ -14,10 +14,11 @@ shadow_size = 4
 shadow_color = Color(0, 0, 0, 0.8039216)
 
 [node name="ColonistCard" type="Control" unique_id=768999311]
+custom_minimum_size = Vector2(415, 175)
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 415.0
+offset_bottom = 175.0
 script = ExtResource("1_058vy")
 
 [node name="Sprite" type="Sprite2D" parent="." unique_id=1149236437]
@@ -43,21 +44,21 @@ icon = ExtResource("2_macvx")
 flat = false
 alignment = 0
 item_count = 5
-popup/item_0/text = "Leisure"
+popup/item_0/text = "Foraging"
 popup/item_0/checkable = 1
-popup/item_0/id = 4
-popup/item_1/text = "Foraging"
+popup/item_0/id = 0
+popup/item_1/text = "Mining"
 popup/item_1/checkable = 1
-popup/item_1/id = 0
+popup/item_1/id = 1
 popup/item_2/text = "Lumbering"
 popup/item_2/checkable = 1
 popup/item_2/id = 2
-popup/item_3/text = "Mining"
+popup/item_3/text = "Studying"
 popup/item_3/checkable = 1
-popup/item_3/id = 1
-popup/item_4/text = "Studying"
+popup/item_3/id = 3
+popup/item_4/text = "Leisure"
 popup/item_4/checkable = 1
-popup/item_4/id = 3
+popup/item_4/id = 4
 
 [node name="HouseButton" type="MenuButton" parent="." unique_id=1177305686]
 layout_mode = 0
