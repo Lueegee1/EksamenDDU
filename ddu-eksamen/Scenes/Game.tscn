@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dwf1p31i5e803" path="res://Scripts/GameManager.gd" id="1_gl6un"]
 [ext_resource type="Script" uid="uid://btbc4hrupa1v2" path="res://Scripts/Colonist.gd" id="1_iukft"]
-[ext_resource type="Script" path="res://Scripts/UI.gd" id="3_j5yw3"]
+[ext_resource type="Script" uid="uid://c2o6yqv04gdrn" path="res://Scripts/UI.gd" id="3_j5yw3"]
 [ext_resource type="Texture2D" uid="uid://dccge1esbw6pr" path="res://Assets/temp files/Happiness bar Temp.png" id="4_b2bpf"]
 [ext_resource type="Texture2D" uid="uid://gemrcnoujjvg" path="res://Assets/temp files/working template.png" id="4_kldst"]
 [ext_resource type="Texture2D" uid="uid://dsq0jh0ac8php" path="res://Assets/temp files/buttons/Sprite-0003-Sheet1.png" id="5_rajel"]
@@ -38,6 +38,20 @@
 [ext_resource type="Texture2D" uid="uid://cjcue2womh0nr" path="res://Assets/ResearchBase.png" id="36_oo65k"]
 [ext_resource type="Texture2D" uid="uid://b4kkverb4ixft" path="res://Assets/ResearchUpg1.png" id="37_smnwb"]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_lklsk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("28_7av8l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_dctr5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_lkuj1"]
 animations = [{
 "frames": [{
@@ -49,20 +63,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("27_lmarx")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_lklsk"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("28_7av8l")
-}, {
-"duration": 1.0,
-"texture": ExtResource("29_dctr5")
 }],
 "loop": true,
 "name": &"default",
@@ -121,7 +121,6 @@ animations = [{
 script = ExtResource("1_gl6un")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=235406444]
-position = Vector2(578, 323)
 scale = Vector2(5, 5)
 
 [node name="Colonist_Prototype" type="Node" parent="." unique_id=1999986674]
@@ -273,6 +272,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="WorkingTemplate" type="Sprite2D" parent="." unique_id=1840243623]
+visible = false
 position = Vector2(578, 323)
 scale = Vector2(3.9999998, 3.9999998)
 texture = ExtResource("4_kldst")
@@ -281,35 +281,35 @@ texture = ExtResource("4_kldst")
 position = Vector2(608, 369)
 
 [node name="Eliots seje ting" type="CanvasLayer" parent="." unique_id=1257076175]
+offset = Vector2(300, 81)
 scale = Vector2(4, 4)
-transform = Transform2D(4, 0, 0, 4, 0, 0)
+transform = Transform2D(4, 0, 0, 4, 300, 81)
 
 [node name="Ground" type="Sprite2D" parent="Eliots seje ting" unique_id=2044687565]
-position = Vector2(144.5, 80.75)
+position = Vector2(145, 81)
 texture = ExtResource("23_4eqlp")
 
 [node name="Path" type="Sprite2D" parent="Eliots seje ting" unique_id=958665517]
-position = Vector2(144.5, 80.75)
+position = Vector2(145, 81)
 texture = ExtResource("24_18uti")
 
-[node name="Cave" type="AnimatedSprite2D" parent="Eliots seje ting" unique_id=292844438]
-position = Vector2(144.5, 80.75)
-sprite_frames = SubResource("SpriteFrames_lkuj1")
-
-[node name="Trees" type="AnimatedSprite2D" parent="Eliots seje ting" unique_id=1235030913]
-position = Vector2(144.5, 80.75)
+[node name="Trees" type="AnimatedSprite2D" parent="Eliots seje ting/Path" unique_id=1235030913]
 sprite_frames = SubResource("SpriteFrames_lklsk")
 
+[node name="Cave" type="AnimatedSprite2D" parent="Eliots seje ting" unique_id=292844438]
+position = Vector2(145, 81)
+sprite_frames = SubResource("SpriteFrames_lkuj1")
+
 [node name="Farm" type="AnimatedSprite2D" parent="Eliots seje ting" unique_id=663769541]
-position = Vector2(144.5, 80.75)
+position = Vector2(145, 81)
 sprite_frames = SubResource("SpriteFrames_34hf4")
 
 [node name="House" type="AnimatedSprite2D" parent="Eliots seje ting" unique_id=1914107319]
-position = Vector2(144.5, 80.75)
+position = Vector2(145, 81)
 sprite_frames = SubResource("SpriteFrames_jamva")
 
 [node name="Research" type="AnimatedSprite2D" parent="Eliots seje ting" unique_id=1109000058]
-position = Vector2(144.5, 80.75)
+position = Vector2(145, 81)
 sprite_frames = SubResource("SpriteFrames_m15vq")
 
 [connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]
