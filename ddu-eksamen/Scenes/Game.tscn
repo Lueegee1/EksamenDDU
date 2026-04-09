@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dwf1p31i5e803" path="res://Scripts/GameManager.gd" id="1_gl6un"]
 [ext_resource type="Script" uid="uid://btbc4hrupa1v2" path="res://Scripts/Colonist.gd" id="1_iukft"]
-[ext_resource type="Script" uid="uid://c2o6yqv04gdrn" path="res://Scripts/UI.gd" id="3_j5yw3"]
+[ext_resource type="Script" path="res://Scripts/UI.gd" id="3_j5yw3"]
 [ext_resource type="Texture2D" uid="uid://dccge1esbw6pr" path="res://Assets/temp files/Happiness bar Temp.png" id="4_b2bpf"]
 [ext_resource type="Texture2D" uid="uid://gemrcnoujjvg" path="res://Assets/temp files/working template.png" id="4_kldst"]
 [ext_resource type="Texture2D" uid="uid://dsq0jh0ac8php" path="res://Assets/temp files/buttons/Sprite-0003-Sheet1.png" id="5_rajel"]
@@ -22,6 +22,100 @@
 [ext_resource type="Texture2D" uid="uid://dno26u0libpru" path="res://Assets/temp files/buttons/Sprite-0003-Sheet7.png" id="19_jn8rg"]
 [ext_resource type="Texture2D" uid="uid://bronxu1ra3c4l" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet7.png" id="20_umnjm"]
 [ext_resource type="Texture2D" uid="uid://dvowenexx3puy" path="res://Assets/temp files/buttons/Arrowplaceholder.png" id="21_vvhu1"]
+[ext_resource type="Texture2D" uid="uid://cksnss8odk8hf" path="res://Assets/GroundBase.png" id="23_4eqlp"]
+[ext_resource type="Texture2D" uid="uid://baraxxl2mqxgd" path="res://Assets/PathBase.png" id="24_18uti"]
+[ext_resource type="Texture2D" uid="uid://8g8mp25u8g77" path="res://Assets/CaveBase.png" id="25_khy6b"]
+[ext_resource type="Texture2D" uid="uid://dyttocqgjkxbr" path="res://Assets/CaveUpg1.png" id="26_pti6k"]
+[ext_resource type="Texture2D" uid="uid://cx44hdp0vc2mq" path="res://Assets/CaveUpg2.png" id="27_lmarx"]
+[ext_resource type="Texture2D" uid="uid://b0kqwqxhgqx8" path="res://Assets/LumberBase.png" id="28_7av8l"]
+[ext_resource type="Texture2D" uid="uid://ct1sxhfkwjlkt" path="res://Assets/LumberUpg1.png" id="29_dctr5"]
+[ext_resource type="Texture2D" uid="uid://bii1rklgryyyc" path="res://Assets/FarmBase.png" id="30_mi7vx"]
+[ext_resource type="Texture2D" uid="uid://cxycfm0jfen5b" path="res://Assets/FarmUpg1.png" id="31_t2joc"]
+[ext_resource type="Texture2D" uid="uid://r1vty0su3suj" path="res://Assets/FarmUpg2.png" id="32_audqb"]
+[ext_resource type="Texture2D" uid="uid://bwfqprbvmywrc" path="res://Assets/HouseUpg1.png" id="33_7w24h"]
+[ext_resource type="Texture2D" uid="uid://b73t6ph3yvn6f" path="res://Assets/HouseUpg2.png" id="34_6okg5"]
+[ext_resource type="Texture2D" uid="uid://gbu6vcbkle45" path="res://Assets/HouseUpg3.png" id="35_e2w45"]
+[ext_resource type="Texture2D" uid="uid://cjcue2womh0nr" path="res://Assets/ResearchBase.png" id="36_oo65k"]
+[ext_resource type="Texture2D" uid="uid://b4kkverb4ixft" path="res://Assets/ResearchUpg1.png" id="37_smnwb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lkuj1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("25_khy6b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_pti6k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_lmarx")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lklsk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("28_7av8l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_dctr5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_34hf4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("30_mi7vx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_t2joc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_audqb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jamva"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("33_7w24h")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_6okg5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_e2w45")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m15vq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("36_oo65k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_smnwb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Main" type="Node2D" unique_id=1552147815]
 script = ExtResource("1_gl6un")
@@ -185,5 +279,37 @@ texture = ExtResource("4_kldst")
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=750165747]
 position = Vector2(608, 369)
+
+[node name="Eliots seje ting" type="CanvasLayer" parent="." unique_id=1257076175]
+scale = Vector2(4, 4)
+transform = Transform2D(4, 0, 0, 4, 0, 0)
+
+[node name="Ground" type="Sprite2D" parent="Eliots seje ting" unique_id=2044687565]
+position = Vector2(144.5, 80.75)
+texture = ExtResource("23_4eqlp")
+
+[node name="Path" type="Sprite2D" parent="Eliots seje ting" unique_id=958665517]
+position = Vector2(144.5, 80.75)
+texture = ExtResource("24_18uti")
+
+[node name="Cave" type="AnimatedSprite2D" parent="Eliots seje ting" unique_id=292844438]
+position = Vector2(144.5, 80.75)
+sprite_frames = SubResource("SpriteFrames_lkuj1")
+
+[node name="Trees" type="AnimatedSprite2D" parent="Eliots seje ting" unique_id=1235030913]
+position = Vector2(144.5, 80.75)
+sprite_frames = SubResource("SpriteFrames_lklsk")
+
+[node name="Farm" type="AnimatedSprite2D" parent="Eliots seje ting" unique_id=663769541]
+position = Vector2(144.5, 80.75)
+sprite_frames = SubResource("SpriteFrames_34hf4")
+
+[node name="House" type="AnimatedSprite2D" parent="Eliots seje ting" unique_id=1914107319]
+position = Vector2(144.5, 80.75)
+sprite_frames = SubResource("SpriteFrames_jamva")
+
+[node name="Research" type="AnimatedSprite2D" parent="Eliots seje ting" unique_id=1109000058]
+position = Vector2(144.5, 80.75)
+sprite_frames = SubResource("SpriteFrames_m15vq")
 
 [connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]
