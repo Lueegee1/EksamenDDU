@@ -34,18 +34,17 @@ var research_prod_modifier:float = 0.1
 var plant_prod_modifier:float = 1.0
 var food_prod_modifier:float = 1.0
 var minerals_prod_modifier:float = 1.0
-var building_positions:Dictionary = {
-	"farm": [120,950],
-	"forest": [400,100],
-	"mine": [1300,200],
-	"house1": [840,125],
-	"house2": [600,370]
-	
-}
+
 signal value_changed
 const SAVE_FILE = "user://database.json"
 var is_starving = false
-
+var building_positions: Dictionary = {
+	"farm": Vector2(120,950),
+	"forest": Vector2(400,100),
+	"mine": Vector2(1300,200),
+	"house1": Vector2(840,125),
+	"house2": Vector2(600,370)
+}
 # Loading Data from JSON Files ----------------------------------------------------------------------------------
 
 func load_names_from_json(path: String) -> void:
@@ -107,7 +106,7 @@ func get_new_colony(colony_population):
 		workers_dict[colonist_name] = "unemployed" #adds them as unemployed to the workers dict
 		happiness_dict[colonist_name] = {"happiness": base_happiness, "sick" : false, "grieving": false, "homeless" : false, "surgery": false, "blood_on_hands": false}
 		movement_and_sprite_dictionary[colonist_name] = {
-			"position": [randf_range(0, 1920), randf_range(0, 1080)],
+			"position": Vector2(randf_range(0, 1920), randf_range(0, 1080)),
 			"target": Vector2.ZERO,
 			"state": "idle",  # idle | going_to_work | going_home | wandering
 			"speed": 5.0     # pixels per second
@@ -133,13 +132,13 @@ func _ready():
 	get_new_colony(colony_start_amount)
 
 #colonist pathfinding and location functions:
-func get_workstation_position(workplace: String) -> Array:
-	return building_positions.get(workplace, [0.0,0.0])
+func get_workstation_position(workplace: String) -> Vector2:
+	return building_positions.get(workplace, Vector2.ZERO)
 
 func get_home_position(colonist: String):
 	for house_id in housing_dictionary:
 		if "assigned" in housing_dictionary[house_id] and colonist in housing_dictionary[house_id]["assigned"]:
-			return building_positions.get(house_id, [0.0,0.0])
+			return building_positions.get(house_id, Vector2.ZERO)
 	return null
 		
 func remove_working_colonist(colonist_name):
@@ -178,37 +177,38 @@ func colonist_move(delta: float) -> void:
 			
 			"going_home": #if they're going home then go towards home or alse 
 				var target = get_home_position(colonist)
-				mov["target"] = target
 				# no home → wander
 				if target == null:
 					mov["state"] = "wandering"
-				elif move_toward_target(mov, delta):
+					continue
+				mov["target"] = target
+				if move_toward_target(mov, delta):
 					mov["state"] = "going_to_work"
 			"working":
 				pass
 			
 			"wandering":
-				var pos = Vector2(mov["position"][0], mov["position"][1])
-				var target = Vector2(mov["target"][0], mov["target"][1])
+				var pos: Vector2 = mov["position"]
+				var target: Vector2 = mov["target"]
 				if pos.distance_to(target) < 10.0:
-					mov["target"] = [randf_range(50, 1870), randf_range(50, 1030)]
+					mov["target"] = Vector2(randf_range(50, 1870), randf_range(50, 1030))
 				move_toward_target(mov, delta)
-				# re-check if they got assigned a job
-				if assignment != "unemployed":
-					mov["state"] = "idle"
 		print(colonist, " pos: ", mov["position"], " state: ", mov["state"])
 	value_changed.emit()
 
 
 func move_toward_target(mov: Dictionary, delta: float) -> bool:
-	var pos = Vector2(mov["position"][0], mov["position"][1])
-	var target = Vector2(mov["target"][0], mov["target"][1])
+	var pos: Vector2 = mov["position"]
+	var target: Vector2 = mov["target"]
+
 	var direction = target - pos
+
 	if direction.length() < 5.0:
-		return true  # if length less than 5.0 then the colonist has arrived
-		#here we will call the colonist_work_day function
+		return true
+
 	pos += direction.normalized() * mov["speed"] * delta
-	mov["position"] = [pos.x, pos.y]
+	mov["position"] = pos
+
 	return false
 #0,0 til 1920*1080 i hd	
 
@@ -459,8 +459,8 @@ func breed_colonist(parent1: String, parent2: String): #helper function to breed
 		"blood_on_hands": false
 }
 	movement_and_sprite_dictionary[child_name] = {
-			"position": [randf_range(0, 1920), randf_range(0, 1080)],
-			"target": [0.0,0.0],
+			"position": Vector2(randf_range(0, 1920), randf_range(0, 1080)),
+			"target": Vector2.ZERO,
 			"state": "idle", 
 			"speed": 5.0     
 		}
