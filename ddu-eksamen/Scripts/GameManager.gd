@@ -136,11 +136,11 @@ func _ready():
 func get_workstation_position(workplace: String) -> Array:
 	return building_positions.get(workplace, [0.0,0.0])
 
-func get_home_position(colonist: String) -> Array:
+func get_home_position(colonist: String):
 	for house_id in housing_dictionary:
 		if "assigned" in housing_dictionary[house_id] and colonist in housing_dictionary[house_id]["assigned"]:
 			return building_positions.get(house_id, [0.0,0.0])
-	return [0.0,0.0]
+	return null
 		
 func remove_working_colonist(colonist_name):
 	working_colonist.erase(colonist_name)
@@ -148,13 +148,11 @@ func remove_working_colonist(colonist_name):
 
 func colonist_work_day_addition(colonist_name):
 	working_colonist.append(colonist_name)
-	await get_tree().create_timer(30.0).timeout
+	await get_tree().create_timer(300.0).timeout
 	remove_working_colonist(colonist_name)
 	if colonist_name in movement_and_sprite_dictionary:
 		movement_and_sprite_dictionary[colonist_name]["state"] = "going_home"
-	#unload(colonist_name)
-	#set timer until the colonist workday is over
-	#add dicitonary with the working colonist
+
 
 func colonist_move(delta: float) -> void:
 	for colonist in colonist_dict:
@@ -198,6 +196,7 @@ func colonist_move(delta: float) -> void:
 				# re-check if they got assigned a job
 				if assignment != "unemployed":
 					mov["state"] = "idle"
+		print(colonist, " pos: ", mov["position"], " state: ", mov["state"])
 	value_changed.emit()
 
 
@@ -310,6 +309,8 @@ func load_game() -> bool:
 	return true
 
 # Tick System --------------------------------------------------------------------------------------------------
+func _process(delta: float) -> void:
+	colonist_move(delta)
 
 func _on_tick_timer_timeout() -> void:
 	current_tick += 1
@@ -367,7 +368,7 @@ func resource_consumption(resource_name: String, amount: float) -> bool:
 	if current < amount:
 		return false
 	Global.set(resource_name, current - amount)
-	value_changed.connect(save_game)
+	value_changed.emit()
 	return true
 
 func get_new_resource(resource: String, productivity: int):
