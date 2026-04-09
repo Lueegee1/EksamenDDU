@@ -21,6 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://b024y86uuq6qs" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet5.png" id="18_0iyqm"]
 [ext_resource type="Texture2D" uid="uid://dno26u0libpru" path="res://Assets/temp files/buttons/Sprite-0003-Sheet7.png" id="19_jn8rg"]
 [ext_resource type="Texture2D" uid="uid://bronxu1ra3c4l" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet7.png" id="20_umnjm"]
+[ext_resource type="Texture2D" uid="uid://dvowenexx3puy" path="res://Assets/temp files/buttons/Arrowplaceholder.png" id="21_vvhu1"]
 
 [node name="Main" type="Node2D" unique_id=1552147815]
 script = ExtResource("1_gl6un")
@@ -58,6 +59,7 @@ offset_bottom = 40.0
 scale = Vector2(4, 4)
 
 [node name="Button1" type="TextureButton" parent="UI/MenuButtons" unique_id=410598297]
+visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -65,6 +67,7 @@ texture_normal = ExtResource("5_rajel")
 texture_pressed = ExtResource("6_vvhu1")
 
 [node name="Button2" type="TextureButton" parent="UI/MenuButtons" unique_id=805578360]
+visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -75,6 +78,7 @@ texture_pressed = ExtResource("8_raj38")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+scale = Vector2(0.45, 0.45)
 texture_normal = ExtResource("9_8e0uq")
 texture_pressed = ExtResource("10_i0vto")
 
@@ -82,6 +86,7 @@ texture_pressed = ExtResource("10_i0vto")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+scale = Vector2(0.45, 0.45)
 texture_normal = ExtResource("11_3jf1l")
 texture_pressed = ExtResource("12_356ba")
 
@@ -90,6 +95,7 @@ layout_mode = 0
 offset_top = 184.0
 offset_right = 40.0
 offset_bottom = 224.0
+scale = Vector2(0.45, 0.45)
 texture_normal = ExtResource("13_i4lct")
 texture_pressed = ExtResource("14_iyesh")
 
@@ -97,6 +103,7 @@ texture_pressed = ExtResource("14_iyesh")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+scale = Vector2(0.45, 0.45)
 texture_normal = ExtResource("15_i1pr2")
 texture_pressed = ExtResource("16_4f4ik")
 
@@ -104,6 +111,7 @@ texture_pressed = ExtResource("16_4f4ik")
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
+scale = Vector2(0.45, 0.45)
 texture_normal = ExtResource("17_khs3t")
 texture_pressed = ExtResource("18_0iyqm")
 
@@ -112,8 +120,18 @@ layout_mode = 0
 offset_left = 100.0
 offset_right = 140.0
 offset_bottom = 40.0
+scale = Vector2(0.45, 0.45)
 texture_normal = ExtResource("19_jn8rg")
 texture_pressed = ExtResource("20_umnjm")
+
+[node name="Button9" type="TextureButton" parent="UI/MenuButtons" unique_id=1094168563]
+layout_mode = 0
+offset_left = 100.0
+offset_right = 300.0
+offset_bottom = 200.0
+rotation = 1.5707964
+scale = Vector2(0.2, 0.2)
+texture_normal = ExtResource("21_vvhu1")
 
 [node name="RootMenu" type="Control" parent="UI" unique_id=2022202983]
 layout_mode = 3

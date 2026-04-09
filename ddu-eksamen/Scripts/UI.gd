@@ -14,9 +14,9 @@ const bar_max_width = 768.0  # 2/5 of 1920
 const bar_height = 30
 const lerp_speed = 0.1
 const menu_offset = Vector2(0,12)
-const root_closed_pos = Vector2(1920,0)
+const root_closed_pos = Vector2(1920,screen_dim.y/20)
 @warning_ignore("integer_division")
-const root_open_pos = Vector2(3*1920/4,0)
+const root_open_pos = Vector2(3*1920/4,screen_dim.y/20)
 const screen_dim = Vector2(1920, 1080)
 
 var root_open = false
@@ -42,12 +42,13 @@ func position_elements() -> void:
 		button.z_index = 8
 	buttons[0].set_position(Vector2(0, screen_dim.y/5+10-31)+menu_offset) 
 	buttons[1].set_position(Vector2(31, screen_dim.y/5+10-31)+menu_offset)
-	buttons[2].set_position(Vector2(31*2, screen_dim.y/5+10-31)+menu_offset)
-	buttons[3].set_position(Vector2(31*3, screen_dim.y/5+10-31)+menu_offset)
+	buttons[2].set_position(Vector2(screen_dim.x/5, 0))
+	buttons[3].set_position(Vector2(screen_dim.x/5+10, 0))
 	buttons[4].set_position(Vector2(0, screen_dim.y/5+10)+menu_offset)
 	buttons[5].set_position(Vector2(31, screen_dim.y/5+10)+menu_offset)
 	buttons[6].set_position(Vector2(31*2, screen_dim.y/5+10)+menu_offset)
 	buttons[7].set_position(Vector2(31*3, screen_dim.y/5+10)+menu_offset)
+	buttons[8].set_position(Vector2(screen_dim.x/4+8, screen_dim.y/10))
 	
 	#Menus
 	for button in buttons:
@@ -66,7 +67,15 @@ func update_menus(delta: float) -> void:
 	else:
 		root_pos = root_closed_pos
 	var speed = 500 # pixels per second
+
 	root_menu.position.x = move_toward(root_menu.position.x, root_pos.x, speed * delta)
+	buttons[2].set_position(Vector2(root_menu.position.x*0.285,0) + Vector2(0,0))
+	buttons[3].set_position(Vector2(root_menu.position.x*0.285,0) + Vector2(0.45*30,0))	
+	buttons[5].set_position(Vector2(root_menu.position.x*0.285,0) + Vector2(2*0.45*30,0))
+	buttons[6].set_position(Vector2(root_menu.position.x*0.285,0) + Vector2(3*0.45*30,0))
+	buttons[7].set_position(Vector2(root_menu.position.x*0.285,0) + Vector2(4*0.45*34,0))	
+	buttons[8].set_position(Vector2((screen_dim.x/4+4) +(-root_closed_pos.x + root_menu.position.x)/4,screen_dim.y/10))
+	#Unreadable logic
 	if not build_open:
 		build_menu.visible = false
 	else:
@@ -109,20 +118,16 @@ func _on_button_pressed(button):
 	if button == buttons[2]:
 		print("button 3")
 		if root_open and not build_open and not research_open:
-			root_open = false
 			colonist_open = false
 		else:
-			root_open = true
 			colonist_open = true
 			build_open = false
 			research_open = false
 	if button == buttons[3]:
 		print("button 4")
 		if root_open and not colonist_open and not research_open:
-			root_open = false
 			build_open = false
 		else:
-			root_open = true
 			build_open = true
 			research_open = false
 			colonist_open = false
@@ -131,10 +136,8 @@ func _on_button_pressed(button):
 	if button == buttons[5]:
 		print("button 6")
 		if root_open and not colonist_open and not build_open:
-			root_open = false
 			research_open = false
 		else:
-			root_open = true
 			research_open = true
 			colonist_open = false
 			build_open = false
@@ -142,3 +145,15 @@ func _on_button_pressed(button):
 		print("button 7")
 	if button == buttons[7]:
 		print("button 8")
+	if button == buttons[8]:
+		print("button 9")
+		if not research_open and not build_open and not colonist_open:
+			colonist_open = true 
+		if root_open:
+			root_open = false
+			$MenuButtons/Button9.flip_h = false
+		else:
+			root_open = true
+			$MenuButtons/Button9.flip_h = true
+		print(root_open)
+		
