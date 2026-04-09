@@ -148,8 +148,10 @@ func remove_working_colonist(colonist_name):
 
 func colonist_work_day_addition(colonist_name):
 	working_colonist.append(colonist_name)
-	await get_tree().create_timer(30.0)
+	await get_tree().create_timer(30.0).timeout
 	remove_working_colonist(colonist_name)
+	if colonist_name in movement_and_sprite_dictionary:
+		movement_and_sprite_dictionary[colonist_name]["state"] = "going_home"
 	#unload(colonist_name)
 	#set timer until the colonist workday is over
 	#add dicitonary with the working colonist
@@ -158,6 +160,9 @@ func colonist_move(delta: float) -> void:
 	for colonist in colonist_dict:
 		var mov = movement_and_sprite_dictionary[colonist]
 		var assignment = workers_dict.get(colonist, "unemployed")
+		if colonist in working_colonist:
+			continue
+		
 		match mov["state"]:
 			"idle":# if the colonist is idle then set them to wandering if unemployed or to going to work
 				if assignment == "unemployed":
@@ -170,18 +175,19 @@ func colonist_move(delta: float) -> void:
 				var target = get_workstation_position(assignment)
 				mov["target"] = target
 				if move_toward_target(mov, delta):
-					mov["state"] = "going_home"
+					mov["state"] = "working"
+					colonist_work_day_addition(colonist)
 			
 			"going_home": #if they're going home then go towards home or alse 
 				var target = get_home_position(colonist)
 				mov["target"] = target
-				if move_toward_target(mov, delta):
-					mov["state"] = "going_to_work"
 				# no home → wander
 				if target == null:
 					mov["state"] = "wandering"
 				elif move_toward_target(mov, delta):
 					mov["state"] = "going_to_work"
+			"working":
+				pass
 			
 			"wandering":
 				var pos = Vector2(mov["position"][0], mov["position"][1])
