@@ -42,12 +42,12 @@ func position_elements() -> void:
 		button.z_index = 8
 	buttons[0].set_position(Vector2(0, screen_dim.y/5+10-31)+menu_offset) 
 	buttons[1].set_position(Vector2(31, screen_dim.y/5+10-31)+menu_offset)
-	buttons[2].set_position(Vector2(screen_dim.x/5, 0))
-	buttons[3].set_position(Vector2(screen_dim.x/5+10, 0))
+	buttons[2].set_position(Vector2(root_closed_pos.x*0.285, 0))
+	buttons[3].set_position(Vector2(root_closed_pos.x*0.285+(1*0.45*30),0))
 	buttons[4].set_position(Vector2(0, screen_dim.y/5+10)+menu_offset)
-	buttons[5].set_position(Vector2(31, screen_dim.y/5+10)+menu_offset)
+	buttons[5].set_position(Vector2(root_closed_pos.x*0.285+(2*0.45*30),0))
 	buttons[6].set_position(Vector2(31*2, screen_dim.y/5+10)+menu_offset)
-	buttons[7].set_position(Vector2(31*3, screen_dim.y/5+10)+menu_offset)
+	buttons[7].set_position(Vector2(root_open_pos.x*0.285,0) + Vector2(4*0.45*31,0))	
 	buttons[8].set_position(Vector2(screen_dim.x/4+8, screen_dim.y/10))
 	
 	#Menus
@@ -69,11 +69,9 @@ func update_menus(delta: float) -> void:
 	var speed = 500 # pixels per second
 
 	root_menu.position.x = move_toward(root_menu.position.x, root_pos.x, speed * delta)
-	buttons[2].set_position(Vector2(root_menu.position.x*0.285,0) + Vector2(0,0))
-	buttons[3].set_position(Vector2(root_menu.position.x*0.285,0) + Vector2(0.45*30,0))	
-	buttons[5].set_position(Vector2(root_menu.position.x*0.285,0) + Vector2(2*0.45*30,0))
-	buttons[6].set_position(Vector2(root_menu.position.x*0.285,0) + Vector2(3*0.45*30,0))
-	buttons[7].set_position(Vector2(root_menu.position.x*0.285,0) + Vector2(4*0.45*34,0))	
+	buttons[2].position.x =move_toward(buttons[2].position.x,root_pos.x*0.285, 0.27*speed*delta)
+	buttons[3].position.x =move_toward(buttons[3].position.x,root_pos.x*0.285+(1*0.45*30), 0.27*speed*delta)
+	buttons[5].position.x =move_toward(buttons[5].position.x,root_pos.x*0.285+(2*0.45*30), 0.27*speed*delta)
 	buttons[8].set_position(Vector2((screen_dim.x/4+4) +(-root_closed_pos.x + root_menu.position.x)/4,screen_dim.y/10))
 	#Unreadable logic
 	if not build_open:
@@ -118,7 +116,7 @@ func _on_button_pressed(button):
 	if button == buttons[2]:
 		print("button 3")
 		if root_open and not build_open and not research_open:
-			colonist_open = false
+			pass
 		else:
 			colonist_open = true
 			build_open = false
@@ -126,7 +124,7 @@ func _on_button_pressed(button):
 	if button == buttons[3]:
 		print("button 4")
 		if root_open and not colonist_open and not research_open:
-			build_open = false
+			pass
 		else:
 			build_open = true
 			research_open = false
@@ -136,7 +134,7 @@ func _on_button_pressed(button):
 	if button == buttons[5]:
 		print("button 6")
 		if root_open and not colonist_open and not build_open:
-			research_open = false
+			pass
 		else:
 			research_open = true
 			colonist_open = false
