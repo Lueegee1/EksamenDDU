@@ -193,7 +193,6 @@ func colonist_move(delta: float) -> void:
 				if pos.distance_to(target) < 10.0:
 					mov["target"] = Vector2(randf_range(50, 1870), randf_range(50, 1030))
 				move_toward_target(mov, delta)
-		print(colonist, " pos: ", mov["position"], " state: ", mov["state"])
 	value_changed.emit()
 
 
@@ -483,32 +482,117 @@ func assign_colonist_to_workplace(colonist_name: String, workplace: String) -> b
 
 # Backend building
 
-func build_new_building(type):
+func can_build_building(building_type: String) -> bool:
+	if building_type == "plant_station":
+		return true
+
+	if building_type == "house":
+		return researches.get(7, {}).get("researched", 0) == 1
+
+	if building_type == "farm":
+		return researches.get(3, {}).get("researched", 0) == 1
+
+	if building_type == "mine":
+		return researches.get(2, {}).get("researched", 0) == 1
+
+	if building_type == "research_lab":
+		return researches.get(1, {}).get("researched", 0) == 1
+	return false
+	
+func can_afford_buildings(type: String) -> bool:
 	match type:
 		"house":
-			var id = "house" + str(housing_dictionary.size() + 1)
+			return Global.minerals >= 10 and Global.plant_matter >= 10
+
+		"farm", "research_lab", "mine", "plant_station":
+			return Global.plant_matter >= 10
+
+		_:
+			return false	
+			
+func can_upgrade_building(building: String) -> bool:
+	# Only houses 
+	if not housing_dictionary.has(building):
+		return false
+
+	# Upgrade 1 → 2 requires research nr 9
+	if housing_dictionary[building]["capacity"] == 1:
+		return researches[9]["researched"] == 1
+
+	return false
+
+func build_new_building(type: String) -> bool:
+	if type == "food":
+		type = "farm"
+	elif type == "research":
+		type = "research_lab"
+
+	if not can_build_building(type):
+		print("Building locked behind research")
+		return false
+
+	if not can_afford_buildings(type):
+		print("Not enough resources")
+		return false
+
+	match type:
+		"house":
+			var house_count = 0
+			for key in housing_dictionary.keys():
+				if key.begins_with("house"):
+					house_count += 1
+
+			var id = "house" + str(house_count + 1)
+
 			housing_dictionary[id] = {
 				"capacity": 1,
 				"assigned": []
 			}
+
 			resource_consumption("minerals", 10)
 			resource_consumption("plant_matter", 10)
-		"food", "research", "mine", "plant_station":
+
+		"farm", "research_lab", "mine", "plant_station":
 			workstation_dictionary[type] = {
 				"assigned": []
 			}
-			resource_consumption("plant_matter", 10)
-	value_changed.emit()
 
-func upgrade_building(building) -> bool:
-	for house in housing_dictionary:
-		if house == building:
-			if housing_dictionary[house]["capacity"] == 1:
-				if researches[9]["researched"] == 1:
-					housing_dictionary[house]["capacity"] = 2
-					value_changed.emit()
-					return true
+			resource_consumption("plant_matter", 10)
+
+		_:
+			print("Invalid building type")
+			return false
+
+	value_changed.emit()
+	return true
+
+func upgrade_building(building: String) -> bool:
+#added print statements
+	if not housing_dictionary.has(building):
+		print("Building does not exist")
+		return false
+
+	if not can_upgrade_building(building):
+		print("Upgrade locked")
+		return false
+
+	if not can_afford_upgrade(building):
+		print("Not enough resources for upgrade")
+		return false
+
+	if housing_dictionary[building]["capacity"] == 1:
+		housing_dictionary[building]["capacity"] = 2
+
+		resource_consumption("minerals", 20)
+		resource_consumption("plant_matter", 15)
+
+		value_changed.emit()
+		return true
+
 	return false
+
+func can_afford_upgrade(building: String) -> bool:
+	return Global.minerals >= 20 and Global.plant_matter >= 15
 	
 	
 # apply research buff
