@@ -422,7 +422,7 @@ func research(index: int):
 	else:
 		print("Couldnt afford research")
 
-# Breeding
+# Breeding and killing
 func breeding() ->bool: #functions that calculates if two colonist are gonna breed together and returns false if somebody didnt and somebody did
 	for house in housing_dictionary:
 		var assigned = housing_dictionary[house]["assigned"]
@@ -452,10 +452,10 @@ func breed_colonist(parent1: String, parent2: String): #helper function to breed
 	happiness_dict[child_name] = {
 		"happiness": base_happiness,
 		"sick": false,
-		"grieving": false,
+		"grieving_1": false,
 		"homeless": false,
 		"surgery": false,
-		"blood_on_hands": false
+		"grieving_2": false
 }
 	movement_and_sprite_dictionary[child_name] = {
 			"position": Vector2(randf_range(0, 1920), randf_range(0, 1080)),
@@ -464,6 +464,23 @@ func breed_colonist(parent1: String, parent2: String): #helper function to breed
 			"speed": 5.0     
 		}
 	
+func kill_colonist(colonist_name: String) -> bool:
+	if colonist_name not in colonist_dict:
+		return false
+	colonist_dict.erase(colonist_name)
+	workers_dict.erase(colonist_name)
+	movement_and_sprite_dictionary.erase(colonist_name)
+	working_colonist.erase(colonist_name)
+	for house in housing_dictionary:
+		if colonist_name in housing_dictionary[house]["assigned"]:
+			housing_dictionary[house]["assigned"].erase(colonist_name)
+	for colonist in happiness_dict:
+		if 14 not in colonist_dict[colonist]:
+			happiness_dict[colonist]["grieving_1"] = true
+	happiness_dict.erase(colonist_name)
+	value_changed.emit()
+	return true
+
 
 # Backend assignment
 func assign_colonist_to_house(name, house): #helper funciton to assign a specific colonist to a specific house
@@ -658,7 +675,7 @@ func happiness_tick():
 			happy_base-=10
 		if happiness_dict[colonist]["surgery"]:
 			happy_base-=10
-		if happiness_dict[colonist]["blood_on_hands"]:
+		if happiness_dict[colonist]["grieving_1"]:
 			happy_base-=10
 		var happy_modifier = 1
 		for mod in colonist_dict[colonist]:
@@ -666,7 +683,7 @@ func happiness_tick():
 		var happiness = (base_happiness + happy_base) * happy_modifier
 		happiness = clamp(happiness, 0, 100)
 		happiness_dict[colonist]["happiness"] = happiness
-		value_changed.emit()
+	value_changed.emit()
 
 func average_happiness():
 	var avg_happy = 0

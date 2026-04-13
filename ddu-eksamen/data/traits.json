@@ -13,6 +13,7 @@
 	"10": {"name":"Slacker","productivity_mod":0.9,"happiness_mod":1.2,"sickness_chance":1},
 	"11": {"name":"Feeble","productivity_mod":0.9,"happiness_mod":1,"sickness_chance":2},
 	"12": {"name":"Robust","productivity_mod":1.1,"happiness_mod":1,"sickness_chance":0.5},
-	"13": {"name":"Depressed","productivity_mod":1,"happiness_mod":0.5,"sickness_chance":1}
+	"13": {"name":"Depressed","productivity_mod":1,"happiness_mod":0.5,"sickness_chance":1},
+	"14": {"name":"Psychopath","productivity_mod":1.1,"happiness_mod":1,"sickness_chance":1}
   }
 }
