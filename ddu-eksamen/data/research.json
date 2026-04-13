@@ -1,6 +1,6 @@
 {
 "research" : {
-	"1": {"name":"Research table","cost":[0,10,0,0],"requirements":[], "description": "A nice place to think. Here colonists can generate research points", "icons": "", "researched":0},
+	"1": {"name":"Research table","cost":[0,10,0,0],"requirements":[], "description": "A nice place to think. Here colonists can generate research points", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet8.png", "researched":0},
 	"2": {"name":"Explore the caves","cost":[1,0,0,0],"requirements":[1],"description": "The dark caves seem to contain useful ressources. Here colonists can gather minerals", "icons": "", "researched":0},
 	"3": {"name":"Fields","cost":[1.5,50,0,10],"requirements":[1],"description": "Start toiling the fields, here the colonists can generate food", "icons": "", "researched":0},
 	"4": {"name":"Plant flowers","cost":[1,25,0,0],"requirements":[1],"description": "Pretty up the colony with some colorful flowers, the colonists will enjoy the decorations", "icons": "", "researched":0},

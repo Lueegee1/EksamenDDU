@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://barv34ofqxwg1"]
 
-[ext_resource type="Script" uid="uid://r5gr2qn7nuh1" path="res://Scenes/ResearchCard.gd" id="1_f2vpl"]
+[ext_resource type="Script" uid="uid://r5gr2qn7nuh1" path="res://Scripts/ResearchCard.gd" id="1_f2vpl"]
 [ext_resource type="Texture2D" uid="uid://wf57ycnil5u2" path="res://icon.svg" id="2_04l2y"]
 [ext_resource type="Texture2D" uid="uid://t8q6w2csfxu7" path="res://Assets/temp files/buttons/Sprite-0003-Sheet8.png" id="2_xehxn"]
 [ext_resource type="Texture2D" uid="uid://csbv60p3aqecs" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet8.png" id="3_f2vpl"]
@@ -26,6 +26,7 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="Sprite" type="Sprite2D" parent="Group1" unique_id=1149236437]
+visible = false
 position = Vector2(64, 100)
 texture = ExtResource("2_04l2y")
 
@@ -39,8 +40,8 @@ label_settings = SubResource("LabelSettings_dhpgx")
 
 [node name="Label2" type="Label" parent="Group1" unique_id=43062341]
 layout_mode = 0
-offset_left = 255.0
-offset_right = 414.0
+offset_left = 230.0
+offset_right = 389.0
 offset_bottom = 152.0
 text = "Cost:           
 112
@@ -68,6 +69,7 @@ offset_right = 267.0
 offset_bottom = 172.0
 texture_normal = ExtResource("2_xehxn")
 texture_pressed = ExtResource("3_f2vpl")
+texture_disabled = ExtResource("3_f2vpl")
 
 [node name="Label4" type="Label" parent="Group1" unique_id=1870785312]
 layout_mode = 0
@@ -88,22 +90,53 @@ offset_bottom = 142.0
 texture_normal = ExtResource("2_xehxn")
 texture_pressed = ExtResource("3_f2vpl")
 
-[node name="Group 2" type="Control" parent="." unique_id=1699188147]
+[node name="TextureRect" type="TextureRect" parent="Group1" unique_id=298410664]
+layout_mode = 0
+offset_top = 38.0
+offset_right = 128.0
+offset_bottom = 166.0
+texture = ExtResource("2_04l2y")
+
+[node name="Group2" type="Control" parent="." unique_id=1699188147]
 visible = false
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="ColorRect" type="ColorRect" parent="Group 2" unique_id=1043464031]
+[node name="ColorRect" type="ColorRect" parent="Group2" unique_id=1043464031]
+z_index = -1
 layout_mode = 0
-offset_right = 415.0
+offset_right = 391.0
 offset_bottom = 175.0
 color = Color(0, 0, 0, 1)
 
-[node name="Label4" type="Label" parent="Group 2" unique_id=1500320946]
+[node name="ColorRect2" type="ColorRect" parent="Group2" unique_id=191296040]
 layout_mode = 0
-offset_right = 415.0
-offset_bottom = 175.0
-text = "View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc "
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 389.0
+offset_bottom = 173.0
+color = Color(0.0885599, 0.0885599, 0.0885599, 1)
+
+[node name="Label4" type="Label" parent="Group2" unique_id=1500320946]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 389.0
+offset_bottom = 173.0
+text = "View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum "
 label_settings = SubResource("LabelSettings_dhpgx")
 autowrap_mode = 3
+
+[node name="TextureButton2" type="TextureButton" parent="Group2" unique_id=2104746933]
+layout_mode = 0
+offset_left = 357.0
+offset_top = 141.0
+offset_right = 389.0
+offset_bottom = 173.0
+texture_normal = ExtResource("2_xehxn")
+texture_pressed = ExtResource("3_f2vpl")
+
+[connection signal="pressed" from="Group1/TextureButton" to="." method="_on_research_button_pressed"]
+[connection signal="pressed" from="Group1/TextureButton2" to="." method="_on_description_button_pressed"]
+[connection signal="pressed" from="Group2/TextureButton2" to="." method="_on_description_button_pressed"]

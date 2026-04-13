@@ -105,17 +105,22 @@ func update_menus(delta: float) -> void:
 		$RootMenu/ColonistScroll/ColonistMenu.remove_child(colonists_card_dict[character])
 		colonists_card_dict.erase(character)
 	#Make research menu
-
 	for research in range(Global.GameManager.researches.size()):
 		research +=1
-		if Global.GameManager.meet_research_requirements(research):
+		if Global.GameManager.meet_research_requirements(research) == true and research not in research_card_dict: 
 			var card = research_card.instantiate()
 			$RootMenu/ResearchScroll/ResearchMenu.add_child(card)
 			card.setup(research)
 			research_card_dict[research] = card
+
+	var to_remove2 = []
 	for research in research_card_dict:
-		if research not in Global.GameManager.colonist_dict:
-			$RootMenu/ResearchScroll/ResearchMenu.remove_child(research_card_dict[research])
+		if not Global.GameManager.meet_research_requirements(research):
+			to_remove2.append(research)
+	for research in to_remove2:
+		$RootMenu/ResearchScroll/ResearchMenu.remove_child(research_card_dict[research])
+		research_card_dict.erase(research)
+	
 
 func _ready() -> void:
 	position_elements()

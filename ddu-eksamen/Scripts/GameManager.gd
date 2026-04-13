@@ -394,7 +394,7 @@ func meet_research_requirements(index: int):
 		return false
 	for i in researches[index]["requirements"]:
 		if researches[int(i)]["researched"] == 0:
-			return false	
+			return false
 	return true
 
 func can_afford_research(index: int):

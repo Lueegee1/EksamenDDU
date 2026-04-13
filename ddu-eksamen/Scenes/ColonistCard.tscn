@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://c51w70mvytncd"]
 
-[ext_resource type="Script" uid="uid://b3n07pplj4ao6" path="res://Scenes/ColonistCard.gd" id="1_058vy"]
+[ext_resource type="Script" uid="uid://b3n07pplj4ao6" path="res://Scripts/ColonistCard.gd" id="1_058vy"]
 [ext_resource type="Texture2D" uid="uid://wf57ycnil5u2" path="res://icon.svg" id="1_dhpgx"]
 [ext_resource type="Texture2D" uid="uid://dkpbq1ka4kp7i" path="res://Assets/temp files/buttons/Sprite-0003-Sheet2.png" id="2_macvx"]
 [ext_resource type="Texture2D" uid="uid://dsq0jh0ac8php" path="res://Assets/temp files/buttons/Sprite-0003-Sheet1.png" id="3_dybca"]
