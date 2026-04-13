@@ -320,6 +320,31 @@ sprite_frames = SubResource("SpriteFrames_jamva")
 position = Vector2(145, 81)
 sprite_frames = SubResource("SpriteFrames_m15vq")
 
+[node name="Colonistholder" type="Node2D" parent="." unique_id=1253987628]
+
+[node name="Buldingmarkers" type="Node2D" parent="." unique_id=1553048053]
+
+[node name="Farm" type="Marker2D" parent="Buldingmarkers" unique_id=1057702617]
+position = Vector2(372, 549)
+
+[node name="Forest" type="Marker2D" parent="Buldingmarkers" unique_id=1425342488]
+position = Vector2(494, 255)
+
+[node name="Mine" type="Marker2D" parent="Buldingmarkers" unique_id=191456210]
+position = Vector2(1414, 177)
+
+[node name="House1" type="Marker2D" parent="Buldingmarkers" unique_id=1875617734]
+position = Vector2(965, 804)
+
+[node name="House2" type="Marker2D" parent="Buldingmarkers" unique_id=116212650]
+position = Vector2(1393, 618)
+
+[node name="House3" type="Marker2D" parent="Buldingmarkers" unique_id=296954573]
+position = Vector2(994, 150)
+
+[node name="House4" type="Marker2D" parent="Buldingmarkers" unique_id=1958255204]
+position = Vector2(781, 441)
+
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="." unique_id=1779890824]
 navigation_polygon = SubResource("NavigationPolygon_4eqlp")
 use_edge_connections = false

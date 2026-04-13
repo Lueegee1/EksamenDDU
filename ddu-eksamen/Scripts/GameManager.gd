@@ -1,7 +1,9 @@
 extends Node
 
 # Setting Up Dictionaries, Lists and Variables -----------------------------------------------------------------------
-
+var colonist_instances: Dictionary = {}
+var colonist_container: Node
+const colonist_body_scene = preload("res://Scenes/ColonistBody.tscn")
 var food_security_constant: float = 1.0
 var data: Dictionary = {}
 var colonist_dict: Dictionary = {}         
@@ -38,13 +40,8 @@ var minerals_prod_modifier:float = 1.0
 signal value_changed
 const SAVE_FILE = "user://database.json"
 var is_starving = false
-var building_positions: Dictionary = {
-	"farm": Vector2(120,950),
-	"forest": Vector2(400,100),
-	"mine": Vector2(1300,200),
-	"house1": Vector2(840,125),
-	"house2": Vector2(600,370)
-}
+var building_positions: Dictionary = {}
+var building_markers_node: Node  
 # Loading Data from JSON Files ----------------------------------------------------------------------------------
 
 func load_names_from_json(path: String) -> void:
@@ -111,6 +108,7 @@ func get_new_colony(colony_population):
 			"state": "idle",  # idle | going_to_work | going_home | wandering
 			"speed": 5.0     # pixels per second
 		}
+		setup_colonist_body(colonist_name)
 # Next lines of code are purely for printing to console
 		print("Created colonist # ", colonist +1, " Their name is ", colonist_name)
 		var traits_list_temp: Array = []
@@ -120,6 +118,18 @@ func get_new_colony(colony_population):
 		value_changed.emit()
 
 # On Startup Function calls --------------------------------------------------------------------------------------------------
+func setup_colonist_body(colonist_name: String) -> void:
+	var body = colonist_body_scene.instantiate()
+	colonist_container.add_child(body)
+	var start_pos = movement_and_sprite_dictionary[colonist_name]["position"]
+	body.global_position = start_pos
+	body.name = colonist_name
+	colonist_instances[colonist_name] = body
+	
+func _load_building_positions() -> void:
+	for marker in building_markers_node.get_children():
+		building_positions[marker.name.to_lower()] = marker.global_position
+
 
 func _ready():
 	Global.GameManager = self
@@ -129,6 +139,9 @@ func _ready():
 	load_researches_from_json("res://data/research.json")
 	# the below two lines should be turned into real lines when we want to test the save sytem
 	#if not load_game():
+	colonist_container = get_tree().get_root().find_child("Colonistholder", true, false)
+	building_markers_node = get_tree().get_root().find_child("Buldingmarkers", true, false)
+	_load_building_positions()
 	get_new_colony(colony_start_amount)
 
 #colonist pathfinding and location functions:
@@ -156,60 +169,66 @@ func colonist_work_day_addition(colonist_name):
 func colonist_move(delta: float) -> void:
 	for colonist in colonist_dict:
 		var mov = movement_and_sprite_dictionary[colonist]
+		var body = colonist.get(colonist)
+		if body == null:
+			continue
+		var agent: NavigationAgent2D = body.get_node("NavigationAgent2D")
 		var assignment = workers_dict.get(colonist, "unemployed")
+
+		body.global_position = mov["position"]
+
 		if colonist in working_colonist:
 			continue
-		
+
 		match mov["state"]:
-			"idle":# if the colonist is idle then set them to wandering if unemployed or to going to work
+			"idle":
 				if assignment == "unemployed":
 					mov["state"] = "wandering"
+					agent.target_position = Vector2(
+						randf_range(50, 1870), randf_range(50, 1030)
+					)
 				else:
 					mov["state"] = "going_to_work"
-			
-			"going_to_work": #if they are going to work then move them towards their workstation
-				#if they arrived then change it so theyre going home
-				var target = get_workstation_position(assignment)
-				mov["target"] = target
-				if move_toward_target(mov, delta):
+					agent.target_position = get_workstation_position(assignment)
+
+			"going_to_work":
+				agent.target_position = get_workstation_position(assignment)
+				if agent.is_navigation_finished():
 					mov["state"] = "working"
 					colonist_work_day_addition(colonist)
-			
-			"going_home": #if they're going home then go towards home or alse 
+				else:
+					_step_agent(mov, agent, delta)
+
+			"going_home":
 				var target = get_home_position(colonist)
-				# no home → wander
 				if target == null:
 					mov["state"] = "wandering"
+					agent.target_position = Vector2(
+						randf_range(50, 1870), randf_range(50, 1030)
+					)
 					continue
-				mov["target"] = target
-				if move_toward_target(mov, delta):
+				agent.target_position = target
+				if agent.is_navigation_finished():
 					mov["state"] = "going_to_work"
+				else:
+					_step_agent(mov, agent, delta)
+
 			"working":
 				pass
-			
+
 			"wandering":
-				var pos: Vector2 = mov["position"]
-				var target: Vector2 = mov["target"]
-				if pos.distance_to(target) < 10.0:
-					mov["target"] = Vector2(randf_range(50, 1870), randf_range(50, 1030))
-				move_toward_target(mov, delta)
+				if agent.is_navigation_finished():
+					agent.target_position = Vector2(
+						randf_range(50, 1870), randf_range(50, 1030)
+					)
+				else:
+					_step_agent(mov, agent, delta)
 	value_changed.emit()
 
-
-func move_toward_target(mov: Dictionary, delta: float) -> bool:
-	var pos: Vector2 = mov["position"]
-	var target: Vector2 = mov["target"]
-
-	var direction = target - pos
-
-	if direction.length() < 5.0:
-		return true
-
-	pos += direction.normalized() * mov["speed"] * delta
-	mov["position"] = pos
-
-	return false
-#0,0 til 1920*1080 i hd	
+func _step_agent(mov: Dictionary, agent: NavigationAgent2D, delta: float) -> void:
+	var next_pos = agent.get_next_path_position()
+	var direction = (next_pos - mov["position"]).normalized()
+	mov["position"] += direction * mov["speed"] * delta
 
 # Save system---------------------------------------------------------------------------
 #saves the game and return a true/false if the saving was succesfull
@@ -305,6 +324,8 @@ func load_game() -> bool:
 	if saved_data.has("research"):
 		var research_data = saved_data["research"]
 		researches = research_data.get("researches", researches)
+	for colonist_name in colonist_dict:
+		setup_colonist_body(colonist_name)
 	return true
 
 # Tick System --------------------------------------------------------------------------------------------------
@@ -464,6 +485,7 @@ func breed_colonist(parent1: String, parent2: String): #helper function to breed
 			"state": "idle", 
 			"speed": 5.0     
 		}
+	setup_colonist_body(child_name)
 	
 func kill_colonist(colonist_name: String) -> bool:
 	if colonist_name not in colonist_dict:
@@ -473,6 +495,8 @@ func kill_colonist(colonist_name: String) -> bool:
 	movement_and_sprite_dictionary.erase(colonist_name)
 	working_colonist.erase(colonist_name)
 	happiness_dict.erase(colonist_name)
+	colonist_instances[colonist_name].queue_free()
+	colonist_instances.erase(colonist_name)
 	for house in housing_dictionary:
 		if colonist_name in housing_dictionary[house]["assigned"]:
 			housing_dictionary[house]["assigned"].erase(colonist_name)
