@@ -5,6 +5,7 @@ extends Control
 @onready var workbutton = $Group1/WorkButton
 @onready var housebutton = $Group1/HouseButton
 @onready var actionbutton = $Group1/ActionButton
+@onready var gene_label = $Group2/Label4
 var name_of_colonist
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -114,13 +115,23 @@ func update_house_checkbox() -> void:
 	else:
 		housebutton.text = "Currently: " + str(house) + "
 		Assign to"
+func trait_name(index):
+	return(str(Global.GameManager.trait_dict[Global.GameManager.colonist_dict[name_of_colonist][index]]["name"]))
 
 func setup(colonist_name, colonist_sprite):
 	name_of_colonist = colonist_name
 	sprite.texture = load(colonist_sprite) as Texture2D
 	name_tag.text = str(colonist_name) + "
 	Happiness: " + str(Global.GameManager.happiness_dict[colonist_name]["happiness"])
-	
+	var temp_string = ""
+	for i in range(6):
+		if i < 4:
+			temp_string += str(trait_name(i)) + ", "
+		if i == 4:
+			temp_string += str(trait_name(i)) + " and "
+		if i == 5:
+			temp_string += str(trait_name(i))
+	gene_label.text = str(colonist_name) + " is " + temp_string
 	pass
 
 func _on_action_pressed(id):

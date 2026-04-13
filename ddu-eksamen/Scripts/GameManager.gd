@@ -169,7 +169,7 @@ func colonist_work_day_addition(colonist_name):
 func colonist_move(delta: float) -> void:
 	for colonist in colonist_dict:
 		var mov = movement_and_sprite_dictionary[colonist]
-		var body = colonist.get(colonist)
+		var body = colonist_instances.get(colonist)
 		if body == null:
 			continue
 		var agent: NavigationAgent2D = body.get_node("NavigationAgent2D")
@@ -223,7 +223,7 @@ func colonist_move(delta: float) -> void:
 					)
 				else:
 					_step_agent(mov, agent, delta)
-	value_changed.emit()
+	#value_changed.emit() Laggy at gemme hver frame
 
 func _step_agent(mov: Dictionary, agent: NavigationAgent2D, delta: float) -> void:
 	var next_pos = agent.get_next_path_position()

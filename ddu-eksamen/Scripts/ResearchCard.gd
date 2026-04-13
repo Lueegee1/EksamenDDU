@@ -17,6 +17,11 @@ func setup(index):
 		discription.text = Global.GameManager.researches[index]["description"]
 	else:
 		discription.text = "This is a very mysterious research"
+	cost.text = "Cost:
+		" + str(Global.GameManager.researches[index]["cost"][0]) + "
+		" + str(Global.GameManager.researches[index]["cost"][1]) + "
+		" + str(Global.GameManager.researches[index]["cost"][2]) + "
+		" + str(Global.GameManager.researches[index]["cost"][3])
 
 # Called when the node enters the scene tree for the first time.
 
@@ -29,8 +34,6 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if Global.GameManager.meet_research_requirements(research) and Global.GameManager.can_afford_research(research):
-		print("Meets requirements")
-		print(research)
 		research_button.disabled = false
 	else:
 		research_button.disabled = true
