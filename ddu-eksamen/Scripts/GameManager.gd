@@ -104,7 +104,7 @@ func get_new_colony(colony_population):
 		var trait_array: Array = generate_starter_trait_array() # the trait array
 		colonist_dict[colonist_name] = trait_array #adds them to the colonist dict
 		workers_dict[colonist_name] = "unemployed" #adds them as unemployed to the workers dict
-		happiness_dict[colonist_name] = {"happiness": base_happiness, "sick" : false, "grieving": false, "homeless" : false, "surgery": false, "blood_on_hands": false}
+		happiness_dict[colonist_name] = {"happiness": base_happiness, "sick" : false, "grieving_1": false, "homeless" : false, "surgery": false, "grieving_2": false}
 		movement_and_sprite_dictionary[colonist_name] = {
 			"position": Vector2(randf_range(0, 1920), randf_range(0, 1080)),
 			"target": Vector2.ZERO,
@@ -316,6 +316,7 @@ func _on_tick_timer_timeout() -> void:
 	happiness_tick()
 	Global.average_happiness = average_happiness()
 
+
 # Resource functions-----------------------------------------------------------------------------------------------
 
 func worker_productivity(worker): #calculates the individual workers productivity
@@ -471,13 +472,14 @@ func kill_colonist(colonist_name: String) -> bool:
 	workers_dict.erase(colonist_name)
 	movement_and_sprite_dictionary.erase(colonist_name)
 	working_colonist.erase(colonist_name)
+	happiness_dict.erase(colonist_name)
 	for house in housing_dictionary:
 		if colonist_name in housing_dictionary[house]["assigned"]:
 			housing_dictionary[house]["assigned"].erase(colonist_name)
 	for colonist in happiness_dict:
 		if 14 not in colonist_dict[colonist]:
 			happiness_dict[colonist]["grieving_1"] = true
-	happiness_dict.erase(colonist_name)
+
 	value_changed.emit()
 	return true
 
