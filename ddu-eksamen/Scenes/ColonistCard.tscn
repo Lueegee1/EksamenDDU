@@ -5,8 +5,17 @@
 [ext_resource type="Texture2D" uid="uid://dkpbq1ka4kp7i" path="res://Assets/temp files/buttons/Sprite-0003-Sheet2.png" id="2_macvx"]
 [ext_resource type="Texture2D" uid="uid://dsq0jh0ac8php" path="res://Assets/temp files/buttons/Sprite-0003-Sheet1.png" id="3_dybca"]
 [ext_resource type="Texture2D" uid="uid://djnu61kuh6ddx" path="res://Assets/temp files/buttons/Sprite-0003-Sheet5.png" id="4_058vy"]
+[ext_resource type="Texture2D" uid="uid://bof7pvd4tu0yp" path="res://Assets/temp files/buttons/Sprite-0003-Sheet4.png" id="5_dybca"]
+[ext_resource type="Texture2D" uid="uid://t8q6w2csfxu7" path="res://Assets/temp files/buttons/Sprite-0003-Sheet8.png" id="6_058vy"]
+[ext_resource type="Texture2D" uid="uid://b024y86uuq6qs" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet5.png" id="8_qthgu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dhpgx"]
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.8039216)
+
+[sub_resource type="LabelSettings" id="LabelSettings_stsfk"]
 font_size = 20
 outline_size = 2
 outline_color = Color(0, 0, 0, 1)
@@ -21,19 +30,25 @@ offset_right = 415.0
 offset_bottom = 175.0
 script = ExtResource("1_058vy")
 
-[node name="Sprite" type="Sprite2D" parent="." unique_id=1149236437]
-position = Vector2(64, 100)
+[node name="Group1" type="Control" parent="." unique_id=837707869]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Sprite" type="Sprite2D" parent="Group1" unique_id=1149236437]
+visible = false
+position = Vector2(64, 116)
 texture = ExtResource("1_dhpgx")
 
-[node name="Label" type="Label" parent="." unique_id=796735701]
+[node name="Label" type="Label" parent="Group1" unique_id=796735701]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 23.0
+offset_right = 162.0
+offset_bottom = 49.0
 text = "Placeholder Text
 "
 label_settings = SubResource("LabelSettings_dhpgx")
 
-[node name="WorkButton" type="MenuButton" parent="." unique_id=24710806]
+[node name="WorkButton" type="MenuButton" parent="Group1" unique_id=24710806]
 layout_mode = 0
 offset_left = 200.0
 offset_right = 412.0
@@ -60,7 +75,7 @@ popup/item_4/text = "Studying"
 popup/item_4/checkable = 1
 popup/item_4/id = 3
 
-[node name="HouseButton" type="MenuButton" parent="." unique_id=1177305686]
+[node name="HouseButton" type="MenuButton" parent="Group1" unique_id=1177305686]
 layout_mode = 0
 offset_left = 200.0
 offset_top = 56.0
@@ -88,20 +103,71 @@ popup/item_4/text = "House 4"
 popup/item_4/checkable = 1
 popup/item_4/id = 3
 
-[node name="GeneButton" type="MenuButton" parent="." unique_id=2046734050]
+[node name="ActionButton" type="MenuButton" parent="Group1" unique_id=2046734050]
 layout_mode = 0
 offset_left = 200.0
 offset_top = 112.0
 offset_right = 412.0
 offset_bottom = 166.0
-disabled = true
-text = "View colonist 
-phenetypes"
-icon = ExtResource("4_058vy")
+text = "Use actions on 
+colonist"
+icon = ExtResource("5_dybca")
 flat = false
 alignment = 0
 autowrap_trim_flags = 64
-item_count = 1
-popup/item_0/text = "Foraging"
-popup/item_0/checkable = 1
+item_count = 3
+popup/item_0/text = "Kill with axe"
 popup/item_0/id = 0
+popup/item_1/text = "Lethal injection"
+popup/item_1/id = 1
+popup/item_2/text = "Genetic Sequencing"
+popup/item_2/id = 2
+
+[node name="TextureRect" type="TextureRect" parent="Group1" unique_id=1016168978]
+layout_mode = 0
+offset_top = 52.0
+offset_right = 114.0
+offset_bottom = 166.0
+texture = ExtResource("6_058vy")
+
+[node name="Group2" type="Control" parent="." unique_id=415583282]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Group2" unique_id=683448798]
+z_index = -1
+layout_mode = 0
+offset_right = 412.0
+offset_bottom = 175.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Group2" unique_id=1638079641]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 410.0
+offset_bottom = 173.0
+color = Color(0.0885599, 0.0885599, 0.0885599, 1)
+
+[node name="Label4" type="Label" parent="Group2" unique_id=804738155]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 414.0
+offset_bottom = 173.0
+text = "View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum "
+label_settings = SubResource("LabelSettings_stsfk")
+autowrap_mode = 3
+
+[node name="TextureButton2" type="TextureButton" parent="Group2" unique_id=1468104571]
+layout_mode = 0
+offset_left = 378.0
+offset_top = 141.0
+offset_right = 410.0
+offset_bottom = 173.0
+texture_normal = ExtResource("4_058vy")
+texture_pressed = ExtResource("8_qthgu")
+
+[connection signal="pressed" from="Group2/TextureButton2" to="." method="_on_gene_button_pressed"]
