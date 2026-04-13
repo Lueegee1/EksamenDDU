@@ -184,6 +184,7 @@ texture_normal = ExtResource("11_3jf1l")
 texture_pressed = ExtResource("12_356ba")
 
 [node name="Button5" type="TextureButton" parent="UI/MenuButtons" unique_id=1574702413]
+visible = false
 layout_mode = 0
 offset_top = 184.0
 offset_right = 40.0
@@ -281,6 +282,7 @@ texture = ExtResource("4_kldst")
 position = Vector2(608, 369)
 
 [node name="Eliots seje ting" type="CanvasLayer" parent="." unique_id=1257076175]
+visible = false
 offset = Vector2(300, 81)
 scale = Vector2(4, 4)
 transform = Transform2D(4, 0, 0, 4, 300, 81)

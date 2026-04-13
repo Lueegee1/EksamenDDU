@@ -10,6 +10,7 @@ extends CanvasLayer
 @onready var colonist_menu = $RootMenu/ColonistScroll
 
 const character_card = preload("res://Scenes/ColonistCard.tscn")
+const research_card = preload("res://Scenes/ResearchCard.tscn")
 const bar_max_width = 768.0  # 2/5 of 1920
 const bar_height = 30
 const lerp_speed = 0.1
@@ -25,6 +26,7 @@ var research_open = false
 var colonist_open = false
 
 var colonists_card_dict: Dictionary = {}
+var research_card_dict: Dictionary ={}
 
 func position_elements() -> void:
 	#Bar
@@ -72,7 +74,7 @@ func update_menus(delta: float) -> void:
 	buttons[2].position.x =move_toward(buttons[2].position.x,root_pos.x*0.285, 0.27*speed*delta)
 	buttons[3].position.x =move_toward(buttons[3].position.x,root_pos.x*0.285+(1*0.45*30), 0.27*speed*delta)
 	buttons[5].position.x =move_toward(buttons[5].position.x,root_pos.x*0.285+(2*0.45*30), 0.27*speed*delta)
-	buttons[8].set_position(Vector2((screen_dim.x/4+4) +(-root_closed_pos.x + root_menu.position.x)/4,screen_dim.y/10))
+	buttons[8].position.x = move_toward(buttons[8].position.x, (screen_dim.x/4+4) +(root_pos.x-root_closed_pos.x)/4, 0.255*speed*delta)
 	#Unreadable logic
 	if not build_open:
 		build_menu.visible = false
@@ -87,15 +89,33 @@ func update_menus(delta: float) -> void:
 	else:
 		colonist_menu.visible = true
 	
+	#Make colonist menu
 	for character in Global.GameManager.colonist_dict:
 		if character not in colonists_card_dict:
 			var card = character_card.instantiate()
 			$RootMenu/ColonistScroll/ColonistMenu.add_child(card)
 			card.setup(character, "res://icon.svg")
 			colonists_card_dict[character] = card
+
+	var to_remove = []
 	for character in colonists_card_dict:
 		if character not in Global.GameManager.colonist_dict:
-			$RootMenu/ColonistMenu.remove_child(colonists_card_dict[character])
+			to_remove.append(character)
+	for character in to_remove:
+		$RootMenu/ColonistScroll/ColonistMenu.remove_child(colonists_card_dict[character])
+		colonists_card_dict.erase(character)
+	#Make research menu
+
+	for research in range(Global.GameManager.researches.size()):
+		research +=1
+		if Global.GameManager.meet_research_requirements(research):
+			var card = research_card.instantiate()
+			$RootMenu/ResearchScroll/ResearchMenu.add_child(card)
+			card.setup(research)
+			research_card_dict[research] = card
+	for research in research_card_dict:
+		if research not in Global.GameManager.colonist_dict:
+			$RootMenu/ResearchScroll/ResearchMenu.remove_child(research_card_dict[research])
 
 func _ready() -> void:
 	position_elements()
@@ -140,6 +160,7 @@ func _on_button_pressed(button):
 			colonist_open = false
 			build_open = false
 	if button == buttons[6]:
+		Global.GameManager.kill_colonist($RootMenu/ColonistScroll/ColonistMenu.get_child(1).name_tag.text)
 		print("button 7")
 	if button == buttons[7]:
 		print("button 8")

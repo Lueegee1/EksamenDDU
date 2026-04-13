@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://barv34ofqxwg1"]
+
+[ext_resource type="Script" uid="uid://r5gr2qn7nuh1" path="res://Scenes/ResearchCard.gd" id="1_f2vpl"]
+[ext_resource type="Texture2D" uid="uid://wf57ycnil5u2" path="res://icon.svg" id="2_04l2y"]
+[ext_resource type="Texture2D" uid="uid://t8q6w2csfxu7" path="res://Assets/temp files/buttons/Sprite-0003-Sheet8.png" id="2_xehxn"]
+[ext_resource type="Texture2D" uid="uid://csbv60p3aqecs" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet8.png" id="3_f2vpl"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_dhpgx"]
+font_size = 20
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 4
+shadow_color = Color(0, 0, 0, 0.8039216)
+
+[node name="ResearchCard" type="Control" unique_id=768999311]
+custom_minimum_size = Vector2(415, 175)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 415.0
+offset_bottom = 175.0
+script = ExtResource("1_f2vpl")
+
+[node name="Group1" type="Control" parent="." unique_id=2109116533]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Sprite" type="Sprite2D" parent="Group1" unique_id=1149236437]
+position = Vector2(64, 100)
+texture = ExtResource("2_04l2y")
+
+[node name="Label" type="Label" parent="Group1" unique_id=796735701]
+layout_mode = 0
+offset_right = 173.0
+offset_bottom = 59.0
+text = "Name of research
+"
+label_settings = SubResource("LabelSettings_dhpgx")
+
+[node name="Label2" type="Label" parent="Group1" unique_id=43062341]
+layout_mode = 0
+offset_left = 255.0
+offset_right = 414.0
+offset_bottom = 152.0
+text = "Cost:           
+112
+231
+232
+44"
+label_settings = SubResource("LabelSettings_dhpgx")
+horizontal_alignment = 2
+
+[node name="Label3" type="Label" parent="Group1" unique_id=386586081]
+layout_mode = 0
+offset_left = 132.0
+offset_top = 140.0
+offset_right = 226.0
+offset_bottom = 168.0
+text = "Research:"
+label_settings = SubResource("LabelSettings_dhpgx")
+horizontal_alignment = 2
+
+[node name="TextureButton" type="TextureButton" parent="Group1" unique_id=1360335245]
+layout_mode = 0
+offset_left = 235.0
+offset_top = 140.0
+offset_right = 267.0
+offset_bottom = 172.0
+texture_normal = ExtResource("2_xehxn")
+texture_pressed = ExtResource("3_f2vpl")
+
+[node name="Label4" type="Label" parent="Group1" unique_id=1870785312]
+layout_mode = 0
+offset_left = 131.0
+offset_top = 110.0
+offset_right = 232.0
+offset_bottom = 138.0
+text = "View desc:"
+label_settings = SubResource("LabelSettings_dhpgx")
+horizontal_alignment = 2
+
+[node name="TextureButton2" type="TextureButton" parent="Group1" unique_id=1871101407]
+layout_mode = 0
+offset_left = 235.0
+offset_top = 110.0
+offset_right = 267.0
+offset_bottom = 142.0
+texture_normal = ExtResource("2_xehxn")
+texture_pressed = ExtResource("3_f2vpl")
+
+[node name="Group 2" type="Control" parent="." unique_id=1699188147]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Group 2" unique_id=1043464031]
+layout_mode = 0
+offset_right = 415.0
+offset_bottom = 175.0
+color = Color(0, 0, 0, 1)
+
+[node name="Label4" type="Label" parent="Group 2" unique_id=1500320946]
+layout_mode = 0
+offset_right = 415.0
+offset_bottom = 175.0
+text = "View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc "
+label_settings = SubResource("LabelSettings_dhpgx")
+autowrap_mode = 3
