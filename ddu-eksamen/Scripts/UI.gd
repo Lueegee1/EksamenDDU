@@ -11,6 +11,7 @@ extends CanvasLayer
 
 const character_card = preload("res://Scenes/ColonistCard.tscn")
 const research_card = preload("res://Scenes/ResearchCard.tscn")
+const build_card = preload("res://Scenes/BuildCard.tscn")
 const bar_max_width = 768.0  # 2/5 of 1920
 const bar_height = 30
 const lerp_speed = 0.1
@@ -27,6 +28,7 @@ var colonist_open = false
 
 var colonists_card_dict: Dictionary = {}
 var research_card_dict: Dictionary ={}
+var build_card_dict: Dictionary = {}
 
 func position_elements() -> void:
 	#Bar
@@ -50,7 +52,7 @@ func position_elements() -> void:
 	buttons[5].set_position(Vector2(root_closed_pos.x*0.285+(2*0.45*30),0))
 	buttons[6].set_position(Vector2(31*2, screen_dim.y/5+10)+menu_offset)
 	buttons[7].set_position(Vector2(root_open_pos.x*0.285,0) + Vector2(4*0.45*31,0))	
-	buttons[8].set_position(Vector2(screen_dim.x/4+8, screen_dim.y/10))
+	buttons[8].set_position(Vector2(screen_dim.x/20+80, screen_dim.y/80))
 	
 	#Menus
 	for button in buttons:
@@ -74,7 +76,7 @@ func update_menus(delta: float) -> void:
 	buttons[2].position.x =move_toward(buttons[2].position.x,root_pos.x*0.285, 0.27*speed*delta)
 	buttons[3].position.x =move_toward(buttons[3].position.x,root_pos.x*0.285+(1*0.45*30), 0.27*speed*delta)
 	buttons[5].position.x =move_toward(buttons[5].position.x,root_pos.x*0.285+(2*0.45*30), 0.27*speed*delta)
-	buttons[8].position.x = move_toward(buttons[8].position.x, (screen_dim.x/4+4) +(root_pos.x-root_closed_pos.x)/4, 0.255*speed*delta)
+	buttons[8].position.x = move_toward(buttons[8].position.x, (screen_dim.x/20+71) +(2+root_pos.x-root_closed_pos.x)/4, 0.255*speed*delta)
 	#Unreadable logic
 	if not build_open:
 		build_menu.visible = false
@@ -104,6 +106,7 @@ func update_menus(delta: float) -> void:
 	for character in to_remove:
 		$RootMenu/ColonistScroll/ColonistMenu.remove_child(colonists_card_dict[character])
 		colonists_card_dict.erase(character)
+	
 	#Make research menu
 	for research in range(Global.GameManager.researches.size()):
 		research +=1
@@ -120,7 +123,16 @@ func update_menus(delta: float) -> void:
 	for research in to_remove2:
 		$RootMenu/ResearchScroll/ResearchMenu.remove_child(research_card_dict[research])
 		research_card_dict.erase(research)
-
+	
+	#Make Building Menu
+	#Hardcoding like a dweeb
+	for build_type in ["farm", "mine", "plant_station", "research_lab", "house", "house", "house", "house"]:
+		if Global.GameManager.can_build_building(build_type) and build_type not in build_card_dict:
+			var card = build_card.instantiate()
+			$RootMenu/BuildScroll/BuildMenu.add_child(card)
+			card.setup(build_type)
+			build_card_dict[build_type] = card
+			
 func update_ressources():
 	$Ressources.text = str(Global.plant_matter) + "
 	" + str(Global.minerals) + "
@@ -182,9 +194,7 @@ func _on_button_pressed(button):
 			colonist_open = true 
 		if root_open:
 			root_open = false
-			$MenuButtons/Button9.flip_h = false
 		else:
 			root_open = true
-			$MenuButtons/Button9.flip_h = true
 		print(root_open)
 	

@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://txsaqrmj5c8n"]
 
+[ext_resource type="Script" uid="uid://d3ycq41vl4mo8" path="res://Scripts/BuildCard.gd" id="1_3puww"]
 [ext_resource type="Texture2D" uid="uid://wf57ycnil5u2" path="res://icon.svg" id="2_ctjep"]
 [ext_resource type="Texture2D" uid="uid://t8q6w2csfxu7" path="res://Assets/temp files/buttons/Sprite-0003-Sheet8.png" id="3_3puww"]
 [ext_resource type="Texture2D" uid="uid://bof7pvd4tu0yp" path="res://Assets/temp files/buttons/Sprite-0003-Sheet4.png" id="4_ctjep"]
@@ -19,6 +20,7 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 415.0
 offset_bottom = 175.0
+script = ExtResource("1_3puww")
 
 [node name="Group1" type="Control" parent="." unique_id=2109116533]
 anchors_preset = 0
