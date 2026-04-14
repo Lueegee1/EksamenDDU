@@ -103,7 +103,7 @@ func get_new_colony(colony_population):
 		workers_dict[colonist_name] = "unemployed" #adds them as unemployed to the workers dict
 		happiness_dict[colonist_name] = {"happiness": base_happiness, "sick" : false, "grieving_1": false, "homeless" : false, "surgery": false, "grieving_2": false}
 		movement_and_sprite_dictionary[colonist_name] = {
-			"position": Vector2(100,100),
+			"position": Vector2(550,550),
 			"target": Vector2.ZERO,
 			"state": "idle",  # idle | going_to_work | going_home | wandering
 			"speed": 5.0     # pixels per second
@@ -128,8 +128,12 @@ func setup_colonist_body(colonist_name: String) -> void:
 	body.add_child(Sprite)
 	body.z_index = 100
 	Sprite.texture = load("res://icon.svg")
-	Sprite.scale = Vector2(1, 1)
-	colonist_instances[colonist_name] = body
+	Sprite.scale = Vector2(0.5, 0.5)
+	var agent: NavigationAgent2D = body.get_node("NavigationAgent2D")
+	var nav_region = get_tree().get_root().find_child("NavigationRegion2D", true, false)
+	if nav_region:
+		agent.set_navigation_map(nav_region.get_navigation_map())
+		colonist_instances[colonist_name] = body
 	
 func _load_building_positions() -> void:
 	for marker in building_markers_node.get_children():
@@ -170,6 +174,10 @@ func colonist_work_day_addition(colonist_name):
 	if colonist_name in movement_and_sprite_dictionary:
 		movement_and_sprite_dictionary[colonist_name]["state"] = "going_home"
 
+func get_random_building_position() -> Vector2:
+	var keys = building_positions.keys()
+	var random_key = keys.pick_random()
+	return building_positions[random_key]
 
 func colonist_move(delta: float) -> void:
 	for colonist in colonist_dict:
@@ -222,15 +230,14 @@ func colonist_move(delta: float) -> void:
 				pass
 
 			"wandering":
-				if agent.is_navigation_finished():
-					agent.target_position = Vector2(
-						randf_range(50, 1870), randf_range(50, 1030)
-					)
-				else:
-					_step_agent(mov, agent, delta)
-	#value_changed.emit() Laggy at gemme hver frame
+				if agent.is_navigation_finished() or agent.get_next_path_position() == mov["position"]:
+					agent.target_position = get_random_building_position()
+
+				_step_agent(mov, agent, delta)
 
 func _step_agent(mov: Dictionary, agent: NavigationAgent2D, delta: float) -> void:
+	if agent.is_navigation_finished():
+		return
 	var next_pos = agent.get_next_path_position()
 	var direction = (next_pos - mov["position"]).normalized()
 	mov["position"] += direction * mov["speed"] * delta
@@ -335,7 +342,7 @@ func load_game() -> bool:
 
 # Tick System --------------------------------------------------------------------------------------------------
 func _process(delta: float) -> void:
-	colonist_move(delta)
+	colonist_move(delta * 5)
 
 func _on_tick_timer_timeout() -> void:
 	current_tick += 1
