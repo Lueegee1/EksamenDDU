@@ -103,7 +103,7 @@ func get_new_colony(colony_population):
 		workers_dict[colonist_name] = "unemployed" #adds them as unemployed to the workers dict
 		happiness_dict[colonist_name] = {"happiness": base_happiness, "sick" : false, "grieving_1": false, "homeless" : false, "surgery": false, "grieving_2": false}
 		movement_and_sprite_dictionary[colonist_name] = {
-			"position": Vector2(10,10),
+			"position": Vector2(100,100),
 			"target": Vector2.ZERO,
 			"state": "idle",  # idle | going_to_work | going_home | wandering
 			"speed": 5.0     # pixels per second
