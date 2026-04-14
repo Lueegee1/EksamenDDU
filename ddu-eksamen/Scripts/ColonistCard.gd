@@ -47,10 +47,8 @@ func _on_house_pressed(id) -> void:
 		1: house = "house2"
 		2: house = "house3"
 		3: house = "house4"
-		4: house = "homeless"
-	
-#	if Global.GameManager.assign_colonist_to_house(name_of_colonist, str(house)):
-		
+		4: house = "not_built"
+			
 	# Uncheck all items first
 	for i in popup.item_count:
 		popup.set_item_checked(i, false)
@@ -58,8 +56,7 @@ func _on_house_pressed(id) -> void:
 	# Check the one that was pressed
 		popup.set_item_checked(index, true)
 		#print(Global.GameManager.housing_dictionary[house])
-		if house in Global.GameManager.housing_dictionary:
-			Global.GameManager.assign_colonist_to_house(name_of_colonist, house)
+		Global.GameManager.assign_colonist_to_house(name_of_colonist, house)
 		
 func update_work_checkbox(workplace: String) -> void:
 	var popup = workbutton.get_popup()
@@ -88,10 +85,10 @@ func update_work_checkbox(workplace: String) -> void:
 		popup.set_item_disabled(3,false)
 	else:
 		popup.set_item_disabled(3,true)
-	# if research table built
-		#popup.set_item_disabled(4,false)
-	#else:
-		#popup.set_item_disabled(4,true)
+	if Global.GameManager.researches[1]["researched"]==1:
+		popup.set_item_disabled(4,false)
+	else:
+		popup.set_item_disabled(4,true)
 
 	
 func update_house_checkbox() -> void:
@@ -123,6 +120,7 @@ func update_house_checkbox() -> void:
 		null: house= "Homeless"
 	if house == "Homeless":
 		housebutton.text = "Bro is a bum"
+		popup.set_item_checked(0, true)
 	else:
 		housebutton.text = "Currently: " + str(house) + "
 		Assign to"
@@ -136,6 +134,23 @@ func update_house_checkbox() -> void:
 	while house_count < 4:
 		popup.set_item_disabled(house_count+1, true)
 		house_count+=1
+	for key in Global.GameManager.housing_dictionary.keys():
+		match key:
+			"house1": popup.set_item_disabled(1, false)
+			"house2": popup.set_item_disabled(2, false)
+			"house3": popup.set_item_disabled(3, false)
+			"house4": popup.set_item_disabled(4, false)
+			"not_built":popup.set_item_disabled(0, false)
+
+	for key in Global.GameManager.housing_dictionary.keys():
+		if not len(Global.GameManager.housing_dictionary[key]["assigned"]) < Global.GameManager.housing_dictionary[key]["capacity"] and name_of_colonist not in Global.GameManager.housing_dictionary[key]["assigned"]:
+			match key:
+				"house1": popup.set_item_disabled(1, true)
+				"house2": popup.set_item_disabled(2, true)
+				"house3": popup.set_item_disabled(3, true)
+				"house4": popup.set_item_disabled(4, true)
+				
+
 	
 func trait_name(index):
 	return(str(Global.GameManager.trait_dict[Global.GameManager.colonist_dict[name_of_colonist][index]]["name"]))

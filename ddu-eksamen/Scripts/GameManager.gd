@@ -13,7 +13,7 @@ var trait_dict: Dictionary = {}
 var housing_dictionary: Dictionary = {
 	"not_built" :
 		{
-			"capacity" : 0,
+			"capacity" : 100,
 			"assigned" : []
 		}
 }
@@ -36,6 +36,9 @@ var research_prod_modifier:float = 0.1
 var plant_prod_modifier:float = 1.0
 var food_prod_modifier:float = 1.0
 var minerals_prod_modifier:float = 1.0
+var house_price = [10,10]
+var house_upgrade1_price = [15,20]
+
 
 signal value_changed
 const SAVE_FILE = "user://database.json"
@@ -537,8 +540,17 @@ func kill_colonist(colonist_name: String) -> bool:
 # Backend assignment
 func assign_colonist_to_house(name, house): #helper funciton to assign a specific colonist to a specific house
 	if len(housing_dictionary[house]["assigned"]) < housing_dictionary[house]["capacity"] and name not in housing_dictionary[house]["assigned"]:
+		for i in housing_dictionary:
+			if name in housing_dictionary[i]["assigned"]:
+				housing_dictionary[i]["assigned"].erase(name)
+				print(str(name) + " was removed from " + str(i))
+				break
 		housing_dictionary[house]["assigned"].append(name)
 		value_changed.emit()
+		print(str(name) + " was added to " + str(house))
+	
+			
+			
 		return true
 	return false #returns false if the assignment was unsuccesfull
 		
@@ -571,7 +583,7 @@ func can_build_building(building_type: String) -> bool:
 func can_afford_buildings(type: String) -> bool:
 	match type:
 		"house":
-			return Global.minerals >= 10 and Global.plant_matter >= 10
+			return Global.minerals >= house_price[0] and Global.plant_matter >= house_price[1]
 
 		"farm", "research_lab", "mine", "plant_station":
 			return Global.plant_matter >= 10
@@ -582,7 +594,8 @@ func can_afford_buildings(type: String) -> bool:
 func can_upgrade_building(building: String) -> bool:
 	# Only houses 
 	if not housing_dictionary.has(building):
-		return false	
+		return false
+	return true
 
 	# Upgrade 1 → 2 requires research nr 9
 	if housing_dictionary[building]["capacity"] == 1:
@@ -618,8 +631,8 @@ func build_new_building(type: String) -> bool:
 				"assigned": []
 			}
 
-			resource_consumption("minerals", 10)
-			resource_consumption("plant_matter", 10)
+			resource_consumption("minerals", house_price[0])
+			resource_consumption("plant_matter", house_price[1])
 
 		"farm", "research_lab", "mine", "plant_station":
 			workstation_dictionary[type] = {
@@ -652,8 +665,8 @@ func upgrade_building(building: String) -> bool:
 	if housing_dictionary[building]["capacity"] == 1:
 		housing_dictionary[building]["capacity"] = 2
 
-		resource_consumption("minerals", 20)
-		resource_consumption("plant_matter", 15)
+		resource_consumption("minerals", house_upgrade1_price[0])
+		resource_consumption("plant_matter", house_upgrade1_price[1])
 
 		value_changed.emit()
 		return true
@@ -661,7 +674,7 @@ func upgrade_building(building: String) -> bool:
 	return false
 
 func can_afford_upgrade(building: String) -> bool:
-	return Global.minerals >= 20 and Global.plant_matter >= 15
+	return Global.minerals >= house_upgrade1_price[1] and Global.plant_matter >= house_upgrade1_price[0]
 	
 	
 # apply research buff

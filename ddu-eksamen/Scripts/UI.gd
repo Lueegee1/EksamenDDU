@@ -29,6 +29,7 @@ var colonist_open = false
 var colonists_card_dict: Dictionary = {}
 var research_card_dict: Dictionary ={}
 var build_card_dict: Dictionary = {}
+var house_count = 0
 
 func position_elements() -> void:
 	#Bar
@@ -52,7 +53,7 @@ func position_elements() -> void:
 	buttons[5].set_position(Vector2(root_closed_pos.x*0.285+(2*0.45*30),0))
 	buttons[6].set_position(Vector2(31*2, screen_dim.y/5+10)+menu_offset)
 	buttons[7].set_position(Vector2(root_open_pos.x*0.285,0) + Vector2(4*0.45*31,0))	
-	buttons[8].set_position(Vector2(screen_dim.x/20+80, screen_dim.y/80))
+	buttons[8].set_position(Vector2(screen_dim.x/5+74, screen_dim.y/12))
 	
 	#Menus
 	for button in buttons:
@@ -76,7 +77,7 @@ func update_menus(delta: float) -> void:
 	buttons[2].position.x =move_toward(buttons[2].position.x,root_pos.x*0.285, 0.27*speed*delta)
 	buttons[3].position.x =move_toward(buttons[3].position.x,root_pos.x*0.285+(1*0.45*30), 0.27*speed*delta)
 	buttons[5].position.x =move_toward(buttons[5].position.x,root_pos.x*0.285+(2*0.45*30), 0.27*speed*delta)
-	buttons[8].position.x = move_toward(buttons[8].position.x, (screen_dim.x/20+71) +(2+root_pos.x-root_closed_pos.x)/4, 0.255*speed*delta)
+	buttons[8].position.x = move_toward(buttons[8].position.x, (screen_dim.x/5+78) +(2+root_pos.x**1.001-root_closed_pos.x**1.001)/4, 0.255*speed*delta)
 	#Unreadable logic
 	if not build_open:
 		build_menu.visible = false
@@ -125,13 +126,14 @@ func update_menus(delta: float) -> void:
 		research_card_dict.erase(research)
 	
 	#Make Building Menu
-	#Hardcoding like a dweeb
-	for build_type in ["farm", "mine", "plant_station", "research_lab", "house", "house", "house", "house"]:
-		if Global.GameManager.can_build_building(build_type) and build_type not in build_card_dict:
-			var card = build_card.instantiate()
-			$RootMenu/BuildScroll/BuildMenu.add_child(card)
-			card.setup(build_type)
-			build_card_dict[build_type] = card
+	
+	var build_type ="house"
+	if Global.GameManager.can_build_building(build_type) and house_count < 4 and len(Global.GameManager.housing_dictionary) >= house_count+1:
+		house_count +=1
+		var card = build_card.instantiate()
+		$RootMenu/BuildScroll/BuildMenu.add_child(card)
+		card.setup(house_count)
+		build_card_dict[build_type] = card
 			
 func update_ressources():
 	$Ressources.text = str(Global.plant_matter) + "

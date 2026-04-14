@@ -21,8 +21,9 @@
 [ext_resource type="Texture2D" uid="uid://b024y86uuq6qs" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet5.png" id="18_0iyqm"]
 [ext_resource type="Texture2D" uid="uid://dno26u0libpru" path="res://Assets/temp files/buttons/Sprite-0003-Sheet7.png" id="19_jn8rg"]
 [ext_resource type="Texture2D" uid="uid://bronxu1ra3c4l" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet7.png" id="20_umnjm"]
-[ext_resource type="Texture2D" uid="uid://oej63ki3d7gp" path="res://Assets/temp files/menu-export.png" id="21_18uti"]
+[ext_resource type="Texture2D" uid="uid://k7r08t6ynetk" path="res://Assets/temp files/buttons/menubutton.png" id="21_18uti"]
 [ext_resource type="LabelSettings" uid="uid://coa0fwh54ygsy" path="res://Assets/Label_settings.tres" id="22_18uti"]
+[ext_resource type="Texture2D" uid="uid://coboehq7nphg5" path="res://Assets/temp files/buttons/menubackground.png" id="22_khy6b"]
 [ext_resource type="Texture2D" uid="uid://cksnss8odk8hf" path="res://Assets/GroundBase.png" id="23_4eqlp"]
 [ext_resource type="Texture2D" uid="uid://baraxxl2mqxgd" path="res://Assets/PathBase.png" id="24_18uti"]
 [ext_resource type="Texture2D" uid="uid://8g8mp25u8g77" path="res://Assets/CaveBase.png" id="25_khy6b"]
@@ -151,7 +152,6 @@ offset_bottom = 100.0
 texture = ExtResource("4_b2bpf")
 
 [node name="MenuButtons" type="Control" parent="UI" unique_id=1602124693]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_right = 40.0
@@ -175,6 +175,7 @@ texture_normal = ExtResource("7_lbihj")
 texture_pressed = ExtResource("8_raj38")
 
 [node name="Button3" type="TextureButton" parent="UI/MenuButtons" unique_id=1836126800]
+z_index = 2
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -183,6 +184,7 @@ texture_normal = ExtResource("9_8e0uq")
 texture_pressed = ExtResource("10_i0vto")
 
 [node name="Button4" type="TextureButton" parent="UI/MenuButtons" unique_id=33018113]
+z_index = 2
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -201,6 +203,7 @@ texture_normal = ExtResource("13_i4lct")
 texture_pressed = ExtResource("14_iyesh")
 
 [node name="Button6" type="TextureButton" parent="UI/MenuButtons" unique_id=1038432827]
+z_index = 2
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -230,9 +233,16 @@ texture_pressed = ExtResource("20_umnjm")
 z_index = 1
 layout_mode = 0
 offset_left = 100.0
-offset_right = 300.0
-offset_bottom = 200.0
+offset_right = 117.0
+offset_bottom = 62.0
+scale = Vector2(1.1, 1.1)
 texture_normal = ExtResource("21_18uti")
+
+[node name="Menubackground" type="Sprite2D" parent="UI/MenuButtons/Button9" unique_id=1215898791]
+z_index = -1
+position = Vector2(99, 31.364)
+scale = Vector2(0.98, 0.98)
+texture = ExtResource("22_khy6b")
 
 [node name="RootMenu" type="Control" parent="UI" unique_id=2022202983]
 z_index = 5
@@ -371,11 +381,5 @@ texture = ExtResource("4_kldst")
 
 [node name="Marker2D" type="Marker2D" parent="." unique_id=750165747]
 position = Vector2(608, 369)
-
-[node name="Eliots seje ting" type="CanvasLayer" parent="." unique_id=1257076175]
-layer = 0
-offset = Vector2(300, 81)
-scale = Vector2(4, 4)
-transform = Transform2D(4, 0, 0, 4, 300, 81)
 
 [connection signal="timeout" from="TickTimer" to="." method="_on_tick_timer_timeout"]
