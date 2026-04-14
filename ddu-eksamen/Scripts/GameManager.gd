@@ -29,7 +29,7 @@ var workplaces: Dictionary = {
 	"research_points": "research_lab", 
 }
 var base_happiness = 50
-var colony_start_amount = 6                # the amount of colonists that starts in the colony
+var colony_start_amount = 4                # the amount of colonists that starts in the colony
 var total_trait_amount = 6                 # the amount of traits each colonist has
 var current_tick = 0                       # sets current_tick to zero
 var research_prod_modifier:float = 0.1
@@ -556,7 +556,7 @@ func can_afford_buildings(type: String) -> bool:
 func can_upgrade_building(building: String) -> bool:
 	# Only houses 
 	if not housing_dictionary.has(building):
-		return false
+		return false	
 
 	# Upgrade 1 → 2 requires research nr 9
 	if housing_dictionary[building]["capacity"] == 1:

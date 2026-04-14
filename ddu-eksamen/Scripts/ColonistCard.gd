@@ -71,8 +71,8 @@ func update_work_checkbox(workplace: String) -> void:
 		# Check the matching item
 	match workplace:
 		"farm": popup.set_item_checked(1, true)
-		"mine": popup.set_item_checked(2, true)
-		"plants": popup.set_item_checked(3, true)
+		"mine": popup.set_item_checked(3, true)
+		"plants": popup.set_item_checked(2, true)
 		"research_lab": popup.set_item_checked(4, true)
 		"unemployed": popup.set_item_checked(0, true)
 	match workplace:
@@ -83,6 +83,17 @@ func update_work_checkbox(workplace: String) -> void:
 		"unemployed": workplace="Leisure"
 	workbutton.text = "Currently: " + workplace + "
 	Assign to"
+	
+	if Global.GameManager.researches[2]["researched"]==1:
+		popup.set_item_disabled(3,false)
+	else:
+		popup.set_item_disabled(3,true)
+	# if research table built
+		#popup.set_item_disabled(4,false)
+	#else:
+		#popup.set_item_disabled(4,true)
+
+	
 func update_house_checkbox() -> void:
 	var house
 	for i in Global.GameManager.housing_dictionary:
@@ -115,6 +126,17 @@ func update_house_checkbox() -> void:
 	else:
 		housebutton.text = "Currently: " + str(house) + "
 		Assign to"
+
+	var house_count = 0
+	for key in Global.GameManager.housing_dictionary.keys():
+			if key.begins_with("house"):
+				house_count += 1
+	for i in range(house_count):
+		popup.set_item_disabled(i+1, false)
+	while house_count < 4:
+		popup.set_item_disabled(house_count+1, true)
+		house_count+=1
+	
 func trait_name(index):
 	return(str(Global.GameManager.trait_dict[Global.GameManager.colonist_dict[name_of_colonist][index]]["name"]))
 

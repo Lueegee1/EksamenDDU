@@ -94,7 +94,7 @@ func update_menus(delta: float) -> void:
 		if character not in colonists_card_dict:
 			var card = character_card.instantiate()
 			$RootMenu/ColonistScroll/ColonistMenu.add_child(card)
-			card.setup(character, "res://icon.svg")
+			card.setup(character, "res://Assets/temp files/buttons/Sprite-0003-Sheet3.png")
 			colonists_card_dict[character] = card
 
 	var to_remove = []
@@ -120,6 +120,12 @@ func update_menus(delta: float) -> void:
 	for research in to_remove2:
 		$RootMenu/ResearchScroll/ResearchMenu.remove_child(research_card_dict[research])
 		research_card_dict.erase(research)
+
+func update_ressources():
+	$Ressources.text = str(Global.plant_matter) + "
+	" + str(Global.minerals) + "
+	" + str(Global.food) + "
+	" + str(Global.research_points)
 	
 
 func _ready() -> void:
@@ -131,6 +137,7 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	update_happiness_bar(delta)
 	update_menus(delta)
+	update_ressources()
 	
 
 func _on_button_pressed(button):
@@ -180,4 +187,4 @@ func _on_button_pressed(button):
 			root_open = true
 			$MenuButtons/Button9.flip_h = true
 		print(root_open)
-		
+	

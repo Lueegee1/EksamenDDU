@@ -22,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://dno26u0libpru" path="res://Assets/temp files/buttons/Sprite-0003-Sheet7.png" id="19_jn8rg"]
 [ext_resource type="Texture2D" uid="uid://bronxu1ra3c4l" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet7.png" id="20_umnjm"]
 [ext_resource type="Texture2D" uid="uid://dvowenexx3puy" path="res://Assets/temp files/buttons/Arrowplaceholder.png" id="21_vvhu1"]
+[ext_resource type="LabelSettings" uid="uid://coa0fwh54ygsy" path="res://Assets/Label_settings.tres" id="22_18uti"]
 [ext_resource type="Texture2D" uid="uid://cksnss8odk8hf" path="res://Assets/GroundBase.png" id="23_4eqlp"]
 [ext_resource type="Texture2D" uid="uid://baraxxl2mqxgd" path="res://Assets/PathBase.png" id="24_18uti"]
 [ext_resource type="Texture2D" uid="uid://8g8mp25u8g77" path="res://Assets/CaveBase.png" id="25_khy6b"]
@@ -243,7 +244,7 @@ offset_bottom = 40.0
 [node name="ColonistScroll" type="ScrollContainer" parent="UI/RootMenu" unique_id=476092129]
 layout_mode = 0
 offset_right = 480.0
-offset_bottom = 720.0
+offset_bottom = 1025.0
 follow_focus = true
 scroll_hint_mode = 2
 
@@ -256,7 +257,7 @@ layout_mode = 2
 [node name="ResearchScroll" type="ScrollContainer" parent="UI/RootMenu" unique_id=685978377]
 layout_mode = 0
 offset_right = 480.0
-offset_bottom = 720.0
+offset_bottom = 1025.0
 follow_focus = true
 scroll_hint_mode = 2
 
@@ -269,7 +270,7 @@ layout_mode = 2
 [node name="BuildScroll" type="ScrollContainer" parent="UI/RootMenu" unique_id=1474596978]
 layout_mode = 0
 offset_right = 480.0
-offset_bottom = 720.0
+offset_bottom = 1005.0
 follow_focus = true
 scroll_hint_mode = 2
 
@@ -278,6 +279,17 @@ layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="UI/RootMenu/BuildScroll/BuildMenu" unique_id=338443339]
 layout_mode = 2
+
+[node name="Ressources" type="Label" parent="UI" unique_id=404524752]
+offset_left = 48.0
+offset_top = 27.0
+offset_right = 178.0
+offset_bottom = 192.0
+text = "Eksempel
+Eksempel
+Eksempel
+Eksempel"
+label_settings = ExtResource("22_18uti")
 
 [node name="WorkingTemplate" type="Sprite2D" parent="." unique_id=1840243623]
 visible = false
@@ -321,6 +333,7 @@ position = Vector2(145, 81)
 sprite_frames = SubResource("SpriteFrames_m15vq")
 
 [node name="Colonistholder" type="Node2D" parent="." unique_id=1253987628]
+z_index = 3
 
 [node name="Buldingmarkers" type="Node2D" parent="." unique_id=1553048053]
 

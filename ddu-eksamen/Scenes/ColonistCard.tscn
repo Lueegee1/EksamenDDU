@@ -7,16 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://djnu61kuh6ddx" path="res://Assets/temp files/buttons/Sprite-0003-Sheet5.png" id="4_058vy"]
 [ext_resource type="Texture2D" uid="uid://bof7pvd4tu0yp" path="res://Assets/temp files/buttons/Sprite-0003-Sheet4.png" id="5_dybca"]
 [ext_resource type="Texture2D" uid="uid://t8q6w2csfxu7" path="res://Assets/temp files/buttons/Sprite-0003-Sheet8.png" id="6_058vy"]
+[ext_resource type="LabelSettings" uid="uid://coa0fwh54ygsy" path="res://Assets/Label_settings.tres" id="7_stsfk"]
 [ext_resource type="Texture2D" uid="uid://b024y86uuq6qs" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet5.png" id="8_qthgu"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dhpgx"]
-outline_size = 2
-outline_color = Color(0, 0, 0, 1)
-shadow_size = 4
-shadow_color = Color(0, 0, 0, 0.8039216)
-
-[sub_resource type="LabelSettings" id="LabelSettings_stsfk"]
-font_size = 20
 outline_size = 2
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 4
@@ -65,12 +59,12 @@ popup/item_0/id = 4
 popup/item_1/text = "Foraging"
 popup/item_1/checkable = 1
 popup/item_1/id = 0
-popup/item_2/text = "Mining"
+popup/item_2/text = "Lumbering"
 popup/item_2/checkable = 1
-popup/item_2/id = 1
-popup/item_3/text = "Lumbering"
+popup/item_2/id = 2
+popup/item_3/text = "Mining"
 popup/item_3/checkable = 1
-popup/item_3/id = 2
+popup/item_3/id = 1
 popup/item_4/text = "Studying"
 popup/item_4/checkable = 1
 popup/item_4/id = 3
@@ -166,7 +160,7 @@ offset_top = 2.0
 offset_right = 414.0
 offset_bottom = 173.0
 text = "View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum "
-label_settings = SubResource("LabelSettings_stsfk")
+label_settings = ExtResource("7_stsfk")
 autowrap_mode = 3
 
 [node name="TextureButton2" type="TextureButton" parent="Group2" unique_id=1468104571]
