@@ -21,7 +21,7 @@
 [ext_resource type="Texture2D" uid="uid://b024y86uuq6qs" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet5.png" id="18_0iyqm"]
 [ext_resource type="Texture2D" uid="uid://dno26u0libpru" path="res://Assets/temp files/buttons/Sprite-0003-Sheet7.png" id="19_jn8rg"]
 [ext_resource type="Texture2D" uid="uid://bronxu1ra3c4l" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet7.png" id="20_umnjm"]
-[ext_resource type="Texture2D" uid="uid://dvowenexx3puy" path="res://Assets/temp files/buttons/Arrowplaceholder.png" id="21_vvhu1"]
+[ext_resource type="Texture2D" uid="uid://bxc0yojrr50wf" path="res://Assets/temp files/menu.com - Copy.png" id="21_18uti"]
 [ext_resource type="LabelSettings" uid="uid://coa0fwh54ygsy" path="res://Assets/Label_settings.tres" id="22_18uti"]
 [ext_resource type="Texture2D" uid="uid://cksnss8odk8hf" path="res://Assets/GroundBase.png" id="23_4eqlp"]
 [ext_resource type="Texture2D" uid="uid://baraxxl2mqxgd" path="res://Assets/PathBase.png" id="24_18uti"]
@@ -233,7 +233,7 @@ offset_right = 300.0
 offset_bottom = 200.0
 rotation = 1.5707964
 scale = Vector2(0.2, 0.2)
-texture_normal = ExtResource("21_vvhu1")
+texture_normal = ExtResource("21_18uti")
 
 [node name="RootMenu" type="Control" parent="UI" unique_id=2022202983]
 layout_mode = 3
