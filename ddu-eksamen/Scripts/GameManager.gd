@@ -103,7 +103,7 @@ func get_new_colony(colony_population):
 		workers_dict[colonist_name] = "unemployed" #adds them as unemployed to the workers dict
 		happiness_dict[colonist_name] = {"happiness": base_happiness, "sick" : false, "grieving_1": false, "homeless" : false, "surgery": false, "grieving_2": false}
 		movement_and_sprite_dictionary[colonist_name] = {
-			"position": Vector2(randf_range(0, 1920), randf_range(0, 1080)),
+			"position": Vector2(10,10),
 			"target": Vector2.ZERO,
 			"state": "idle",  # idle | going_to_work | going_home | wandering
 			"speed": 5.0     # pixels per second
@@ -124,6 +124,11 @@ func setup_colonist_body(colonist_name: String) -> void:
 	var start_pos = movement_and_sprite_dictionary[colonist_name]["position"]
 	body.global_position = start_pos
 	body.name = colonist_name
+	var Sprite = Sprite2D.new()
+	body.add_child(Sprite)
+	body.z_index = 100
+	Sprite.texture = load("res://icon.svg")
+	Sprite.scale = Vector2(1, 1)
 	colonist_instances[colonist_name] = body
 	
 func _load_building_positions() -> void:
