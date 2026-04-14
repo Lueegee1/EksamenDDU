@@ -128,7 +128,7 @@ func setup_colonist_body(colonist_name: String) -> void:
 	body.add_child(Sprite)
 	body.z_index = 100
 	Sprite.texture = load("res://icon.svg")
-	Sprite.scale = Vector2(0.5, 0.5)
+	Sprite.scale = Vector2(0.2, 0.2)
 	var agent: NavigationAgent2D = body.get_node("NavigationAgent2D")
 	var nav_region = get_tree().get_root().find_child("NavigationRegion2D", true, false)
 	if nav_region:
@@ -230,18 +230,32 @@ func colonist_move(delta: float) -> void:
 				pass
 
 			"wandering":
-				if agent.is_navigation_finished() or agent.get_next_path_position() == mov["position"]:
-					agent.target_position = get_random_building_position()
+				if agent.target_position == Vector2.ZERO or agent.is_navigation_finished():
+					var new_target = get_random_building_position()
+
+					if new_target.distance_to(mov["position"]) < 10:
+						new_target += Vector2(
+							randf_range(-100, 100),
+							randf_range(-100, 100)
+						)
+
+					agent.target_position = new_target
 
 				_step_agent(mov, agent, delta)
 
 func _step_agent(mov: Dictionary, agent: NavigationAgent2D, delta: float) -> void:
-	if agent.is_navigation_finished():
-		return
 	var next_pos = agent.get_next_path_position()
-	var direction = (next_pos - mov["position"]).normalized()
-	mov["position"] += direction * mov["speed"] * delta
 
+	# Prevent NaN / zero movement bugs
+	if next_pos == Vector2.ZERO:
+		return
+
+	var direction = (next_pos - mov["position"]).normalized()
+
+	if mov["position"].distance_to(next_pos) < 1.0:
+		return
+
+	mov["position"] += direction * mov["speed"] * delta
 # Save system---------------------------------------------------------------------------
 #saves the game and return a true/false if the saving was succesfull
 func save_game() -> bool:
