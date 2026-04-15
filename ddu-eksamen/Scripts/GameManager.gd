@@ -364,6 +364,7 @@ func _process(delta: float) -> void:
 func _on_tick_timer_timeout() -> void:
 	current_tick += 1
 	happiness_tick()
+	resource_tick()
 	Global.average_happiness = average_happiness()
 
 
@@ -379,8 +380,11 @@ func worker_productivity(worker): #calculates the individual workers productivit
 func workplace_productivity(Workplace): #calculates the workplaces productivity
 	var temp_prod = 0
 	for worker in range(len(workers_dict)):
+		# print(workers_dict[workers_dict.keys()[worker]])
 		if workers_dict[workers_dict.keys()[worker]] == Workplace:
+			
 			temp_prod+=float(worker_productivity(worker))
+	print(Workplace+ str(temp_prod))
 	return temp_prod
 
 func resource_tick(): #tick that handles resource consumption and getting the new resources
@@ -421,7 +425,7 @@ func resource_consumption(resource_name: String, amount: float) -> bool:
 	value_changed.emit()
 	return true
 
-func get_new_resource(resource: String, productivity: int):
+func get_new_resource(resource: String, productivity: float):
 	var prod_modifier #gets the new resource and returns how much of it is produced
 	match resource:
 		"food":

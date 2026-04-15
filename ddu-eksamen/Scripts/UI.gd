@@ -136,10 +136,10 @@ func update_menus(delta: float) -> void:
 		build_card_dict[build_type] = card
 			
 func update_ressources():
-	$Ressources.text = str(Global.plant_matter) + "
-	" + str(Global.minerals) + "
-	" + str(Global.food) + "
-	" + str(Global.research_points)
+	$Ressources.text =str(round(Global.plant_matter)) + "
+	" + str(round(Global.minerals)) + "
+	" + str(round(Global.food)) + "
+	" + str(round(Global.research_points))
 	
 
 func _ready() -> void:
