@@ -277,6 +277,7 @@ func _on_tick_timer_timeout() -> void:
 	current_tick += 1
 	happiness_tick()
 	resource_tick()
+	breeding()
 	Global.average_happiness = average_happiness()
 
 
@@ -425,7 +426,7 @@ func breed_colonist(parent1: String, parent2: String): #helper function to breed
 		"grieving_2": false
 }
 	movement_and_sprite_dictionary[child_name] = {
-			"position": Vector2(randf_range(0, 1920), randf_range(0, 1080)),
+			"position": Vector2(550,550),
 			"target": Vector2.ZERO,
 			"state": "idle", 
 			"speed": 5.0     
