@@ -2,8 +2,8 @@ extends Node
 
 # Setting Up Dictionaries, Lists and Variables -----------------------------------------------------------------------
 var colonist_instances: Dictionary = {}
-var colonist_container: Node
-const colonist_body_scene = preload("res://Scenes/ColonistBody.tscn")
+@onready var colonist_container = $UI/Colonistholder
+const colonist_body_scene = preload("res://Scenes/Colonists.tscn")
 var food_security_constant: float = 1.0
 var data: Dictionary = {}
 var colonist_dict: Dictionary = {}         
@@ -124,19 +124,8 @@ func get_new_colony(colony_population):
 func setup_colonist_body(colonist_name: String) -> void:
 	var body = colonist_body_scene.instantiate()
 	colonist_container.add_child(body)
-	var start_pos = movement_and_sprite_dictionary[colonist_name]["position"]
-	body.global_position = start_pos
-	body.name = colonist_name
-	var Sprite = Sprite2D.new()
-	body.add_child(Sprite)
-	body.z_index = 100
-	Sprite.texture = load("res://icon.svg")
-	Sprite.scale = Vector2(0.2, 0.2)
-	var agent: NavigationAgent2D = body.get_node("NavigationAgent2D")
-	var nav_region = get_tree().get_root().find_child("NavigationRegion2D", true, false)
-	if nav_region:
-		agent.set_navigation_map(nav_region.get_navigation_map())
-		colonist_instances[colonist_name] = body
+	body.setup("res://icon.svg", colonist_name, movement_and_sprite_dictionary[colonist_name]["position"])
+	colonist_instances[colonist_name] = body
 	
 func _load_building_positions() -> void:
 	for marker in building_markers_node.get_children():
@@ -151,7 +140,6 @@ func _ready():
 	load_researches_from_json("res://data/research.json")
 	# the below two lines should be turned into real lines when we want to test the save sytem
 	#if not load_game():
-	colonist_container = get_tree().get_root().find_child("Colonistholder", true, false)
 	building_markers_node = get_tree().get_root().find_child("Buldingmarkers", true, false)
 	_load_building_positions()
 	get_new_colony(colony_start_amount)
@@ -182,83 +170,7 @@ func get_random_building_position() -> Vector2:
 	var random_key = keys.pick_random()
 	return building_positions[random_key]
 
-func colonist_move(delta: float) -> void:
-	for colonist in colonist_dict:
-		var mov = movement_and_sprite_dictionary[colonist]
-		var body = colonist_instances.get(colonist)
-		if body == null:
-			continue
-		var agent: NavigationAgent2D = body.get_node("NavigationAgent2D")
-		var assignment = workers_dict.get(colonist, "unemployed")
 
-		body.global_position = mov["position"]
-
-		if colonist in working_colonist:
-			continue
-
-		match mov["state"]:
-			"idle":
-				if assignment == "unemployed":
-					mov["state"] = "wandering"
-					agent.target_position = Vector2(
-						randf_range(50, 1870), randf_range(50, 1030)
-					)
-				else:
-					mov["state"] = "going_to_work"
-					agent.target_position = get_workstation_position(assignment)
-
-			"going_to_work":
-				agent.target_position = get_workstation_position(assignment)
-				if agent.is_navigation_finished():
-					mov["state"] = "working"
-					colonist_work_day_addition(colonist)
-				else:
-					_step_agent(mov, agent, delta)
-
-			"going_home":
-				var target = get_home_position(colonist)
-				if target == null:
-					mov["state"] = "wandering"
-					agent.target_position = Vector2(
-						randf_range(50, 1870), randf_range(50, 1030)
-					)
-					continue
-				agent.target_position = target
-				if agent.is_navigation_finished():
-					mov["state"] = "going_to_work"
-				else:
-					_step_agent(mov, agent, delta)
-
-			"working":
-				pass
-
-			"wandering":
-				if agent.target_position == Vector2.ZERO or agent.is_navigation_finished():
-					var new_target = get_random_building_position()
-
-					if new_target.distance_to(mov["position"]) < 10:
-						new_target += Vector2(
-							randf_range(-100, 100),
-							randf_range(-100, 100)
-						)
-
-					agent.target_position = new_target
-
-				_step_agent(mov, agent, delta)
-
-func _step_agent(mov: Dictionary, agent: NavigationAgent2D, delta: float) -> void:
-	var next_pos = agent.get_next_path_position()
-
-	# Prevent NaN / zero movement bugs
-	if next_pos == Vector2.ZERO:
-		return
-
-	var direction = (next_pos - mov["position"]).normalized()
-
-	if mov["position"].distance_to(next_pos) < 1.0:
-		return
-
-	mov["position"] += direction * mov["speed"] * delta
 # Save system---------------------------------------------------------------------------
 #saves the game and return a true/false if the saving was succesfull
 func save_game() -> bool:
@@ -359,7 +271,7 @@ func load_game() -> bool:
 
 # Tick System --------------------------------------------------------------------------------------------------
 func _process(delta: float) -> void:
-	colonist_move(delta * 5)
+	pass
 
 func _on_tick_timer_timeout() -> void:
 	current_tick += 1

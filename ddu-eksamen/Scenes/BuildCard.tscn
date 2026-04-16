@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://d3ycq41vl4mo8" path="res://Scripts/BuildCard.gd" id="1_3puww"]
 [ext_resource type="Texture2D" uid="uid://wf57ycnil5u2" path="res://icon.svg" id="2_ctjep"]
 [ext_resource type="Texture2D" uid="uid://t8q6w2csfxu7" path="res://Assets/temp files/buttons/Sprite-0003-Sheet8.png" id="3_3puww"]
+[ext_resource type="Texture2D" uid="uid://dd7jpwusp4c81" path="res://Assets/temp files/buttons/upgradebutton-export2.png" id="3_lmgc3"]
 [ext_resource type="Texture2D" uid="uid://dq6xw8ueej8k8" path="res://Assets/temp files/buttons/upgradebutton.png" id="3_q2tua"]
 [ext_resource type="Texture2D" uid="uid://bof7pvd4tu0yp" path="res://Assets/temp files/buttons/Sprite-0003-Sheet4.png" id="4_ctjep"]
 [ext_resource type="Texture2D" uid="uid://csbv60p3aqecs" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet8.png" id="4_sm8do"]
@@ -71,7 +72,8 @@ offset_left = 235.0
 offset_top = 140.0
 offset_right = 267.0
 offset_bottom = 172.0
-texture_normal = ExtResource("3_q2tua")
+texture_normal = ExtResource("3_lmgc3")
+texture_pressed = ExtResource("3_q2tua")
 
 [node name="Label4" type="Label" parent="Group1" unique_id=1870785312]
 layout_mode = 0
