@@ -4,7 +4,7 @@ extends Node
 var colonist_instances: Dictionary = {}
 @onready var colonist_container = $UI/Colonistholder
 const colonist_body_scene = preload("res://Scenes/Colonists.tscn")
-var food_security_constant: float = 1.0
+var food_security_constant: float = 25.0
 var data: Dictionary = {}
 var colonist_dict: Dictionary = {}         
 var workers_dict: Dictionary = {}
@@ -17,7 +17,6 @@ var housing_dictionary: Dictionary = {
 			"assigned" : []
 		}
 }
-var movement_and_sprite_dictionary: Dictionary = {}
 var workstation_dictionary: Dictionary = {}
 var name_array: Array = []
 var working_colonist:Array = []
@@ -105,12 +104,6 @@ func get_new_colony(colony_population):
 		colonist_dict[colonist_name] = trait_array #adds them to the colonist dict
 		workers_dict[colonist_name] = "unemployed" #adds them as unemployed to the workers dict
 		happiness_dict[colonist_name] = {"happiness": base_happiness, "sick" : false, "grieving_1": false, "homeless" : false, "surgery": false, "grieving_2": false}
-		movement_and_sprite_dictionary[colonist_name] = {
-			"position": Vector2(550,550),
-			"target": Vector2.ZERO,
-			"state": "idle",  # idle | going_to_work | going_home | wandering
-			"speed": 5.0     # pixels per second
-		}
 		setup_colonist_body(colonist_name)
 # Next lines of code are purely for printing to console
 		print("Created colonist # ", colonist +1, " Their name is ", colonist_name)
@@ -124,7 +117,7 @@ func get_new_colony(colony_population):
 func setup_colonist_body(colonist_name: String) -> void:
 	var body = colonist_body_scene.instantiate()
 	colonist_container.add_child(body)
-	body.setup("res://icon.svg", colonist_name, movement_and_sprite_dictionary[colonist_name]["position"])
+	body.setup("res://icon.svg", colonist_name, Vector2(550,550))
 	colonist_instances[colonist_name] = body
 	
 func _load_building_positions() -> void:
@@ -154,21 +147,6 @@ func get_home_position(colonist: String):
 			return building_positions.get(house_id, Vector2.ZERO)
 	return null
 		
-func remove_working_colonist(colonist_name):
-	working_colonist.erase(colonist_name)
-	
-
-func colonist_work_day_addition(colonist_name):
-	working_colonist.append(colonist_name)
-	await get_tree().create_timer(300.0).timeout
-	remove_working_colonist(colonist_name)
-	if colonist_name in movement_and_sprite_dictionary:
-		movement_and_sprite_dictionary[colonist_name]["state"] = "going_home"
-
-func get_random_building_position() -> Vector2:
-	var keys = building_positions.keys()
-	var random_key = keys.pick_random()
-	return building_positions[random_key]
 
 
 # Save system---------------------------------------------------------------------------
@@ -194,7 +172,6 @@ func save_game() -> bool:
 			"happiness_dict": happiness_dict,
 			"housing_dictionary": housing_dictionary,
 			"workstation_dictionary": workstation_dictionary,
-			 "movement_and_sprite_dictionary": movement_and_sprite_dictionary
 		},
 		"research": { #saves research
 			"researches": researches
@@ -259,7 +236,6 @@ func load_game() -> bool:
 		happiness_dict = colony.get("happiness_dict", {})
 		housing_dictionary = colony.get("housing_dictionary", {})
 		workstation_dictionary = colony.get("workstation_dictionary", {})
-		movement_and_sprite_dictionary = colony.get("movement_and_sprite_dictionary", {}) 
 
 	# Research/ not really sure this works but fuck it we ball
 	if saved_data.has("research"):
@@ -293,11 +269,10 @@ func worker_productivity(worker): #calculates the individual workers productivit
 func workplace_productivity(Workplace): #calculates the workplaces productivity
 	var temp_prod = 0
 	for worker in range(len(workers_dict)):
-		# print(workers_dict[workers_dict.keys()[worker]])
-		if workers_dict[workers_dict.keys()[worker]] == Workplace:
-			
-			temp_prod+=float(worker_productivity(worker))
-	print(Workplace+ str(temp_prod))
+		if colonist_instances[workers_dict.keys()[worker]].state=="working":
+			# print(workers_dict[workers_dict.keys()[worker]])
+			if workers_dict[workers_dict.keys()[worker]] == Workplace:
+				temp_prod+=float(worker_productivity(worker))
 	return temp_prod
 
 func resource_tick(): #tick that handles resource consumption and getting the new resources
@@ -311,22 +286,23 @@ func resource_tick(): #tick that handles resource consumption and getting the ne
 
 func resource_consumption_tick(modifier = null): #calculates resource consumption and 
 	#checks if the colony is starving
-	var food_consumption_tick_value: float = 1.0
-	var num_of_colonist = len(colonist_dict) #finds the number of colonist
-	if modifier != null:
-		var food_consumption = num_of_colonist * modifier * food_consumption_tick_value
-		if resource_consumption("food", food_consumption):
-			return
+	if current_tick%5 == 0:
+		var food_consumption_tick_value: float = 0.25
+		var num_of_colonist = len(colonist_dict) #finds the number of colonist
+		if modifier != null:
+			var food_consumption = num_of_colonist * modifier * food_consumption_tick_value
+			if resource_consumption("food", food_consumption):
+				return
+			else:
+				is_starving = true
+				return
 		else:
-			is_starving = true
-			return
-	else:
-		var food_consumption = num_of_colonist * food_consumption_tick_value
-		if resource_consumption("food", food_consumption):
-			return 
-		else: 
-			is_starving = true
-			return 
+			var food_consumption = num_of_colonist * food_consumption_tick_value
+			if resource_consumption("food", food_consumption):
+				return 
+			else: 
+				is_starving = true
+				return 
 	
 
 	#helper function to subtract the amount of resources used for a specific action
@@ -392,11 +368,13 @@ func research(index: int):
 
 # Breeding and killing
 func breeding() ->bool: #functions that calculates if two colonist are gonna breed together and returns false if somebody didnt and somebody did
+	if len(colonist_dict) >=8:
+		return false
 	for house in housing_dictionary:
 		var assigned = housing_dictionary[house]["assigned"]
 		if assigned.size() >= 2:
 			if Global.food > len(colonist_dict) * food_security_constant:
-				if randf() < 1.0:
+				if randf_range(0,50) < 1.0:
 					breed_colonist(assigned[0], assigned[1])
 					value_changed.emit()
 					return true
@@ -425,12 +403,15 @@ func breed_colonist(parent1: String, parent2: String): #helper function to breed
 		"surgery": false,
 		"grieving_2": false
 }
+<<<<<<< HEAD
+=======
 	movement_and_sprite_dictionary[child_name] = {
 			"position": Vector2(550,550),
 			"target": Vector2.ZERO,
 			"state": "idle", 
 			"speed": 5.0     
 		}
+>>>>>>> 4165a6b813059be298d84b05cc59b727d7ac409b
 	setup_colonist_body(child_name)
 	
 func kill_colonist(colonist_name: String) -> bool:
@@ -438,7 +419,6 @@ func kill_colonist(colonist_name: String) -> bool:
 		return false
 	colonist_dict.erase(colonist_name)
 	workers_dict.erase(colonist_name)
-	movement_and_sprite_dictionary.erase(colonist_name)
 	working_colonist.erase(colonist_name)
 	happiness_dict.erase(colonist_name)
 	colonist_instances[colonist_name].queue_free()
@@ -606,15 +586,15 @@ func apply_research(index):
 			research_prod_modifier += 0.20
 
 		14:
-			research_prod_modifier += 0.25
+			research_prod_modifier += 0.05
 
 
 		# PLANTS
 		6:
-			plant_prod_modifier *= 1.25
+			plant_prod_modifier *= 5
 
 		18:
-			plant_prod_modifier *= 1.40
+			plant_prod_modifier *= 10
 
 
 		# FOOD
@@ -633,26 +613,40 @@ func apply_research(index):
 
 		# MINERALS
 		2:
-			minerals_prod_modifier *= 1.10
+			minerals_prod_modifier *= 1
 
 		8:
-			minerals_prod_modifier *= 1.25
+			minerals_prod_modifier *= 5
 
 		16:
-			minerals_prod_modifier *= 1.45
+			minerals_prod_modifier *= 10
 
+		#Decor
+		4:
+			Global.decorations +=5
+		11: 
+			Global.decorations +=10
+		12:
+			Global.decorations +=10
+		17:
+			Global.decorations +=5
 # Happiness calcs
 
 func happiness_tick():
-	var happy_base = 0 
+	var happy_base = 20
 	happy_base += Global.decorations
-	if Global.food < 0:
+	if Global.food < 1:
 		happy_base-=10
 	else:
 			happy_base+=15
 	for colonist in happiness_dict:
 		if happiness_dict[colonist]["sick"] == true:
 			happy_base-=10
+		#Check if homeless
+		happiness_dict[colonist]["homeless"] = true
+		for i in housing_dictionary:
+			if colonist in housing_dictionary[i]["assigned"]:
+				happiness_dict[colonist]["homeless"] = false
 		if happiness_dict[colonist]["homeless"]:
 			happy_base-=10
 		if happiness_dict[colonist]["surgery"]:

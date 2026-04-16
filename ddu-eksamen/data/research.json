@@ -4,7 +4,7 @@
 	"2": {"name":"Explore the caves","cost":[1,0,0,0],"requirements":[1],"description": "The dark caves seem to contain useful ressources. Here colonists can gather minerals", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet2.png", "researched":0},
 	"3": {"name":"Fields","cost":[1.5,50,0,10],"requirements":[1],"description": "Start toiling the fields, here the colonists can generate food", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet2.png", "researched":0},
 	"4": {"name":"Plant flowers","cost":[1,25,0,0],"requirements":[1],"description": "Pretty up the colony with some colorful flowers, the colonists will enjoy the decorations", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet3.png", "researched":0},
-	"5": {"name":"Irragation","cost":[4,100,10,25],"requirements":[3],"description": "Start irragating the fields, increasing their production", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet2.png", "researched":0},
+	"5": {"name":"Irrigation","cost":[4,100,10,25],"requirements":[3],"description": "Start irragating the fields, increasing their production", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet2.png", "researched":0},
 	"6": {"name":"Axes","cost":[1.5,10,25,0],"requirements":[2],"description": "Make axes for your colonists, this will help them gather more plantmatter", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet2.png", "researched":0},
 	"7": {"name":"Tents","cost":[2,100,25,0],"requirements":[6],"description": "One man tents for your colonists, finally a place to rest", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet1.png", "researched":0},
 	"8": {"name":"Pickaxes","cost":[2,10,30,0],"requirements":[6],"description": "Make pickaxes for your colonists, this will help them extract minerals from the mines more efficiently", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet2.png", "researched":0},
@@ -21,8 +21,8 @@
 	"19": {"name":"Cameras","cost":[10,0,200,0],"requirements":[17],"description": "", "icons": "", "researched":0},
 	"20": {"name":"Gene Sequencing","cost":[12,200,0,0],"requirements":[15],"description": "With this you can see the genetics of your colonists, and see what makes them tick", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet5.png", "researched":0},
 	"21": {"name":"GMO","cost":[8,300,0,0],"requirements":[20],"description": "Produce more food than ever before with GMO technology!", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet5.png", "researched":0},
-	"22": {"name":"Medicine","cost":[10,300,0.0],"requirements":[15],"description": "Cure your colonists illnesses with brand new medicine", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet8.png", "researched":0},
-	"23": {"name":"Lethal injection","cost":[12,400,0, 0],"requirements":[22],"description": "A cleaner way to get rid of undesireables", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet8.png", "researched":0},
+	"22": {"name":"Medicine","cost":[10,300,0,0],"requirements":[15],"description": "Cure your colonists illnesses with brand new medicine", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet8.png", "researched":0},
+	"23": {"name":"Lethal injection","cost":[12,400,0,0],"requirements":[22],"description": "A cleaner way to get rid of undesireables", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet8.png", "researched":0},
 	"24": {"name":"Axe murder","cost":[3,0,0,0],"requirements":[6],"description": "An axe is a simple way to cure depression", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet3.png", "researched":0}																											
 	}
-}
+} 

@@ -199,7 +199,7 @@ func _process(delta: float) -> void:
 	update_house_checkbox()
 	update_actions()
 	name_tag.text = str(name_of_colonist) + "
-	Happiness: " + str(round(Global.GameManager.happiness_dict[name_of_colonist]["happiness"]), 1)
+	Happiness: " + str(round(Global.GameManager.happiness_dict[name_of_colonist]["happiness"]*10)/10)
 	pass
 
 func show_hide_genes():
