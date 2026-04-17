@@ -159,8 +159,11 @@ func setup(colonist_name, colonist_sprite):
 	name_of_colonist = colonist_name
 	sprite.texture = load(colonist_sprite) as Texture2D
 	name_tag.text = str(colonist_name) + "
-	Happiness: " + str(Global.GameManager.happiness_dict[colonist_name]["happiness"])
+	Happiness: ???"
 	var temp_string = ""
+	var prod_mod =1
+	var happy_mod = 1
+	var sickness_mod = 1
 	for i in range(6):
 		if i < 4:
 			temp_string += str(trait_name(i)) + ", "
@@ -168,14 +171,25 @@ func setup(colonist_name, colonist_sprite):
 			temp_string += str(trait_name(i)) + " and "
 		if i == 5:
 			temp_string += str(trait_name(i))
-	gene_label.text = str(colonist_name) + " is " + temp_string
+	for i in Global.GameManager.colonist_dict[colonist_name]:
+		prod_mod*=Global.GameManager.trait_dict[i]["productivity_mod"]
+		happy_mod*=Global.GameManager.trait_dict[i]["happiness_mod"]
+		sickness_mod*=Global.GameManager.trait_dict[i]["sickness_chance"]
+	gene_label.text = str(colonist_name) + " is " + temp_string + ".
+	These genes together increase
+	Productivity by " + str(prod_mod) + " times
+	Chance to get sick by " + str(sickness_mod) + " times
+	And happiness by " + str(happy_mod) + " times
+	"
+	
 	pass
 
 func _on_action_pressed(id):
 	match id:
-		0: Global.GameManager.kill_colonist(name_of_colonist)
-		1: Global.GameManager.kill_colonist(name_of_colonist)
+		0: Global.GameManager.kill_colonist(name_of_colonist, "axe")
+		1: Global.GameManager.kill_colonist(name_of_colonist, "injection")
 		2: show_hide_genes()
+		3: show_hide_psych()
 
 func update_actions():
 	var popup = actionbutton.get_popup()
@@ -193,13 +207,45 @@ func update_actions():
 		popup.set_item_disabled(2, false)
 	else:
 		popup.set_item_disabled(2, true)
+	
+	if Global.GameManager.researches[25]["researched"]==1:
+		popup.set_item_disabled(3, false)
+	else:
+		popup.set_item_disabled(3, true)
+
+func update_psych():
+	var issues = []
+	if Global.decorations < 20:
+		issues.append("thinks the town could be prettier")
+	if Global.GameManager.happiness_dict[name_of_colonist]["homeless"]:
+		issues.append("doesn't have a place to stay")
+	if Global.GameManager.happiness_dict[name_of_colonist]["starving"]:
+		issues.append("is very hungry")
+	if Global.GameManager.happiness_dict[name_of_colonist]["sick"]:
+		issues.append("is currently feeling under the weather")
+	if Global.GameManager.happiness_dict[name_of_colonist]["surgery"]:
+		issues.append("has recently undergone surgery")
+	if Global.GameManager.happiness_dict[name_of_colonist]["grieving_1"]:
+		issues.append("is still reeling from that brtutal execution")
+	if Global.GameManager.happiness_dict[name_of_colonist]["grieving_2"]:
+		issues.append("is uncomfortable the recent execution")
+	var temp_text
+	temp_text = name_of_colonist
+	for i in range(len(issues)):
+		if i != len(issues)-1:
+			temp_text += " " + issues[i] + ","
+		else:
+			temp_text += " and " + issues[i] +"."
+	$Group3/Label5.text = temp_text
 
 func _process(delta: float) -> void:
 	update_work_checkbox(Global.GameManager.workers_dict[name_of_colonist])
 	update_house_checkbox()
 	update_actions()
-	name_tag.text = str(name_of_colonist) + "
-	Happiness: " + str(round(Global.GameManager.happiness_dict[name_of_colonist]["happiness"]*10)/10)
+	update_psych()
+	if Global.GameManager.researches[25]["researched"]==1:
+		name_tag.text = str(name_of_colonist) + "
+		Happiness: " + str(round(Global.GameManager.happiness_dict[name_of_colonist]["happiness"]*10)/10)
 	pass
 
 func show_hide_genes():
@@ -209,6 +255,19 @@ func show_hide_genes():
 	else:
 		$Group1.visible = true
 		$Group2.visible = false
+func show_hide_psych():
+	if $Group1.visible:
+		$Group1.visible = false
+		$Group3.visible = true
+	else:
+		$Group1.visible = true
+		$Group3.visible = false
+
 
 func _on_gene_button_pressed() -> void:
 	show_hide_genes()
+
+
+func _on_psych_button_pressed() -> void:
+	show_hide_psych()
+	pass # Replace with function body.

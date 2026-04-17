@@ -46,7 +46,7 @@ func get_random_building_position() -> Vector2:
 	
 func colonist_work_day():
 	state = "working"
-	await get_tree().create_timer(30).timeout
+	await get_tree().create_timer(5).timeout
 	rested = false
 	state = "going_home"
 func colonist_rest():
@@ -103,7 +103,6 @@ func colonist_move(delta: float) -> void:
 
 		"going_home":
 			var target = get_home_position(colonist_name)
-			print(target)
 			if target == null:
 				state= "wandering"
 				agent.target_position = Vector2(
@@ -111,11 +110,14 @@ func colonist_move(delta: float) -> void:
 				return
 			agent.target_position = target
 			if agent.is_navigation_finished():
+				state = "resting"
 				colonist_rest()
 			else:
 				_step_agent(delta)
 
 		"working":
+			pass
+		"resting":
 			pass
 
 		"wandering":
@@ -129,6 +131,7 @@ func colonist_move(delta: float) -> void:
 				wandered = false
 				colonist_rest()
 			if wandered and rested and agent.is_navigation_finished():
+				wandered = false
 				state = "idle"
 			
 func _process(delta: float) -> void:

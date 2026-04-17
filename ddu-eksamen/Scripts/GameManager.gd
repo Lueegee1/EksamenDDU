@@ -103,7 +103,7 @@ func get_new_colony(colony_population):
 		var trait_array: Array = generate_starter_trait_array() # the trait array
 		colonist_dict[colonist_name] = trait_array #adds them to the colonist dict
 		workers_dict[colonist_name] = "unemployed" #adds them as unemployed to the workers dict
-		happiness_dict[colonist_name] = {"happiness": base_happiness, "sick" : false, "grieving_1": false, "homeless" : false, "surgery": false, "grieving_2": false}
+		happiness_dict[colonist_name] = {"happiness": base_happiness, "sick" : false, "grieving_1": false, "homeless" : false, "surgery": false, "grieving_2": false, "starving": false}
 		setup_colonist_body(colonist_name)
 # Next lines of code are purely for printing to console
 		print("Created colonist # ", colonist +1, " Their name is ", colonist_name)
@@ -254,6 +254,7 @@ func _on_tick_timer_timeout() -> void:
 	happiness_tick()
 	resource_tick()
 	breeding()
+	sick_tick()
 	Global.average_happiness = average_happiness()
 
 
@@ -403,18 +404,9 @@ func breed_colonist(parent1: String, parent2: String): #helper function to breed
 		"surgery": false,
 		"grieving_2": false
 }
-<<<<<<< HEAD
-=======
-	movement_and_sprite_dictionary[child_name] = {
-			"position": Vector2(550,550),
-			"target": Vector2.ZERO,
-			"state": "idle", 
-			"speed": 5.0     
-		}
->>>>>>> 4165a6b813059be298d84b05cc59b727d7ac409b
 	setup_colonist_body(child_name)
 	
-func kill_colonist(colonist_name: String) -> bool:
+func kill_colonist(colonist_name: String, method) -> bool:
 	if colonist_name not in colonist_dict:
 		return false
 	colonist_dict.erase(colonist_name)
@@ -428,11 +420,28 @@ func kill_colonist(colonist_name: String) -> bool:
 			housing_dictionary[house]["assigned"].erase(colonist_name)
 	for colonist in happiness_dict:
 		if 14 not in colonist_dict[colonist]:
-			happiness_dict[colonist]["grieving_1"] = true
-
+			match method:
+				"axe" :happiness_dict[colonist]["grieving_1"] = true
+				"injection" :happiness_dict[colonist]["grieving_2"] = true
+			if happiness_dict[colonist]["grieving_1"] and happiness_dict[colonist]["grieving_2"]:
+				happiness_dict[colonist]["grieving_2"] = false
+			grieving(colonist)
 	value_changed.emit()
+	
 	return true
-
+func grieving(colonist):
+	if happiness_dict[colonist]["grieving_1"]:
+		print("Grieve 1")
+		await get_tree().create_timer(5).timeout
+		if colonist in happiness_dict:
+			happiness_dict[colonist]["grieving_1"] = false
+	if happiness_dict[colonist]["grieving_2"]:
+		print("Grieve 2")
+		await get_tree().create_timer(5).timeout
+		if colonist in happiness_dict:
+			happiness_dict[colonist]["grieving_2"] = false
+	value_changed.emit()
+	
 
 # Backend assignment
 func assign_colonist_to_house(name, house): #helper funciton to assign a specific colonist to a specific house
@@ -625,9 +634,9 @@ func apply_research(index):
 		4:
 			Global.decorations +=5
 		11: 
-			Global.decorations +=10
+			Global.decorations +=5
 		12:
-			Global.decorations +=10
+			Global.decorations +=5
 		17:
 			Global.decorations +=5
 # Happiness calcs
@@ -638,21 +647,36 @@ func happiness_tick():
 	if Global.food < 1:
 		happy_base-=10
 	else:
-			happy_base+=15
+			happy_base+=10
 	for colonist in happiness_dict:
+		#Lazy not to rewrite here
+		if Global.food < 1:
+			happiness_dict[colonist]["starving"] = true
+		
+		#The rest is fine
 		if happiness_dict[colonist]["sick"] == true:
 			happy_base-=10
 		#Check if homeless
-		happiness_dict[colonist]["homeless"] = true
+		var homeless = true
 		for i in housing_dictionary:
 			if colonist in housing_dictionary[i]["assigned"]:
 				happiness_dict[colonist]["homeless"] = false
+				homeless = false
+		if homeless:
+			happiness_dict[colonist]["homeless"] = true
 		if happiness_dict[colonist]["homeless"]:
 			happy_base-=10
+			
 		if happiness_dict[colonist]["surgery"]:
 			happy_base-=10
+		#Prevent double grieving
+		if happiness_dict[colonist]["grieving_1"] and happiness_dict[colonist]["grieving_2"]:
+			happiness_dict[colonist]["grieving_2"] = false
+		
 		if happiness_dict[colonist]["grieving_1"]:
 			happy_base-=10
+		if happiness_dict[colonist]["grieving_2"]:
+			happy_base-=5
 		var happy_modifier = 1
 		for mod in colonist_dict[colonist]:
 			happy_modifier*=trait_dict[int(mod)]["happiness_mod"]
@@ -669,3 +693,18 @@ func average_happiness():
 		return 0
 	avg_happy/=len(happiness_dict)
 	return(avg_happy)
+
+func sick_tick():
+	for colonist in happiness_dict:
+		var sickness_mod = 1
+		for i in colonist_dict[colonist]:
+			sickness_mod*= trait_dict[i]["sickness_chance"]
+		if happiness_dict[colonist]["sick"] != true:
+			var homeless = 0
+			if happiness_dict[colonist]["homeless"]:
+				homeless = 1
+			if randi_range(0,100)*sickness_mod + 3*homeless > 97:
+				happiness_dict[colonist]["sick"] = true
+		else:
+			if randi_range(0,100) +5*researches[22]["researched"] > 99:
+				happiness_dict[colonist]["sick"] = false

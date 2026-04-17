@@ -18,11 +18,12 @@
 	"16": {"name":"Drills","cost":[8,0,200,0],"requirements":[14],"description": "Make drills the serve as improved mining tools, improving efficiency in the mines", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet2.png", "researched":0},
 	"17": {"name":"Streetlights","cost":[5,0,100,0],"requirements":[14],"description": "Build some streetlights to ligth up the colony", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet3.png", "researched":0},
 	"18": {"name":"Lumbermill","cost":[8,200,50,0],"requirements":[14],"description": "Improve gather of plant materials with the implementation of powered machinery", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet2.png", "researched":0},
-	"19": {"name":"Cameras","cost":[10,0,200,0],"requirements":[17],"description": "", "icons": "", "researched":0},
+	"19": {"name":"Humanities","cost":[6,0,0,0],"requirements":[10],"description": "A real science or something like that", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet3.png", "researched":0},
 	"20": {"name":"Gene Sequencing","cost":[12,200,0,0],"requirements":[15],"description": "With this you can see the genetics of your colonists, and see what makes them tick", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet5.png", "researched":0},
 	"21": {"name":"GMO","cost":[8,300,0,0],"requirements":[20],"description": "Produce more food than ever before with GMO technology!", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet5.png", "researched":0},
 	"22": {"name":"Medicine","cost":[10,300,0,0],"requirements":[15],"description": "Cure your colonists illnesses with brand new medicine", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet8.png", "researched":0},
 	"23": {"name":"Lethal injection","cost":[12,400,0,0],"requirements":[22],"description": "A cleaner way to get rid of undesireables", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet8.png", "researched":0},
-	"24": {"name":"Axe murder","cost":[3,0,0,0],"requirements":[6],"description": "An axe is a simple way to cure depression", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet3.png", "researched":0}																											
+	"24": {"name":"Axe murder","cost":[3,0,0,0],"requirements":[6],"description": "An axe is a simple way to cure depression", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet3.png", "researched":0},
+	"25": {"name":"Psychology","cost":[15,0,0,0],"requirements":[19, 22],"description": "Sit down and ask your colonists how thjey are", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet3.png", "researched":0}
 	}
 } 

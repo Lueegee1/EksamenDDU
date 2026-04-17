@@ -4,11 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://wf57ycnil5u2" path="res://icon.svg" id="1_dhpgx"]
 [ext_resource type="Texture2D" uid="uid://dkpbq1ka4kp7i" path="res://Assets/temp files/buttons/Sprite-0003-Sheet2.png" id="2_macvx"]
 [ext_resource type="Texture2D" uid="uid://dsq0jh0ac8php" path="res://Assets/temp files/buttons/Sprite-0003-Sheet1.png" id="3_dybca"]
-[ext_resource type="Texture2D" uid="uid://djnu61kuh6ddx" path="res://Assets/temp files/buttons/Sprite-0003-Sheet5.png" id="4_058vy"]
 [ext_resource type="Texture2D" uid="uid://bof7pvd4tu0yp" path="res://Assets/temp files/buttons/Sprite-0003-Sheet4.png" id="5_dybca"]
 [ext_resource type="Texture2D" uid="uid://t8q6w2csfxu7" path="res://Assets/temp files/buttons/Sprite-0003-Sheet8.png" id="6_058vy"]
 [ext_resource type="LabelSettings" uid="uid://coa0fwh54ygsy" path="res://Assets/Label_settings.tres" id="7_stsfk"]
-[ext_resource type="Texture2D" uid="uid://b024y86uuq6qs" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet5.png" id="8_qthgu"]
+[ext_resource type="Texture2D" uid="uid://b10xlqw1raas0" path="res://Assets/temp files/buttons/checkbutton-export2.png" id="8_stsfk"]
+[ext_resource type="Texture2D" uid="uid://cj1xcfb0qnj0a" path="res://Assets/temp files/buttons/checkbutton.png" id="9_4fu0s"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dhpgx"]
 outline_size = 2
@@ -109,13 +109,15 @@ icon = ExtResource("5_dybca")
 flat = false
 alignment = 0
 autowrap_trim_flags = 64
-item_count = 3
+item_count = 4
 popup/item_0/text = "Kill with axe"
 popup/item_0/id = 0
 popup/item_1/text = "Lethal injection"
 popup/item_1/id = 1
 popup/item_2/text = "Genetic Sequencing"
 popup/item_2/id = 2
+popup/item_3/text = "Psychological evaluation"
+popup/item_3/id = 3
 
 [node name="TextureRect" type="TextureRect" parent="Group1" unique_id=1016168978]
 layout_mode = 0
@@ -169,7 +171,48 @@ offset_left = 378.0
 offset_top = 141.0
 offset_right = 410.0
 offset_bottom = 173.0
-texture_normal = ExtResource("4_058vy")
-texture_pressed = ExtResource("8_qthgu")
+texture_normal = ExtResource("8_stsfk")
+texture_pressed = ExtResource("9_4fu0s")
+
+[node name="Group3" type="Control" parent="." unique_id=2057505238]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Group3" unique_id=1159628208]
+z_index = -1
+layout_mode = 0
+offset_right = 412.0
+offset_bottom = 175.0
+color = Color(0, 0, 0, 1)
+
+[node name="ColorRect2" type="ColorRect" parent="Group3" unique_id=712452019]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 410.0
+offset_bottom = 173.0
+color = Color(0.0885599, 0.0885599, 0.0885599, 1)
+
+[node name="Label5" type="Label" parent="Group3" unique_id=447790022]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 414.0
+offset_bottom = 173.0
+text = "View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum View desc lorum ipsum "
+label_settings = ExtResource("7_stsfk")
+autowrap_mode = 3
+
+[node name="TextureButton3" type="TextureButton" parent="Group3" unique_id=55261169]
+layout_mode = 0
+offset_left = 378.0
+offset_top = 141.0
+offset_right = 410.0
+offset_bottom = 173.0
+texture_normal = ExtResource("8_stsfk")
+texture_pressed = ExtResource("8_stsfk")
 
 [connection signal="pressed" from="Group2/TextureButton2" to="." method="_on_gene_button_pressed"]
+[connection signal="pressed" from="Group3/TextureButton3" to="." method="_on_psych_button_pressed"]

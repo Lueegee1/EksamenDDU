@@ -146,7 +146,7 @@ func _ready() -> void:
 	position_elements()
 	# Set initial size based on current happiness
 	#var initial_width = (Global.average_happiness / 100.0) * (2 * screen_dim.x / 5)
-#	happiness_bar.size = Vector2(initial_width, bar_height)
+	happiness_bar.size = Vector2(0, bar_height)
 
 func _process(delta: float) -> void:
 	update_happiness_bar(delta)
