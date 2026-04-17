@@ -73,6 +73,22 @@ func load_researches_from_json(path: String) -> void:
 	var temp_dict = json.data["research"]
 	for key in temp_dict.keys():
 		researches[int(key)] = temp_dict[key]
+#win and lose condition checkers
+
+func game_condition_tick():
+	win_game()
+	lose_game()
+	
+func win_game():
+	if Global.average_happiness == 100:
+		print("Game Won")
+	
+func lose_game():
+	if Global.average_happiness == 100 or colonist_dict.size() == 0:
+		print("Game lost")
+
+
+
 # Game Setup ----------------------------------------------------------------------------------
 
 func generate_colonist_name() -> String: # generates the colonists name
