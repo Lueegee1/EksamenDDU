@@ -272,6 +272,7 @@ func _on_tick_timer_timeout() -> void:
 	breeding()
 	sick_tick()
 	Global.average_happiness = average_happiness()
+	game_condition_tick()
 
 
 # Resource functions-----------------------------------------------------------------------------------------------
