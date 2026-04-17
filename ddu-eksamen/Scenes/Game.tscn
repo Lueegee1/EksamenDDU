@@ -150,6 +150,13 @@ offset_bottom = 100.0
 [node name="BarSprite1" type="Sprite2D" parent="UI/HappinessBar" unique_id=1676383947]
 texture = ExtResource("4_b2bpf")
 
+[node name="Label" type="Label" parent="UI/HappinessBar" unique_id=43158018]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+text = "Happy"
+label_settings = ExtResource("22_18uti")
+
 [node name="MenuButtons" type="Control" parent="UI" unique_id=1602124693]
 layout_mode = 3
 anchors_preset = 0

@@ -37,6 +37,7 @@ func position_elements() -> void:
 	happiness_bar.position = Vector2((screen_dim.x - max_width) / 2, 50)
 	happiness_bar.color = Color(0.231, 1.0, 0.302, 1.0)
 	happiness_bar.z_index=10
+	$HappinessBar/Label.z_index =11
 	@warning_ignore("integer_division")
 	bar_sprite_1.position = Vector2(bar_max_width/2+screen_dim.x*0.3,50+bar_height/2)
 	bar_sprite_1.scale=Vector2(4,4)
@@ -64,7 +65,9 @@ func update_happiness_bar(delta: float) -> void:
 	var target_width = (Global.average_happiness / 100.0) * (2 * screen_dim.x / 5)
 	var target_size = Vector2(target_width, bar_height)
 	happiness_bar.size = happiness_bar.size.lerp(target_size, 1.0 - pow(lerp_speed, delta))
-
+	$HappinessBar/Label.position = happiness_bar.position + Vector2((screen_dim.x -400)/ 5,0)
+	$HappinessBar/Label.text = "Average happiness " +str(clamp(round(Global.average_happiness),0,100)) + "/100"
+	
 func update_menus(delta: float) -> void:
 	var root_pos
 	if root_open:
