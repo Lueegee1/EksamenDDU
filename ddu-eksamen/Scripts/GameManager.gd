@@ -35,9 +35,10 @@ var research_prod_modifier:float = 0.1
 var plant_prod_modifier:float = 1.0
 var food_prod_modifier:float = 1.0
 var minerals_prod_modifier:float = 1.0
-var house_price = [10,10]
-var house_upgrade1_price = [15,20]
-
+var house_price = [100,100]
+var house_upgrade1_price = [150,200]
+var flag_killed = false
+var game_won = false
 
 signal value_changed
 const SAVE_FILE = "user://database.json"
@@ -76,15 +77,23 @@ func load_researches_from_json(path: String) -> void:
 #win and lose condition checkers
 
 func game_condition_tick():
-	win_game()
+	if Global.average_happiness == 100:
+		win_game("genes")
 	lose_game()
 	
-func win_game():
-	if Global.average_happiness == 100:
-		print("Game Won")
+func win_game(flag):
+	if game_won:
+		return
+	if flag == "pod":
+		print("Game Won: Pod")
+	if flag == "genes" and flag_killed:
+		print("Game Won: Euginics")
+	if flag == "genes" and not flag_killed:
+		print("Game Won: Luck")
+	game_won = true
 	
 func lose_game():
-	if Global.average_happiness == 100 or colonist_dict.size() == 0:
+	if Global.average_happiness == 5 or colonist_dict.size() == 0:
 		print("Game lost")
 
 
@@ -267,12 +276,13 @@ func _process(delta: float) -> void:
 
 func _on_tick_timer_timeout() -> void:
 	current_tick += 1
-	happiness_tick()
-	resource_tick()
-	breeding()
-	sick_tick()
-	Global.average_happiness = average_happiness()
-	game_condition_tick()
+	if not game_won:
+		happiness_tick()
+		resource_tick()
+		breeding()
+		sick_tick()
+		Global.average_happiness = average_happiness()
+		game_condition_tick()
 
 
 # Resource functions-----------------------------------------------------------------------------------------------
@@ -418,6 +428,7 @@ func breed_colonist(parent1: String, parent2: String): #helper function to breed
 		"sick": false,
 		"grieving_1": false,
 		"homeless": false,
+		"starving": false,
 		"surgery": false,
 		"grieving_2": false
 }
@@ -444,7 +455,7 @@ func kill_colonist(colonist_name: String, method) -> bool:
 				happiness_dict[colonist]["grieving_2"] = false
 			grieving(colonist)
 	value_changed.emit()
-	
+	flag_killed = true
 	return true
 func grieving(colonist):
 	if happiness_dict[colonist]["grieving_1"]:
@@ -656,6 +667,11 @@ func apply_research(index):
 			Global.decorations +=5
 		17:
 			Global.decorations +=5
+		
+		#Endings
+		28:
+			win_game("pod")
+			Global.average_happiness = 100
 # Happiness calcs
 
 func happiness_tick():
@@ -664,7 +680,7 @@ func happiness_tick():
 	if Global.food < 1:
 		happy_base-=10
 	else:
-			happy_base+=10
+		happy_base+=10
 	for colonist in happiness_dict:
 		#Lazy not to rewrite here
 		if Global.food < 1:

@@ -69,6 +69,8 @@ func _on_build_button_pressed() -> void:
 
 
 func _on_upgrade_button_pressed() -> void:
+	if level == 2:
+		return
 	Global.GameManager.upgrade_building("house"+str(index))
 	level +=1
 	pass # Replace with function body.
