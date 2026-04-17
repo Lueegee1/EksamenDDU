@@ -8,7 +8,7 @@ var assignment: String
 var state = "idle"
 var colonist_name: String
 var productivity
-const speed = 50
+const speed = 10
 var rested =true
 var wandered = false
 var building_positions = {}
@@ -46,13 +46,13 @@ func get_random_building_position() -> Vector2:
 	
 func colonist_work_day():
 	state = "working"
-	await get_tree().create_timer(5).timeout
+	await get_tree().create_timer(60).timeout
 	rested = false
 	state = "going_home"
 func colonist_rest():
 	rested = true
 	state = "resting"
-	await get_tree().create_timer(5.0).timeout
+	await get_tree().create_timer(10).timeout
 	state = "going_to_work"
 
 func _step_agent(delta) -> void:

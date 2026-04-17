@@ -25,9 +25,9 @@
 	"23": {"name":"Lethal injection","cost":[16,400,100,0],"requirements":[22],"description": "A cleaner way to get rid of undesireables, your colonists won't mind as much.", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet8.png", "researched":0},
 	"24": {"name":"Axe murder","cost":[3,0,0,0],"requirements":[6],"description": "An axe is a simple way to cure depression", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet3.png", "researched":0},
 	"25": {"name":"Psychology","cost":[16,0,0,0],"requirements":[19, 22],"description": "Sit down and ask your colonists how they are", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet3.png", "researched":0},
-	"26": {"name":"Dopaminergic stimulants","cost":[24,1000,0,0],"requirements":[25],"description": "This is the good stuff, but its just too fleeting", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet3.png", "researched":0},
+	"26": {"name":"Dopaminergic stimulants","cost":[24,1000,0,0],"requirements":[25],"description": "This is the good stuff, but its just too fleeting...", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet3.png", "researched":0},
 	"27": {"name":"IV therapy","cost":[24,500,1500,0],"requirements":[26],"description": "We've sovled the time issue, but how can we keep the colonists alive and healthy?", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet3.png", "researched":0},
-	"28": {"name":"The Pod","cost":[32,2500,2500,500],"requirements":[27],"description": "Build life sustaining pods for your colonists", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet3.png", "researched":0},
+	"28": {"name":"The Pod","cost":[32,2500,2500,1000],"requirements":[27],"description": "Build life sustaining pods for your colonists, with enough food and drugs to keep them fed and happy for life.", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet3.png", "researched":0},
 	
 	}
 } 

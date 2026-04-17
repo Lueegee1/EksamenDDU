@@ -459,12 +459,12 @@ func kill_colonist(colonist_name: String, method) -> bool:
 	return true
 func grieving(colonist):
 	if happiness_dict[colonist]["grieving_1"]:
-		print("Grieve 1")
 		await get_tree().create_timer(5).timeout
 		if colonist in happiness_dict:
 			happiness_dict[colonist]["grieving_1"] = false
+	if colonist not in happiness_dict:
+		return
 	if happiness_dict[colonist]["grieving_2"]:
-		print("Grieve 2")
 		await get_tree().create_timer(5).timeout
 		if colonist in happiness_dict:
 			happiness_dict[colonist]["grieving_2"] = false
