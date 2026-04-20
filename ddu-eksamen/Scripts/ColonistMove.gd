@@ -41,7 +41,7 @@ func get_home_position(colonist: String):
 func get_random_building_position() -> Vector2:
 	var keys = building_positions.keys()
 	var filtered = keys.filter(func(x): return x != assignment)
-	var random_key = keys.pick_random()
+	var random_key = filtered.pick_random()
 	return building_positions[random_key]
 	
 func colonist_work_day():
@@ -79,7 +79,7 @@ func colonist_move(delta: float) -> void:
 			"farm": state = "going_to_work"
 			"plants": state = "going_to_work"
 			"mine": state = "going_to_work"
-			"research_table": state = "going_to_work"
+			"research_lab": state = "going_to_work"
 			"unemployed": state = "wandering"
 
 	match state:
