@@ -193,12 +193,12 @@ func _on_action_pressed(id):
 
 func update_actions():
 	var popup = actionbutton.get_popup()
-	if Global.GameManager.researches[24]["researched"]==1:
+	if Global.GameManager.researches[24]["researched"]==1 and name_of_colonist != Global.GameManager.leader:
 		popup.set_item_disabled(0, false)
 	else:
 		popup.set_item_disabled(0, true)
 	
-	if Global.GameManager.researches[23]["researched"]==1:
+	if Global.GameManager.researches[23]["researched"]==1 and name_of_colonist != Global.GameManager.leader:
 		popup.set_item_disabled(1, false)
 	else:
 		popup.set_item_disabled(1, true)
@@ -243,9 +243,12 @@ func _process(delta: float) -> void:
 	update_house_checkbox()
 	update_actions()
 	update_psych()
-	if Global.GameManager.researches[25]["researched"]==1:
+	if Global.GameManager.researches[25]["researched"]==1 and name_of_colonist != Global.GameManager.leader:
 		name_tag.text = str(name_of_colonist) + "
 		Happiness: " + str(round(Global.GameManager.happiness_dict[name_of_colonist]["happiness"]*10)/10)
+	if name_of_colonist == Global.GameManager.leader:
+		name_tag.text ="Leader " + str(name_of_colonist) + "
+		Happiness: ???"
 	pass
 
 func show_hide_genes():

@@ -37,7 +37,10 @@ var food_prod_modifier:float = 1.0
 var minerals_prod_modifier:float = 1.0
 var house_price = [100,100]
 var house_upgrade1_price = [150,200]
+var workday_lenght
+#Ending stuff
 var flag_killed = false
+var leader: String
 var game_won = false
 
 signal value_changed
@@ -86,6 +89,8 @@ func win_game(flag):
 		return
 	if flag == "pod":
 		print("Game Won: Pod")
+	if flag == "religion":
+		print("Game Won: Religion")
 	if flag == "genes" and flag_killed:
 		print("Game Won: Euginics")
 	if flag == "genes" and not flag_killed:
@@ -366,6 +371,9 @@ func get_new_resource(resource: String, productivity: float):
 # Research funtions
 
 func meet_research_requirements(index: int):
+	for i in researches[index]["conflicts"]:
+		if researches[int(i)]["researched"] == 1:
+			return false
 	if researches[index]["researched"]==1:
 		return false
 	for i in researches[index]["requirements"]:
@@ -407,7 +415,7 @@ func breeding() ->bool: #functions that calculates if two colonist are gonna bre
 		var assigned = housing_dictionary[house]["assigned"]
 		if assigned.size() >= 2:
 			if Global.food > len(colonist_dict) * food_security_constant:
-				if randf_range(0,50) < 1.0:
+				if randf_range(0,2) < 1.0:
 					breed_colonist(assigned[0], assigned[1])
 					value_changed.emit()
 					return true
@@ -439,9 +447,11 @@ func breed_colonist(parent1: String, parent2: String): #helper function to breed
 }
 	setup_colonist_body(child_name, colonist_instances[parent1].get_home_position(parent1))
 	
-func kill_colonist(colonist_name: String, method) -> bool:
+func kill_colonist(colonist_name: String, method):
+	if colonist_name == leader:
+		return
 	if colonist_name not in colonist_dict:
-		return false
+		return
 	colonist_dict.erase(colonist_name)
 	workers_dict.erase(colonist_name)
 	working_colonist.erase(colonist_name)
@@ -461,7 +471,7 @@ func kill_colonist(colonist_name: String, method) -> bool:
 			grieving(colonist)
 	value_changed.emit()
 	flag_killed = true
-	return true
+	
 func grieving(colonist):
 	if happiness_dict[colonist]["grieving_1"]:
 		await get_tree().create_timer(5).timeout
@@ -623,6 +633,8 @@ func apply_research(index):
 		# RESEARCH
 		1:
 			research_prod_modifier += 0.05
+		29:
+			research_prod_modifier += 0.1
 
 		10:
 			research_prod_modifier += 0.20
@@ -673,11 +685,33 @@ func apply_research(index):
 		17:
 			Global.decorations +=5
 		
-		#Endings
+		#Ending 3
 		28:
 			win_game("pod")
 			Global.average_happiness = 100
+		
+		#Ending 2
+		34:
+			leader = colonist_dict.keys().pick_random()
+			print(leader)
+		35:
+			research_prod_modifier*=3
+			minerals_prod_modifier*=3
+			plant_prod_modifier*=3
+			food_prod_modifier*=3
+		37:
+			ritual_sacrifice()
+			win_game("religion")
+			Global.average_happiness = 100
+
 # Happiness calcs
+func ritual_sacrifice():
+	var to_kill = []
+	for colonist in colonist_dict:
+		if colonist != leader:
+			to_kill.append(colonist)
+	for colonist in to_kill:
+		kill_colonist(colonist, "axe")
 
 func happiness_tick():
 	var happy_base = 20
@@ -690,8 +724,10 @@ func happiness_tick():
 		#Lazy not to rewrite here
 		if Global.food < 1:
 			happiness_dict[colonist]["starving"] = true
-		
+	
 		#The rest is fine
+		if colonist_instances[colonist].state=="working" and "workaholic" not in colonist_dict[colonist]:
+			happy_base-=5
 		if happiness_dict[colonist]["sick"] == true:
 			happy_base-=10
 		#Check if homeless
