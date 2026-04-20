@@ -139,11 +139,16 @@ func get_new_colony(colony_population):
 		value_changed.emit()
 
 # On Startup Function calls --------------------------------------------------------------------------------------------------
-func setup_colonist_body(colonist_name: String) -> void:
+func setup_colonist_body(colonist_name: String, position = null) -> void:
 	var body = colonist_body_scene.instantiate()
 	colonist_container.add_child(body)
-	body.setup("res://icon.svg", colonist_name, Vector2(550,550))
-	colonist_instances[colonist_name] = body
+	if position == null:
+		body.setup("res://icon.svg", colonist_name, Vector2(550,550))
+		colonist_instances[colonist_name] = body
+	else:
+		body.setup("res://icon.svg", colonist_name, position)
+		colonist_instances[colonist_name] = body		
+	
 	
 func _load_building_positions() -> void:
 	for marker in building_markers_node.get_children():
@@ -432,7 +437,7 @@ func breed_colonist(parent1: String, parent2: String): #helper function to breed
 		"surgery": false,
 		"grieving_2": false
 }
-	setup_colonist_body(child_name)
+	setup_colonist_body(child_name, colonist_instances[parent1].get_home_position(parent1))
 	
 func kill_colonist(colonist_name: String, method) -> bool:
 	if colonist_name not in colonist_dict:
