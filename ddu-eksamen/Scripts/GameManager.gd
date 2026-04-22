@@ -9,6 +9,7 @@ var data: Dictionary = {}
 var colonist_dict: Dictionary = {}         
 var workers_dict: Dictionary = {}
 var happiness_dict: Dictionary = {}
+var possible_colonist_sprites = ["res://Assets/temp files/ColonistsSprites1.png", "res://Assets/temp files/ColonistsSprites2.png", "res://Assets/temp files/ColonistsSprites3.png", "res://Assets/temp files/ColonistsSprites4.png","res://Assets/temp files/ColonistsSprites5.png", "res://Assets/temp files/ColonistsSprites6.png", "res://Assets/temp files/ColonistsSprites7.png", "res://Assets/temp files/ColonistsSprites8.png", "res://Assets/temp files/ColonistsSprites9.png", "res://Assets/temp files/ColonistsSprites10.png"]
 var trait_dict: Dictionary = {}
 var housing_dictionary: Dictionary = {
 	"not_built" :
@@ -134,7 +135,7 @@ func get_new_colony(colony_population):
 		colonist_dict[colonist_name] = trait_array #adds them to the colonist dict
 		workers_dict[colonist_name] = "unemployed" #adds them as unemployed to the workers dict
 		happiness_dict[colonist_name] = {"happiness": base_happiness, "sick" : false, "grieving_1": false, "homeless" : false, "surgery": false, "grieving_2": false, "starving": false}
-		setup_colonist_body(colonist_name)
+		setup_colonist_body(colonist_name, get_colonist_sprite())
 # Next lines of code are purely for printing to console
 		print("Created colonist # ", colonist +1, " Their name is ", colonist_name)
 		var traits_list_temp: Array = []
@@ -144,17 +145,22 @@ func get_new_colony(colony_population):
 		value_changed.emit()
 
 # On Startup Function calls --------------------------------------------------------------------------------------------------
-func setup_colonist_body(colonist_name: String, position = null) -> void:
+func setup_colonist_body(colonist_name: String, sprite, position = null) -> void:
 	var body = colonist_body_scene.instantiate()
 	colonist_container.add_child(body)
 	if position == null:
-		body.setup("res://icon.svg", colonist_name, Vector2(550,550))
+		body.setup(sprite, colonist_name, Vector2(550,550))
 		colonist_instances[colonist_name] = body
 	else:
-		body.setup("res://icon.svg", colonist_name, position)
+		body.setup(sprite, colonist_name, position)
 		colonist_instances[colonist_name] = body		
 	
-	
+func get_colonist_sprite():
+	var sprite = possible_colonist_sprites.pick_random()
+	possible_colonist_sprites.erase(sprite)
+	print(possible_colonist_sprites)
+	return sprite
+		
 func _load_building_positions() -> void:
 	for marker in building_markers_node.get_children():
 		building_positions[marker.name.to_lower()] = marker.global_position
@@ -277,7 +283,7 @@ func load_game() -> bool:
 		var research_data = saved_data["research"]
 		researches = research_data.get("researches", researches)
 	for colonist_name in colonist_dict:
-		setup_colonist_body(colonist_name)
+		setup_colonist_body(colonist_name, get_colonist_sprite())
 	return true
 
 # Tick System --------------------------------------------------------------------------------------------------
@@ -452,6 +458,7 @@ func kill_colonist(colonist_name: String, method):
 		return
 	if colonist_name not in colonist_dict:
 		return
+	possible_colonist_sprites.append(colonist_instances[colonist_name].sprite.texture.resource_path)
 	colonist_dict.erase(colonist_name)
 	workers_dict.erase(colonist_name)
 	working_colonist.erase(colonist_name)

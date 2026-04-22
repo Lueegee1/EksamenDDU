@@ -16,7 +16,7 @@ var building_positions = {}
 func setup(sprt, nme, pos):
 	colonist_name = nme
 	sprite.texture = load(sprt)
-	sprite.scale =Vector2(0.1,0.1)
+	sprite.scale =Vector2(4,4)
 	#productivity = prod
 	position = pos
 	var nav_region = get_tree().get_root().find_child("NavigationRegion2D", true, false)
