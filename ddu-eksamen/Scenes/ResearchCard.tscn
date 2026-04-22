@@ -8,6 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://qtuygkhj541l" path="res://Assets/temp files/buttons/questionbutton-expor2t.png" id="5_mp2fs"]
 [ext_resource type="Texture2D" uid="uid://cj1xcfb0qnj0a" path="res://Assets/temp files/buttons/checkbutton.png" id="6_mp2fs"]
 [ext_resource type="Texture2D" uid="uid://b10xlqw1raas0" path="res://Assets/temp files/buttons/checkbutton-export2.png" id="7_cwaj0"]
+[ext_resource type="Texture2D" uid="uid://i2giqhp7cg3o" path="res://Assets/temp files/RessourceRessearch.png" id="7_m3l1j"]
+[ext_resource type="Texture2D" uid="uid://dur8b0uxs7y3l" path="res://Assets/temp files/RessourceMineral.png" id="8_t2adk"]
+[ext_resource type="Texture2D" uid="uid://bxjgcbn2upuq3" path="res://Assets/temp files/RessourceFood.png" id="9_702vc"]
+[ext_resource type="Texture2D" uid="uid://bmoqx0h8pnt85" path="res://Assets/temp files/RessourcePlantmatter.png" id="10_he12q"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dhpgx"]
 font_size = 20
@@ -100,6 +104,32 @@ offset_top = 38.0
 offset_right = 128.0
 offset_bottom = 166.0
 texture = ExtResource("2_04l2y")
+
+[node name="SpriteGroup" type="Control" parent="Group1" unique_id=1207684350]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Group1/SpriteGroup" unique_id=1100050383]
+position = Vector2(404, 45)
+scale = Vector2(2, 2)
+texture = ExtResource("7_m3l1j")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Group1/SpriteGroup" unique_id=902376218]
+position = Vector2(404, 105)
+scale = Vector2(2, 2)
+texture = ExtResource("8_t2adk")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Group1/SpriteGroup" unique_id=528703679]
+position = Vector2(404, 138)
+scale = Vector2(2, 2)
+texture = ExtResource("9_702vc")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Group1/SpriteGroup" unique_id=1391153695]
+position = Vector2(404, 75)
+scale = Vector2(2, 2)
+texture = ExtResource("10_he12q")
+flip_h = true
 
 [node name="Group2" type="Control" parent="." unique_id=1699188147]
 visible = false
