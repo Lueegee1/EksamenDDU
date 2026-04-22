@@ -39,6 +39,7 @@ var minerals_prod_modifier:float = 1.0
 var house_price = [100,100]
 var house_upgrade1_price = [150,200]
 var workday_lenght
+var current_positions = []
 #Ending stuff
 var flag_killed = false
 var leader: String
@@ -149,7 +150,17 @@ func setup_colonist_body(colonist_name: String, sprite, position = null) -> void
 	var body = colonist_body_scene.instantiate()
 	colonist_container.add_child(body)
 	if position == null:
-		body.setup(sprite, colonist_name, Vector2(550,550))
+		for marker in $UI/Background/Ground/Buldingmarkers.get_children():
+			building_positions[marker.name.to_lower()] = marker.global_position
+		var keys = building_positions.keys()
+
+		var filtered = keys.filter(func(x): return x not in current_positions)
+		print("available positions: ", keys)
+		print("current_positions: ", current_positions)
+		var pos = building_positions[filtered.pick_random()]
+		print(pos)
+		current_positions.append(pos)
+		body.setup(sprite, colonist_name, pos)
 		colonist_instances[colonist_name] = body
 	else:
 		body.setup(sprite, colonist_name, position)
@@ -158,7 +169,6 @@ func setup_colonist_body(colonist_name: String, sprite, position = null) -> void
 func get_colonist_sprite():
 	var sprite = possible_colonist_sprites.pick_random()
 	possible_colonist_sprites.erase(sprite)
-	print(possible_colonist_sprites)
 	return sprite
 		
 func _load_building_positions() -> void:
