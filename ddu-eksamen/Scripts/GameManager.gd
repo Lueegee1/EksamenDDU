@@ -640,6 +640,7 @@ func apply_research(index):
 		# RESEARCH
 		1:
 			research_prod_modifier += 0.05
+			$UI/Background/Research.frame = 1
 		29:
 			research_prod_modifier += 0.1
 
@@ -653,34 +654,37 @@ func apply_research(index):
 		# PLANTS
 		6:
 			plant_prod_modifier *= 5
-
-		18:
+			$UI/Background/Path/Trees.frame = 1
+		18:	
 			plant_prod_modifier *= 10
 
 
 		# FOOD
 		3:
 			food_prod_modifier *= 1.15
-
+			$UI/Background/Farm.frame = 1
 		5:
 			food_prod_modifier *= 1.25
+			$UI/Background/Farm.frame = 2
 
 		13:
 			food_prod_modifier *= 1.30
+			$UI/Background/Farm.frame = 2
 
 		21:
 			food_prod_modifier *= 1.50
+			$UI/Background/Farm.frame = 2
 
 
 		# MINERALS
 		2:
 			minerals_prod_modifier *= 1
-
 		8:
 			minerals_prod_modifier *= 5
-
+			$UI/Background/Cave.frame =1
 		16:
 			minerals_prod_modifier *= 10
+			$UI/Background/Cave.frame = 2
 
 		#Decor
 		4:
