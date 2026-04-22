@@ -9,6 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://csbv60p3aqecs" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet8.png" id="4_sm8do"]
 [ext_resource type="Texture2D" uid="uid://cvntgiahcs3h3" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet4.png" id="5_3puww"]
 [ext_resource type="Texture2D" uid="uid://dsq0jh0ac8php" path="res://Assets/temp files/buttons/Sprite-0003-Sheet1.png" id="6_lmgc3"]
+[ext_resource type="Texture2D" uid="uid://dur8b0uxs7y3l" path="res://Assets/temp files/RessourceMineral.png" id="8_q1oir"]
+[ext_resource type="Texture2D" uid="uid://bmoqx0h8pnt85" path="res://Assets/temp files/RessourcePlantmatter.png" id="9_onwnj"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dhpgx"]
 font_size = 20
@@ -101,6 +103,22 @@ offset_top = 38.0
 offset_right = 128.0
 offset_bottom = 166.0
 texture = ExtResource("6_lmgc3")
+
+[node name="SpriteGroup" type="Control" parent="Group1" unique_id=1814960113]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Group1/SpriteGroup" unique_id=588248793]
+position = Vector2(404, 45)
+scale = Vector2(2, 2)
+texture = ExtResource("8_q1oir")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Group1/SpriteGroup" unique_id=563250850]
+position = Vector2(404, 75)
+scale = Vector2(2, 2)
+texture = ExtResource("9_onwnj")
+flip_h = true
 
 [node name="Group2" type="Control" parent="." unique_id=1699188147]
 visible = false
