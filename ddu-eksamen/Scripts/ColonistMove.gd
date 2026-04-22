@@ -12,6 +12,10 @@ const speed = 10
 var rested =true
 var wandered = false
 var building_positions = {}
+var turn = 1
+var direction_timer = 0.0
+var direction_interval = 2
+var turn_speed = 0.5
 
 func setup(sprt, nme, pos):
 	colonist_name = nme
@@ -48,12 +52,14 @@ func get_random_building_position() -> Vector2:
 	
 func colonist_work_day():
 	state = "working"
+	sprite.skew = 0
 	await get_tree().create_timer(60).timeout
 	rested = false
 	state = "going_home"
 func colonist_rest():
 	rested = true
 	state = "resting"
+	sprite.skew = 0
 	await get_tree().create_timer(10).timeout
 	state = "going_to_work"
 
@@ -72,6 +78,12 @@ func _step_agent(delta) -> void:
 			randf_range(0, 20),
 			randf_range(0, 20))
 	position += direction * speed * delta * randf_range(0.8,1)
+	direction_timer += delta
+	if direction_timer >= direction_interval:
+		turn *= -1
+		direction_timer=0
+	sprite.skew = lerp(sprite.skew,turn*0.0,turn_speed*delta)
+	sprite.rotation = lerp(sprite.rotation,0.2*turn,turn_speed*delta)
 
 func colonist_move(delta: float) -> void:
 	if colonist_name in Global.GameManager.workers_dict:
