@@ -8,7 +8,7 @@ var assignment: String
 var state = "idle"
 var colonist_name: String
 var productivity
-const speed = 10
+const speed = 20
 var rested =true
 var wandered = false
 var building_positions = {}
@@ -53,15 +53,23 @@ func get_random_building_position() -> Vector2:
 func colonist_work_day():
 	state = "working"
 	sprite.skew = 0
-	await get_tree().create_timer(60).timeout
+	await get_tree().create_timer(5).timeout
 	rested = false
 	state = "going_home"
 func colonist_rest():
-	rested = true
 	state = "resting"
 	sprite.skew = 0
-	await get_tree().create_timer(10).timeout
+	sprite.rotation = 0
+	await get_tree().create_timer(60).timeout
+	rested = true
 	state = "going_to_work"
+func wiggle(delta):
+	direction_timer += delta
+	if direction_timer >= direction_interval:
+		turn *= -1
+		direction_timer=0
+	sprite.skew = lerp(sprite.skew,turn*0.0,turn_speed*delta)
+	sprite.rotation = lerp(sprite.rotation,0.2*turn,turn_speed*delta)
 
 func _step_agent(delta) -> void:
 	var next_pos = agent.get_next_path_position()
@@ -78,12 +86,8 @@ func _step_agent(delta) -> void:
 			randf_range(0, 20),
 			randf_range(0, 20))
 	position += direction * speed * delta * randf_range(0.8,1)
-	direction_timer += delta
-	if direction_timer >= direction_interval:
-		turn *= -1
-		direction_timer=0
-	sprite.skew = lerp(sprite.skew,turn*0.0,turn_speed*delta)
-	sprite.rotation = lerp(sprite.rotation,0.2*turn,turn_speed*delta)
+	wiggle(delta)
+
 
 func colonist_move(delta: float) -> void:
 	if colonist_name in Global.GameManager.workers_dict:
@@ -119,8 +123,7 @@ func colonist_move(delta: float) -> void:
 			var target = get_home_position(colonist_name)
 			if target == null:
 				state= "wandering"
-				agent.target_position = Vector2(
-					randf_range(50, 1870), randf_range(50, 1030))
+				agent.target_position = Vector2.ZERO
 				return
 			agent.target_position = target
 			if agent.is_navigation_finished():
@@ -150,5 +153,12 @@ func colonist_move(delta: float) -> void:
 			
 func _process(delta: float) -> void:
 	colonist_move(delta*5)
+	if state == "working":
+		wiggle(delta)
 	pass
 	
+
+
+func _on_texture_button_pressed() -> void:
+	Global.UI._on_button_pressed(Global.UI.buttons[8])
+	pass # Replace with function body.

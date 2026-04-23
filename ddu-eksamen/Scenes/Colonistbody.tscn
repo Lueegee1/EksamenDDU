@@ -3,3 +3,7 @@
 [node name="Node2D" type="Node2D" unique_id=548626439]
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1015236847]
+
+[node name="Button" type="Button" parent="." unique_id=976500478]
+offset_right = 8.0
+offset_bottom = 8.0

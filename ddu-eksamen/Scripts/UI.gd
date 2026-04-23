@@ -6,7 +6,6 @@ extends CanvasLayer
 @onready var root_menu = $RootMenu
 @onready var build_menu = $RootMenu/BuildScroll
 @onready var research_menu = $RootMenu/ResearchScroll
-@onready var work_menu = $RootMenu/WorkMenu
 @onready var colonist_menu = $RootMenu/ColonistScroll
 
 const character_card = preload("res://Scenes/ColonistCard.tscn")
@@ -146,6 +145,7 @@ func update_ressources():
 	
 
 func _ready() -> void:
+	Global.UI = self
 	position_elements()
 	# Set initial size based on current happiness
 	#var initial_width = (Global.average_happiness / 100.0) * (2 * screen_dim.x / 5)

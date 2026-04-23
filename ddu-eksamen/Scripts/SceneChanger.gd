@@ -1,12 +1,12 @@
 extends Node
 
-@export var default_scene = "Game"
+@export var default_scene = "IntroCutScene"
 @onready var scene := $'Scene'
 
 var scene_instance
 
 func _ready():
-#	Global.SceneChanger = self
+	Global.SceneChanger = self
 	load_scene(default_scene)
 
 func unload_scene() -> void:

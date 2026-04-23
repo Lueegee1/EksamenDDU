@@ -250,6 +250,7 @@ scale = Vector2(1.1, 1.1)
 texture_normal = ExtResource("21_18uti")
 
 [node name="Menubackground" type="Sprite2D" parent="UI/MenuButtons/Button9" unique_id=1215898791]
+modulate = Color(1, 1, 1, 0.7254902)
 z_index = -1
 position = Vector2(99, 31.364)
 scale = Vector2(0.98, 0.98)

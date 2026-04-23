@@ -153,7 +153,8 @@ func update_house_checkbox() -> void:
 
 	
 func trait_name(index):
-	return(str(Global.GameManager.trait_dict[Global.GameManager.colonist_dict[name_of_colonist][index]]["name"]))
+	var trait_id = Global.GameManager.colonist_dict[name_of_colonist][index]
+	return Global.GameManager.trait_dict[trait_id]["name"]
 
 func setup(colonist_name, colonist_sprite):
 	name_of_colonist = colonist_name
@@ -243,6 +244,8 @@ func _process(delta: float) -> void:
 	update_house_checkbox()
 	update_actions()
 	update_psych()
+	sprite.texture = load(Global.GameManager.colonist_instances[name_of_colonist].sprite.texture.get_path()) as Texture2D
+
 	if Global.GameManager.researches[25]["researched"]==1 and name_of_colonist != Global.GameManager.leader:
 		name_tag.text = str(name_of_colonist) + "
 		Happiness: " + str(round(Global.GameManager.happiness_dict[name_of_colonist]["happiness"]*10)/10)

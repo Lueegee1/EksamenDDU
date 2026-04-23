@@ -164,7 +164,7 @@ func setup_colonist_body(colonist_name: String, sprite, position = null) -> void
 		colonist_instances[colonist_name] = body
 	else:
 		body.setup(sprite, colonist_name, position)
-		colonist_instances[colonist_name] = body		
+		colonist_instances[colonist_name] = body
 	
 func get_colonist_sprite():
 	var sprite = possible_colonist_sprites.pick_random()
@@ -186,6 +186,7 @@ func _ready():
 	#if not load_game():
 	building_markers_node = get_tree().get_root().find_child("Buldingmarkers", true, false)
 	_load_building_positions()
+	#if not load_game():
 	get_new_colony(colony_start_amount)
 
 #colonist pathfinding and location functions:
@@ -223,6 +224,7 @@ func save_game() -> bool:
 			"happiness_dict": happiness_dict,
 			"housing_dictionary": housing_dictionary,
 			"workstation_dictionary": workstation_dictionary,
+			"colonist_instances": colonist_instances,
 		},
 		"research": { #saves research
 			"researches": researches
@@ -287,6 +289,9 @@ func load_game() -> bool:
 		happiness_dict = colony.get("happiness_dict", {})
 		housing_dictionary = colony.get("housing_dictionary", {})
 		workstation_dictionary = colony.get("workstation_dictionary", {})
+		colonist_instances = colony.get("colonist_instances", {})
+	else:
+		return false
 
 	# Research/ not really sure this works but fuck it we ball
 	if saved_data.has("research"):

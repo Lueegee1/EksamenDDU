@@ -1,10 +1,21 @@
 [gd_scene format=3 uid="uid://bjmhayses263x"]
 
 [ext_resource type="Script" uid="uid://clcos5wjlxcln" path="res://Scripts/ColonistMove.gd" id="1_22m36"]
+[ext_resource type="Texture2D" uid="uid://jkjfgw0lpmaf" path="res://Assets/temp files/ColonistsSprites4.png" id="2_uf4g1"]
 
 [node name="Colonists" type="Node2D" unique_id=138557117]
 script = ExtResource("1_22m36")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1108300357]
+scale = Vector2(4, 4)
+texture = ExtResource("2_uf4g1")
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=1630006738]
+
+[node name="TextureButton" type="TextureButton" parent="." unique_id=683561118]
+offset_left = -27.0
+offset_top = -39.0
+offset_right = 26.0
+offset_bottom = 41.0
+
+[connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
