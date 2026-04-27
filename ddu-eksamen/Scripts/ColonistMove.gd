@@ -36,6 +36,8 @@ func _load_building_positions() -> void:
 		building_positions[marker.name.to_lower()] = marker.global_position
 	
 func get_workstation_position(workplace: String) -> Vector2:
+	if workplace == "unemployed":
+		return get_random_building_position()
 	return building_positions.get(workplace, Vector2.ZERO)
 func get_home_position(colonist: String):
 	for house_id in Global.GameManager.housing_dictionary:
@@ -49,18 +51,28 @@ func get_random_building_position() -> Vector2:
 	var random_key = filtered.pick_random()
 	print(building_positions[random_key])
 	return building_positions[random_key]
+func get_random_rest_position() -> Vector2:
+	var keys = building_positions.keys()
+	var filtered = keys.filter(func(x): return x not in ["farm", "research_lab", "mine", "forest"])
+	var random_key = filtered.pick_random()
+	print(building_positions[random_key])
+	return building_positions[random_key]
 	
 func colonist_work_day():
+	Global.GameManager.update_postion()
 	state = "working"
 	sprite.skew = 0
-	await get_tree().create_timer(5).timeout
+	if "workaholic" in Global.GameManager.colonist_dict[colonist_name]:
+		await get_tree().create_timer(Global.GameManager.workday_lenght*1.5).timeout
+	await get_tree().create_timer(Global.GameManager.workday_lenght).timeout
 	rested = false
 	state = "going_home"
 func colonist_rest():
+	Global.GameManager.update_postion()
 	state = "resting"
 	sprite.skew = 0
 	sprite.rotation = 0
-	await get_tree().create_timer(60).timeout
+	await get_tree().create_timer(5).timeout
 	rested = true
 	state = "going_to_work"
 func wiggle(delta):
@@ -139,9 +151,13 @@ func colonist_move(delta: float) -> void:
 
 		"wandering":
 			
-			if agent.target_position == Vector2.ZERO or agent.is_navigation_finished() and not wandered:
+			if agent.target_position == Vector2.ZERO or agent.is_navigation_finished() and not wandered and rested:
 				wandered = true
 				var new_target = get_random_building_position()
+				agent.target_position = new_target
+			if agent.target_position == Vector2.ZERO or agent.is_navigation_finished() and not wandered and not rested:
+				wandered = true
+				var new_target = get_random_rest_position()
 				agent.target_position = new_target
 			_step_agent(delta)
 			if wandered and not rested and agent.is_navigation_finished():

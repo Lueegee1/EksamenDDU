@@ -24,6 +24,7 @@ var root_open = false
 var build_open = false
 var research_open = false
 var colonist_open = false
+var null_build = false
 
 var colonists_card_dict: Dictionary = {}
 var research_card_dict: Dictionary ={}
@@ -80,19 +81,11 @@ func update_menus(delta: float) -> void:
 	buttons[3].position.x =move_toward(buttons[3].position.x,root_pos.x*0.285+(1*0.45*30), 0.27*speed*delta)
 	buttons[5].position.x =move_toward(buttons[5].position.x,root_pos.x*0.285+(2*0.45*30), 0.27*speed*delta)
 	buttons[8].position.x = move_toward(buttons[8].position.x, (screen_dim.x/5+78) +(2+root_pos.x**1.001-root_closed_pos.x**1.001)/4, 0.255*speed*delta)
-	#Unreadable logic
-	if not build_open:
-		build_menu.visible = false
-	else:
-		build_menu.visible = true
-	if not research_open:
-		research_menu.visible = false
-	else:
-		research_menu.visible = true
-	if not colonist_open:
-		colonist_menu.visible = false
-	else:
-		colonist_menu.visible = true
+	
+	
+	build_menu.visible = build_open
+	research_menu.visible = research_open
+	colonist_menu.visible = colonist_open
 	
 	#Make colonist menu
 	for character in Global.GameManager.colonist_dict:
@@ -136,7 +129,12 @@ func update_menus(delta: float) -> void:
 		$RootMenu/BuildScroll/BuildMenu.add_child(card)
 		card.setup(house_count)
 		build_card_dict[build_type] = card
-			
+	if house_count == 0 and not null_build:
+		null_build = true
+		var card = build_card.instantiate()
+		$RootMenu/BuildScroll/BuildMenu.add_child(card)
+		card.setup("null_card")
+		build_card_dict["null_card"] = card
 func update_ressources():
 	$Ressources.text =str(round(Global.research_points*10)/10) + "
 	" + str(round(Global.plant_matter*10)/10) + "

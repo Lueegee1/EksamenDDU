@@ -11,6 +11,8 @@ var workers_dict: Dictionary = {}
 var happiness_dict: Dictionary = {}
 var possible_colonist_sprites = ["res://Assets/temp files/ColonistsSprites1.png", "res://Assets/temp files/ColonistsSprites2.png", "res://Assets/temp files/ColonistsSprites3.png", "res://Assets/temp files/ColonistsSprites4.png","res://Assets/temp files/ColonistsSprites5.png", "res://Assets/temp files/ColonistsSprites6.png", "res://Assets/temp files/ColonistsSprites7.png", "res://Assets/temp files/ColonistsSprites8.png", "res://Assets/temp files/ColonistsSprites9.png", "res://Assets/temp files/ColonistsSprites10.png"]
 var trait_dict: Dictionary = {}
+var sprite_dict = {}
+var postion_dict = {}
 var housing_dictionary: Dictionary = {
 	"not_built" :
 		{
@@ -38,7 +40,7 @@ var food_prod_modifier:float = 1.0
 var minerals_prod_modifier:float = 1.0
 var house_price = [100,100]
 var house_upgrade1_price = [150,200]
-var workday_lenght
+var workday_lenght = 60
 var current_positions = []
 #Ending stuff
 var flag_killed = false
@@ -225,6 +227,8 @@ func save_game() -> bool:
 			"housing_dictionary": housing_dictionary,
 			"workstation_dictionary": workstation_dictionary,
 			"colonist_instances": colonist_instances,
+			"sprite_dict": sprite_dict,
+			"postion_dict": postion_dict,
 		},
 		"research": { #saves research
 			"researches": researches
@@ -248,6 +252,8 @@ func save_game() -> bool:
 	return true
 	
 func load_game() -> bool:
+	print("Save file exists: ", FileAccess.file_exists(SAVE_FILE))
+	print("Save path: ", SAVE_FILE)
 	if not FileAccess.file_exists(SAVE_FILE): #checker om save filen eksiterer
 		return false
 	var file = FileAccess.open(SAVE_FILE, FileAccess.READ) #opens the file and saves it in read mode as variable file and checks if opening
@@ -284,12 +290,21 @@ func load_game() -> bool:
 	# Colony 
 	if saved_data.has("colony"):
 		var colony = saved_data["colony"]
+		var required_keys = ["colonist_dict", "workers_dict", "happiness_dict", 
+							 "housing_dictionary", "workstation_dictionary", 
+							 "colonist_instances", "sprite_dict", "postion_dict"]
+		if not required_keys.all(func(key): return colony.has(key)):
+			return false
 		colonist_dict = colony.get("colonist_dict", {})
 		workers_dict = colony.get("workers_dict", {})
 		happiness_dict = colony.get("happiness_dict", {})
 		housing_dictionary = colony.get("housing_dictionary", {})
 		workstation_dictionary = colony.get("workstation_dictionary", {})
 		colonist_instances = colony.get("colonist_instances", {})
+		sprite_dict = colony.get("sprite_dict", {})
+		postion_dict = colony.get("postion_dict", {})
+		for colonist_name in colonist_dict:
+			setup_colonist_body(colonist_name, sprite_dict[colonist_name], postion_dict[colonist_name])
 	else:
 		return false
 
@@ -297,8 +312,6 @@ func load_game() -> bool:
 	if saved_data.has("research"):
 		var research_data = saved_data["research"]
 		researches = research_data.get("researches", researches)
-	for colonist_name in colonist_dict:
-		setup_colonist_body(colonist_name, get_colonist_sprite())
 	return true
 
 # Tick System --------------------------------------------------------------------------------------------------
@@ -345,7 +358,7 @@ func resource_tick(): #tick that handles resource consumption and getting the ne
 
 func resource_consumption_tick(modifier = null): #calculates resource consumption and 
 	#checks if the colony is starving
-	if current_tick%5 == 0:
+	if int(current_tick)%5 == 0:
 		var food_consumption_tick_value: float = 0.25
 		var num_of_colonist = len(colonist_dict) #finds the number of colonist
 		if modifier != null:
@@ -436,7 +449,7 @@ func breeding() ->bool: #functions that calculates if two colonist are gonna bre
 		var assigned = housing_dictionary[house]["assigned"]
 		if assigned.size() >= 2:
 			if Global.food > len(colonist_dict) * food_security_constant:
-				if randf_range(0,2) < 1.0:
+				if randf_range(0,50) < 1.0:
 					breed_colonist(assigned[0], assigned[1])
 					value_changed.emit()
 					return true
@@ -465,9 +478,22 @@ func breed_colonist(parent1: String, parent2: String): #helper function to breed
 		"starving": false,
 		"surgery": false,
 		"grieving_2": false
+
 }
-	setup_colonist_body(child_name, colonist_instances[parent1].get_home_position(parent1))
-	
+	setup_colonist_body(child_name, get_colonist_sprite(), colonist_instances[parent1].get_home_position(parent1))
+	update_sprite()
+func update_sprite():
+	for colonist in colonist_instances:
+		sprite_dict[colonist] = colonist_instances[colonist].sprite
+	value_changed.emit()
+func update_postion():
+	for colonist in colonist_instances:
+		postion_dict[colonist] = colonist_instances[colonist].get_workstation_position(colonist_instances[colonist].assignment)
+		if colonist_instances[colonist].rested == false:
+			postion_dict[colonist] = colonist_instances[colonist].get_home_position(colonist)
+		if postion_dict[colonist] == null:
+			postion_dict[colonist] = colonist_instances[colonist].get_random_building_position()
+	value_changed.emit()
 func kill_colonist(colonist_name: String, method):
 	if colonist_name == leader:
 		return
@@ -491,7 +517,7 @@ func kill_colonist(colonist_name: String, method):
 			if happiness_dict[colonist]["grieving_1"] and happiness_dict[colonist]["grieving_2"]:
 				happiness_dict[colonist]["grieving_2"] = false
 			grieving(colonist)
-	value_changed.emit()
+	update_sprite()
 	flag_killed = true
 	
 func grieving(colonist):

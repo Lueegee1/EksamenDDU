@@ -58,17 +58,8 @@ text = "Cost:
 label_settings = SubResource("LabelSettings_dhpgx")
 horizontal_alignment = 2
 
-[node name="Label3" type="Label" parent="Group1" unique_id=386586081]
-layout_mode = 0
-offset_left = 132.0
-offset_top = 140.0
-offset_right = 226.0
-offset_bottom = 168.0
-text = "Upgrade:"
-label_settings = SubResource("LabelSettings_dhpgx")
-horizontal_alignment = 2
-
 [node name="TextureButton" type="TextureButton" parent="Group1" unique_id=1360335245]
+visible = false
 layout_mode = 0
 offset_left = 235.0
 offset_top = 140.0
@@ -80,19 +71,19 @@ texture_pressed = ExtResource("3_q2tua")
 [node name="Label4" type="Label" parent="Group1" unique_id=1870785312]
 layout_mode = 0
 offset_left = 131.0
-offset_top = 110.0
+offset_top = 87.0
 offset_right = 232.0
-offset_bottom = 138.0
+offset_bottom = 115.0
 text = "Build:"
 label_settings = SubResource("LabelSettings_dhpgx")
-horizontal_alignment = 2
 
 [node name="TextureButton2" type="TextureButton" parent="Group1" unique_id=1871101407]
 layout_mode = 0
-offset_left = 235.0
-offset_top = 110.0
-offset_right = 267.0
-offset_bottom = 142.0
+offset_left = 208.0
+offset_top = 55.5
+offset_right = 240.0
+offset_bottom = 87.5
+scale = Vector2(3, 3)
 texture_normal = ExtResource("4_ctjep")
 texture_pressed = ExtResource("5_3puww")
 texture_disabled = ExtResource("5_3puww")

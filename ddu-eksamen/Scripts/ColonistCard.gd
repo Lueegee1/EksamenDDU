@@ -216,12 +216,14 @@ func update_actions():
 
 func update_psych():
 	var issues = []
-	if Global.decorations < 20:
+	if Global.decorations < 10:
 		issues.append("thinks the town could be prettier")
 	if Global.GameManager.happiness_dict[name_of_colonist]["homeless"]:
 		issues.append("doesn't have a place to stay")
 	if Global.GameManager.happiness_dict[name_of_colonist]["starving"]:
 		issues.append("is very hungry")
+	if Global.GameManager.colonist_instances[name_of_colonist].rested == false:
+		issues.append("is tired from work")
 	if Global.GameManager.happiness_dict[name_of_colonist]["sick"]:
 		issues.append("is currently feeling under the weather")
 	if Global.GameManager.happiness_dict[name_of_colonist]["surgery"]:
