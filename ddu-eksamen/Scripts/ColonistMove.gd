@@ -19,6 +19,7 @@ var turn_speed = 0.5
 
 func setup(sprt, nme, pos):
 	colonist_name = nme
+	print(str(sprt))
 	sprite.texture = load(sprt)
 	sprite.scale =Vector2(4,4)
 	#productivity = prod
@@ -59,9 +60,11 @@ func get_random_rest_position() -> Vector2:
 	return building_positions[random_key]
 	
 func colonist_work_day():
-	Global.GameManager.update_postion()
+	Global.GameManager.update_position()
 	state = "working"
 	sprite.skew = 0
+	if colonist_name not in Global.GameManager.colonist_dict[colonist_name]:
+		return
 	if "workaholic" in Global.GameManager.colonist_dict[colonist_name]:
 		await get_tree().create_timer(Global.GameManager.workday_lenght*1.5).timeout
 	await get_tree().create_timer(Global.GameManager.workday_lenght).timeout

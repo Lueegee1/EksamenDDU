@@ -92,7 +92,7 @@ func update_menus(delta: float) -> void:
 		if character not in colonists_card_dict:
 			var card = character_card.instantiate()
 			$RootMenu/ColonistScroll/ColonistMenu.add_child(card)
-			card.setup(character, "res://Assets/temp files/buttons/Sprite-0003-Sheet3.png")
+			card.setup(character, Global.GameManager.sprite_dict[character])
 			colonists_card_dict[character] = card
 
 	var to_remove = []
@@ -150,9 +150,10 @@ func _ready() -> void:
 	happiness_bar.size = Vector2(0, bar_height)
 
 func _process(delta: float) -> void:
-	update_happiness_bar(delta)
-	update_menus(delta)
-	update_ressources()
+	if Global.GameManager.game_loaded:
+		update_happiness_bar(delta)
+		update_menus(delta)
+		update_ressources()
 	
 
 func _on_button_pressed(button):

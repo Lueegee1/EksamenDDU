@@ -154,11 +154,12 @@ func update_house_checkbox() -> void:
 	
 func trait_name(index):
 	var trait_id = Global.GameManager.colonist_dict[name_of_colonist][index]
-	return Global.GameManager.trait_dict[trait_id]["name"]
+	return Global.GameManager.trait_dict[int(trait_id)]["name"]
 
 func setup(colonist_name, colonist_sprite):
 	name_of_colonist = colonist_name
 	sprite.texture = load(colonist_sprite) as Texture2D
+	
 	name_tag.text = str(colonist_name) + "
 	Happiness: ???"
 	var temp_string = ""
@@ -173,6 +174,7 @@ func setup(colonist_name, colonist_sprite):
 		if i == 5:
 			temp_string += str(trait_name(i))
 	for i in Global.GameManager.colonist_dict[colonist_name]:
+		i = int(i)
 		prod_mod*=Global.GameManager.trait_dict[i]["productivity_mod"]
 		happy_mod*=Global.GameManager.trait_dict[i]["happiness_mod"]
 		sickness_mod*=Global.GameManager.trait_dict[i]["sickness_chance"]
@@ -215,6 +217,10 @@ func update_actions():
 		popup.set_item_disabled(3, true)
 
 func update_psych():
+	if name_of_colonist not in Global.GameManager.colonist_instances:
+		return
+	if not is_instance_valid(Global.GameManager.colonist_instances[name_of_colonist]):
+		return
 	var issues = []
 	if Global.decorations < 10:
 		issues.append("thinks the town could be prettier")
@@ -242,12 +248,14 @@ func update_psych():
 	$Group3/Label5.text = temp_text
 
 func _process(delta: float) -> void:
+	if not is_instance_valid(self):
+		return
+	if name_of_colonist not in Global.GameManager.workers_dict:
+		return
 	update_work_checkbox(Global.GameManager.workers_dict[name_of_colonist])
 	update_house_checkbox()
 	update_actions()
 	update_psych()
-	sprite.texture = load(Global.GameManager.colonist_instances[name_of_colonist].sprite.texture.get_path()) as Texture2D
-
 	if Global.GameManager.researches[25]["researched"]==1 and name_of_colonist != Global.GameManager.leader:
 		name_tag.text = str(name_of_colonist) + "
 		Happiness: " + str(round(Global.GameManager.happiness_dict[name_of_colonist]["happiness"]*10)/10)
