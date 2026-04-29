@@ -75,16 +75,16 @@ func _on_volume_3_value_changed(value: float) -> void:
 func update_labels():
 	if not value_changed:
 		return
-	$CanvasLayer/Volume/VolumeLabel.text = "Master Volume: " + round(str(Global.volume))
+	$CanvasLayer/Volume/VolumeLabel.text = "Master Volume: " + str(round(Global.volume))
 	$CanvasLayer/Volume.value =Global.volume
-	$CanvasLayer/Volume2/VolumeLabel.text = "Music Volume: " + round(str(Global.volume_music))
+	$CanvasLayer/Volume2/VolumeLabel.text = "Music Volume: " + str(round(Global.volume_music))
 	$CanvasLayer/Volume2.value = Global.volume_music
-	$CanvasLayer/Volume3/VolumeLabel.text = "Sound Volume: " + round(str(Global.volume_effect))
+	$CanvasLayer/Volume3/VolumeLabel.text = "Sound Volume: " + str(round(Global.volume_effect))
 	$CanvasLayer/Volume3.value = Global.volume_effect
 	print(Global.volume_effect)
 	load_wins()
 	if len(wins) >=1:
-		$CanvasLayer/GameSpeed/SpeedLabel.text = "Current Game Speed " + round(str(Global.tick_interval))
+		$CanvasLayer/GameSpeed/SpeedLabel.text = "Current Game Speed " + str(round(Global.tick_interval))
 		$CanvasLayer/GameSpeed.editable = true
 	else:
 		$CanvasLayer/GameSpeed.editable = false
@@ -121,4 +121,10 @@ func load_wins():
 func _on_game_speed_value_changed(value: float) -> void:
 	Global.tick_interval = value
 	value_changed = true
+	pass # Replace with function body.
+
+
+func _on_texture_button_pressed() -> void:
+	Global.GameManager.save_game()
+	queue_free()
 	pass # Replace with function body.

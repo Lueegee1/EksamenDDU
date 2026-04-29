@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://biniyuyws61oh"]
 
-[ext_resource type="Script" uid="uid://yiwn2p28vtwm" path="res://Scenes/Settings.gd" id="1_4hxq3"]
+[ext_resource type="Script" uid="uid://yiwn2p28vtwm" path="res://Scripts/Settings.gd" id="1_4hxq3"]
 [ext_resource type="LabelSettings" uid="uid://bwv2mgkq08ssg" path="res://Assets/RessourceLabel.tres" id="2_flfri"]
+[ext_resource type="Texture2D" uid="uid://dsq0jh0ac8php" path="res://Assets/temp files/buttons/Sprite-0003-Sheet1.png" id="3_w1nw0"]
+[ext_resource type="Texture2D" uid="uid://b23bnaarcphjh" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet1.png" id="4_w1nw0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fv8yg"]
 font_size = 40
@@ -13,6 +15,7 @@ font_size = 48
 script = ExtResource("1_4hxq3")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1883917230]
+layer = 4
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1693964785]
 offset_right = 1920.0
@@ -149,6 +152,14 @@ offset_bottom = 103.0
 text = "NO!"
 label_settings = SubResource("LabelSettings_yrknh")
 
+[node name="TextureButton" type="TextureButton" parent="CanvasLayer" unique_id=453327048]
+offset_left = 1792.0
+offset_right = 1824.0
+offset_bottom = 32.0
+scale = Vector2(4, 4)
+texture_normal = ExtResource("3_w1nw0")
+texture_pressed = ExtResource("4_w1nw0")
+
 [connection signal="value_changed" from="CanvasLayer/Volume" to="." method="_on_volume_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/Volume2" to="." method="_on_volume_2_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/Volume3" to="." method="_on_volume_3_value_changed"]
@@ -156,3 +167,4 @@ label_settings = SubResource("LabelSettings_yrknh")
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Popup/WarningText/Button" to="." method="_on_hard_reset_pressed"]
 [connection signal="pressed" from="CanvasLayer/Popup/WarningText/Button2" to="." method="_on_cancel_pressed"]
+[connection signal="pressed" from="CanvasLayer/TextureButton" to="." method="_on_texture_button_pressed"]

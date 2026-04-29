@@ -8,6 +8,7 @@ extends CanvasLayer
 @onready var research_menu = $RootMenu/ResearchScroll
 @onready var colonist_menu = $RootMenu/ColonistScroll
 
+const settings_scene= preload("res://Scenes/Settings.tscn")
 const character_card = preload("res://Scenes/ColonistCard.tscn")
 const research_card = preload("res://Scenes/ResearchCard.tscn")
 const build_card = preload("res://Scenes/BuildCard.tscn")
@@ -191,6 +192,12 @@ func _on_button_pressed(button):
 		Global.GameManager.kill_colonist($RootMenu/ColonistScroll/ColonistMenu.get_child(1).name_tag.text)
 		print("button 7")
 	if button == buttons[7]:
+		var menu = settings_scene.instantiate()
+		#get_tree().get_root().find_child("SettingsLayer", true, false).add_child(menu)
+		self.add_child(menu)
+		menu.z_index = 100
+		menu.position = Vector2(0,0)
+		menu.visible = true
 		print("button 8")
 	if button == buttons[8]:
 		print("button 9")
