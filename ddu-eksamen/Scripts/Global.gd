@@ -9,7 +9,7 @@ var average_happiness: float = 0
 
 var timer: float = 0
 var tick_interval: float = 1.0
-var has_save_file = false
+var load_game = false
 
 var UI
 var SceneChanger

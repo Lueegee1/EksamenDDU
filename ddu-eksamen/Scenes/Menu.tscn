@@ -105,6 +105,9 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="LabelSettings" id="LabelSettings_n3nbb"]
+font_size = 64
+
 [node name="Sceneroot" type="Node2D" unique_id=1659873701]
 script = ExtResource("1_krje8")
 
@@ -215,6 +218,13 @@ offset_bottom = 295.0
 scale = Vector2(4, 4)
 texture_normal = ExtResource("19_n3nbb")
 texture_pressed = ExtResource("20_dm44m")
+
+[node name="Label" type="Label" parent="MenuUI" unique_id=1985911666]
+z_index = 7
+offset_right = 258.0
+offset_bottom = 184.0
+text = "awdawd"
+label_settings = SubResource("LabelSettings_n3nbb")
 
 [connection signal="pressed" from="MenuUI/ButtonGroup/Button1" to="." method="_on_button_1_pressed"]
 [connection signal="pressed" from="MenuUI/ButtonGroup/Button2" to="." method="_on_button_2_pressed"]

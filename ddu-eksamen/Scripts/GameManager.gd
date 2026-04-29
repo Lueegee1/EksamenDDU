@@ -47,6 +47,7 @@ var flag_killed = false
 var leader: String
 var game_won = false
 var game_loaded = false
+var wins = []
 
 signal value_changed
 const SAVE_FILE = "user://database.json"
@@ -100,6 +101,8 @@ func win_game(flag):
 		print("Game Won: Euginics")
 	if flag == "genes" and not flag_killed:
 		print("Game Won: Luck")
+	if flag not in wins:
+		wins.append(flag)
 	game_won = true
 	
 func lose_game():
@@ -189,12 +192,12 @@ func _ready():
 	load_traits_from_json("res://data/traits.json")
 	load_researches_from_json("res://data/research.json")
 	# the below two lines should be turned into real lines when we want to test the save sytem
-	#if not load_game():
 	building_markers_node = get_tree().get_root().find_child("Buldingmarkers", true, false)
 	_load_building_positions()
-	if FileAccess.file_exists(SAVE_FILE): #checker om save filen eksiterer
+	if FileAccess.file_exists(SAVE_FILE) and Global.load_game: #checker om save filen eksiterer og om den skal loade
 		load_game()
 	else:
+		new_game()
 		get_new_colony(colony_start_amount)
 	game_loaded = true
 
@@ -247,7 +250,10 @@ func save_game() -> bool:
 			"plant": plant_prod_modifier,
 			"food": food_prod_modifier,
 			"minerals": minerals_prod_modifier
-		}
+		},
+		"achieved_wins": {
+			"wins": wins
+			}
 	}
 	var file = FileAccess.open(SAVE_FILE, FileAccess.WRITE)
 	if file == null: #creates a file variable that holds the opened save_file and checks if it was succesfully opened
@@ -258,7 +264,6 @@ func save_game() -> bool:
 		file.close()
 		return false
 	file.close()
-	Global.has_save_file = true
 	return true
 	
 func load_game() -> bool:
@@ -326,9 +331,14 @@ func load_game() -> bool:
 			trait_dict[int(key)] = trait_dict[key]
 			
 		update_sprite()
-		game_loaded = true
 	else:
 		return false
+	if saved_data.has("achieved_wins"):
+		var achieved_wins = saved_data["achieved_wins"]
+		wins = achieved_wins.get("wins")
+	
+	game_loaded = true
+	
 
 	# Research/ not really sure this works but fuck it we ball
 	if saved_data.has("research"):
@@ -343,6 +353,32 @@ func load_game() -> bool:
 		if researches[i]["researched"] == 1:
 			apply_research(i)
 	return true
+	
+func new_game() -> void:
+	var has_save = true
+	if not FileAccess.file_exists(SAVE_FILE): #checker om save filen eksiterer
+		has_save = false
+	var file = FileAccess.open(SAVE_FILE, FileAccess.READ) #opens the file and saves it in read mode as variable file and checks if opening
+#it was succesfull
+	if file == null:
+		has_save = false
+	var save_text = file.get_as_text()
+	file.close()
+	var json_save_data = JSON.new()
+	var parsed_json_save_data = json_save_data.parse(save_text)
+	if parsed_json_save_data != OK: #checks if the json was parsed succesfully
+		has_save = false
+	if has_save:
+		var saved_data = json_save_data.data
+		if "achieved_wins" not in saved_data:
+			return
+		var achieved_wins = saved_data["achieved_wins"]
+		if saved_data.has("achieved_wins"):
+			var preserved_wins = achieved_wins.get("wins")
+			wins = preserved_wins
+		if FileAccess.file_exists(SAVE_FILE):
+			DirAccess.remove_absolute(SAVE_FILE)
+			
 	
 func string_to_vector2(s: String) -> Vector2:
 	s = s.strip_edges().trim_prefix("(").trim_suffix(")")
