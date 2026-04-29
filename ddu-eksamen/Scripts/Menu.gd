@@ -17,6 +17,7 @@ func _on_button_2_pressed() -> void:
 	
 	
 func load_wins():
+	wins=  []
 	var has_save = true
 	if not FileAccess.file_exists(SAVE_FILE): #checker om save filen eksiterer
 		has_save = false
@@ -24,6 +25,7 @@ func load_wins():
 #it was succesfull
 	if file == null:
 		has_save = false
+		return
 	var save_text = file.get_as_text()
 	file.close()
 	var json_save_data = JSON.new()
@@ -39,7 +41,10 @@ func load_wins():
 			wins = achieved_wins.get("wins")
 	else:
 		return
-
-func _process(delta: float) -> void:
+func _ready() -> void:
 	load_wins()
 	$MenuUI/Label.text = str(wins)
+
+
+func _process(delta: float) -> void:
+	pass

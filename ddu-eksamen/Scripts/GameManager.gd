@@ -255,7 +255,13 @@ func save_game() -> bool:
 		},
 		"achieved_wins": {
 			"wins": wins
-			}
+		},
+		"globals": {
+			"tick_interval": Global.tick_interval,
+			"volume": Global.volume,
+			"volume_music": Global.volume_music,
+			"volume_effect": Global.volume_effect,
+		}
 	}
 	var file = FileAccess.open(SAVE_FILE, FileAccess.WRITE)
 	if file == null: #creates a file variable that holds the opened save_file and checks if it was succesfully opened
@@ -338,7 +344,13 @@ func load_game() -> bool:
 	if saved_data.has("achieved_wins"):
 		var achieved_wins = saved_data["achieved_wins"]
 		wins = achieved_wins.get("wins")
-	
+	if saved_data.has("globals"):
+		var globals= saved_data["globals"]
+		Global.tick_interval= globals.get("tick_interval")
+		Global.volume= globals.get("volume")
+		Global.volume_music= globals.get("volume_music")
+		Global.volume_effect= globals.get("volume_effect")
+		
 	game_loaded = true
 	
 
@@ -364,9 +376,11 @@ func new_game() -> void:
 		has_save = false
 	var file = FileAccess.open(SAVE_FILE, FileAccess.READ) #opens the file and saves it in read mode as variable file and checks if opening
 #it was succesfull
+	var save_text
 	if file == null:
 		has_save = false
-	var save_text = file.get_as_text()
+		return
+	save_text = file.get_as_text()
 	file.close()
 	var json_save_data = JSON.new()
 	var parsed_json_save_data = json_save_data.parse(save_text)
@@ -400,6 +414,7 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_tick_timer_timeout() -> void:
+	$TickTimer.wait_time = 1/Global.tick_interval
 	if int(current_tick)%10 == 0:
 		save_game()
 	current_tick += 1
@@ -626,13 +641,13 @@ func grieving(colonist):
 			happiness_dict[colonist]["grieving_1"] = false
 			happiness_dict[colonist]["grieving_2"] = false
 	if happiness_dict[colonist]["grieving_1"]:
-		await get_tree().create_timer(90).timeout
+		await get_tree().create_timer(90/Global.tick_interval).timeout
 		if colonist in happiness_dict:
 			happiness_dict[colonist]["grieving_1"] = false
 	if colonist not in happiness_dict:
 		return
 	if happiness_dict[colonist]["grieving_2"]:
-		await get_tree().create_timer(60).timeout
+		await get_tree().create_timer(60/Global.tick_interval).timeout
 		if colonist in happiness_dict:
 			happiness_dict[colonist]["grieving_2"] = false
 	value_changed.emit()

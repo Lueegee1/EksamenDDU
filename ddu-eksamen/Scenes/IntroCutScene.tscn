@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://8iu6djhhcopf"]
 
 [ext_resource type="Texture2D" uid="uid://2urw08ly1r7e" path="res://Assets/BootAnimation/frame_000_delay-0.05s.png" id="1_8www7"]
-[ext_resource type="Script" uid="uid://dm2eufv35tgd3" path="res://Scenes/IntroCutScene.gd" id="1_53nr5"]
+[ext_resource type="Script" uid="uid://dm2eufv35tgd3" path="res://Scripts/IntroCutScene.gd" id="1_53nr5"]
 [ext_resource type="Texture2D" uid="uid://d1tyf1akes2gi" path="res://Assets/BootAnimation/frame_001_delay-0.1s.png" id="2_53nr5"]
 [ext_resource type="Texture2D" uid="uid://c1usndru7ntii" path="res://Assets/BootAnimation/frame_002_delay-0.1s.png" id="3_8ehyr"]
 [ext_resource type="Texture2D" uid="uid://bmf5lnamk84nl" path="res://Assets/BootAnimation/frame_003_delay-0.05s.png" id="4_d0k6q"]

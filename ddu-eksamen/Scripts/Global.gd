@@ -10,6 +10,9 @@ var average_happiness: float = 0
 var timer: float = 0
 var tick_interval: float = 1.0
 var load_game = false
+var volume = 50
+var volume_music = 50
+var volume_effect = 50
 
 var UI
 var SceneChanger

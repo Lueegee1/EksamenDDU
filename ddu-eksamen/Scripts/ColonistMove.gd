@@ -8,7 +8,7 @@ var assignment: String
 var state = "idle"
 var colonist_name: String
 var productivity
-const speed = 20
+var speed = 20
 var rested =true
 var wandered = false
 var building_positions = {}
@@ -66,8 +66,8 @@ func colonist_work_day():
 	if colonist_name not in Global.GameManager.colonist_dict[colonist_name]:
 		return
 	if "workaholic" in Global.GameManager.colonist_dict[colonist_name]:
-		await get_tree().create_timer(Global.GameManager.workday_lenght*1.5).timeout
-	await get_tree().create_timer(Global.GameManager.workday_lenght).timeout
+		await get_tree().create_timer((Global.GameManager.workday_lenght*1.5)/Global.tick_interval).timeout
+	await get_tree().create_timer((Global.GameManager.workday_lenght)/Global.tick_interval).timeout
 	rested = false
 	state = "going_home"
 func colonist_rest():
@@ -75,16 +75,16 @@ func colonist_rest():
 	state = "resting"
 	sprite.skew = 0
 	sprite.rotation = 0
-	await get_tree().create_timer(5).timeout
+	await get_tree().create_timer(5/Global.tick_interval).timeout
 	rested = true
 	state = "going_to_work"
 func wiggle(delta):
 	direction_timer += delta
-	if direction_timer >= direction_interval:
+	if direction_timer >= direction_interval/Global.tick_interval:
 		turn *= -1
 		direction_timer=0
-	sprite.skew = lerp(sprite.skew,turn*0.0,turn_speed*delta)
-	sprite.rotation = lerp(sprite.rotation,0.2*turn,turn_speed*delta)
+	sprite.skew = lerp(sprite.skew,turn*0.0,turn_speed*Global.tick_interval*delta)
+	sprite.rotation = lerp(sprite.rotation,0.2*turn,turn_speed*Global.tick_interval*delta)
 
 func _step_agent(delta) -> void:
 	var next_pos = agent.get_next_path_position()
@@ -100,7 +100,7 @@ func _step_agent(delta) -> void:
 		next_pos += Vector2(
 			randf_range(0, 20),
 			randf_range(0, 20))
-	position += direction * speed * delta * randf_range(0.8,1)
+	position += direction * speed*Global.tick_interval * delta * randf_range(0.8,1)
 	wiggle(delta)
 
 

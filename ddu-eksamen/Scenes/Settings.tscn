@@ -1,0 +1,158 @@
+[gd_scene format=3 uid="uid://biniyuyws61oh"]
+
+[ext_resource type="Script" uid="uid://yiwn2p28vtwm" path="res://Scenes/Settings.gd" id="1_4hxq3"]
+[ext_resource type="LabelSettings" uid="uid://bwv2mgkq08ssg" path="res://Assets/RessourceLabel.tres" id="2_flfri"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_fv8yg"]
+font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_yrknh"]
+font_size = 48
+
+[node name="Settings" type="Node2D" unique_id=637779156]
+script = ExtResource("1_4hxq3")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1883917230]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer" unique_id=1693964785]
+offset_right = 1920.0
+offset_bottom = 1080.0
+color = Color(0.4117647, 0.4117647, 0.4117647, 1)
+
+[node name="Volume" type="HSlider" parent="CanvasLayer" unique_id=997917592]
+offset_left = 320.0
+offset_top = 231.0
+offset_right = 1600.0
+offset_bottom = 247.0
+
+[node name="VolumeLabel" type="Label" parent="CanvasLayer/Volume" unique_id=570450228]
+layout_mode = 0
+offset_top = -50.0
+offset_right = 81.0
+offset_bottom = 5.0
+text = "Master Volume:"
+label_settings = SubResource("LabelSettings_fv8yg")
+
+[node name="Volume2" type="HSlider" parent="CanvasLayer" unique_id=480602591]
+offset_left = 320.0
+offset_top = 314.0
+offset_right = 1600.0
+offset_bottom = 330.0
+
+[node name="VolumeLabel" type="Label" parent="CanvasLayer/Volume2" unique_id=420520090]
+layout_mode = 0
+offset_top = -50.0
+offset_right = 81.0
+offset_bottom = 5.0
+text = "Music Volume:"
+label_settings = SubResource("LabelSettings_fv8yg")
+
+[node name="Volume3" type="HSlider" parent="CanvasLayer" unique_id=1006798700]
+offset_left = 320.0
+offset_top = 390.0
+offset_right = 1600.0
+offset_bottom = 406.0
+
+[node name="VolumeLabel" type="Label" parent="CanvasLayer/Volume3" unique_id=870773076]
+layout_mode = 0
+offset_top = -50.0
+offset_right = 81.0
+offset_bottom = 5.0
+text = "Sound Volume:"
+label_settings = SubResource("LabelSettings_fv8yg")
+
+[node name="GameSpeed" type="HSlider" parent="CanvasLayer" unique_id=1887113950]
+offset_left = 320.0
+offset_top = 462.0
+offset_right = 1600.0
+offset_bottom = 478.0
+min_value = 1.0
+max_value = 5.0
+value = 1.0
+
+[node name="SpeedLabel" type="Label" parent="CanvasLayer/GameSpeed" unique_id=636659205]
+layout_mode = 0
+offset_top = -50.0
+offset_right = 81.0
+offset_bottom = 5.0
+text = "Get one win to change game speed"
+label_settings = SubResource("LabelSettings_fv8yg")
+
+[node name="Button" type="Button" parent="CanvasLayer" unique_id=1441950121]
+offset_left = 734.623
+offset_top = 656.0
+offset_right = 1167.3772
+offset_bottom = 853.0
+
+[node name="Label" type="Label" parent="CanvasLayer/Button" unique_id=1483253176]
+layout_mode = 0
+offset_left = 124.377014
+offset_top = 64.0
+offset_right = 302.377
+offset_bottom = 109.0
+text = "Hard reset?"
+label_settings = ExtResource("2_flfri")
+
+[node name="Popup" type="Control" parent="CanvasLayer" unique_id=1926207612]
+visible = false
+layout_mode = 3
+anchors_preset = 0
+offset_top = 264.0
+offset_right = 1921.0
+offset_bottom = 825.0
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Popup" unique_id=972846376]
+layout_mode = 0
+offset_right = 1920.0
+offset_bottom = 561.0
+color = Color(0.16206557, 0.1620656, 0.16206557, 1)
+
+[node name="WarningText" type="Label" parent="CanvasLayer/Popup" unique_id=1151162167]
+layout_mode = 0
+offset_left = 9.0
+offset_top = 16.0
+offset_right = 1919.0
+offset_bottom = 129.0
+text = "Are you SURE you want to hard reset the game? This will delete all saved data, including
+                                                                                  previous wins"
+label_settings = SubResource("LabelSettings_fv8yg")
+
+[node name="Button" type="Button" parent="CanvasLayer/Popup/WarningText" unique_id=384836955]
+layout_mode = 0
+offset_left = 1194.0
+offset_top = 326.0
+offset_right = 1483.0
+offset_bottom = 465.0
+
+[node name="Label" type="Label" parent="CanvasLayer/Popup/WarningText/Button" unique_id=172867757]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 36.0
+offset_right = 179.0
+offset_bottom = 103.0
+text = "Yes"
+label_settings = SubResource("LabelSettings_yrknh")
+
+[node name="Button2" type="Button" parent="CanvasLayer/Popup/WarningText" unique_id=117591640]
+layout_mode = 0
+offset_left = 448.0
+offset_top = 326.0
+offset_right = 737.0
+offset_bottom = 465.0
+
+[node name="Label" type="Label" parent="CanvasLayer/Popup/WarningText/Button2" unique_id=1316963092]
+layout_mode = 0
+offset_left = 100.0
+offset_top = 36.0
+offset_right = 179.0
+offset_bottom = 103.0
+text = "NO!"
+label_settings = SubResource("LabelSettings_yrknh")
+
+[connection signal="value_changed" from="CanvasLayer/Volume" to="." method="_on_volume_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/Volume2" to="." method="_on_volume_2_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/Volume3" to="." method="_on_volume_3_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/GameSpeed" to="." method="_on_game_speed_value_changed"]
+[connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Popup/WarningText/Button" to="." method="_on_hard_reset_pressed"]
+[connection signal="pressed" from="CanvasLayer/Popup/WarningText/Button2" to="." method="_on_cancel_pressed"]
