@@ -50,13 +50,13 @@ func get_random_building_position() -> Vector2:
 	var keys = building_positions.keys()
 	var filtered = keys.filter(func(x): return x != assignment)
 	var random_key = filtered.pick_random()
-	print(building_positions[random_key])
+	#print(building_positions[random_key])
 	return building_positions[random_key]
 func get_random_rest_position() -> Vector2:
 	var keys = building_positions.keys()
 	var filtered = keys.filter(func(x): return x not in ["farm", "research_lab", "mine", "forest"])
 	var random_key = filtered.pick_random()
-	print(building_positions[random_key])
+	#print(building_positions[random_key])
 	return building_positions[random_key]
 	
 func colonist_work_day():

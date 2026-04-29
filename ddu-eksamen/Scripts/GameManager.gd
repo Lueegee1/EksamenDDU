@@ -99,8 +99,10 @@ func win_game(flag):
 		print("Game Won: Religion")
 	if flag == "genes" and flag_killed:
 		print("Game Won: Euginics")
+		flag = "Euginics"
 	if flag == "genes" and not flag_killed:
 		print("Game Won: Luck")
+		flag = "Luck"
 	if flag not in wins:
 		wins.append(flag)
 	game_won = true
@@ -325,7 +327,7 @@ func load_game() -> bool:
 		sprite_dict = colony.get("sprite_dict", {})
 		position_dict = colony.get("position_dict", {})
 		for colonist_name in colonist_dict:
-			print(str(sprite_dict) + str(position_dict))
+			#print(str(sprite_dict) + str(position_dict))
 			setup_colonist_body(colonist_name, sprite_dict[colonist_name], string_to_vector2(position_dict[colonist_name]))
 		for key in trait_dict:
 			trait_dict[int(key)] = trait_dict[key]
@@ -352,6 +354,8 @@ func load_game() -> bool:
 	for i in researches:
 		if researches[i]["researched"] == 1:
 			apply_research(i)
+	for i in colonist_dict:
+		grieving(i)
 	return true
 	
 func new_game() -> void:
@@ -575,7 +579,7 @@ func update_sprite():
 		var tex = colonist_instances[colonist].sprite.texture
 		if tex != null:
 			sprite_dict[colonist] = tex.resource_path
-			print(tex.resource_path)
+			#print(tex.resource_path)
 		else:
 			tex = get_colonist_sprite()
 func update_position():
@@ -606,6 +610,7 @@ func kill_colonist(colonist_name: String, method):
 			housing_dictionary[house]["assigned"].erase(colonist_name)
 	for colonist in happiness_dict:
 		if 14 not in colonist_dict[colonist]:
+			print(colonist_dict[colonist])
 			match method:
 				"axe" :happiness_dict[colonist]["grieving_1"] = true
 				"injection" :happiness_dict[colonist]["grieving_2"] = true
@@ -616,14 +621,18 @@ func kill_colonist(colonist_name: String, method):
 	flag_killed = true
 	
 func grieving(colonist):
+	if 14 in colonist_dict[colonist] or 14.0 in colonist_dict[colonist]:
+		if colonist in happiness_dict:
+			happiness_dict[colonist]["grieving_1"] = false
+			happiness_dict[colonist]["grieving_2"] = false
 	if happiness_dict[colonist]["grieving_1"]:
-		await get_tree().create_timer(5).timeout
+		await get_tree().create_timer(90).timeout
 		if colonist in happiness_dict:
 			happiness_dict[colonist]["grieving_1"] = false
 	if colonist not in happiness_dict:
 		return
 	if happiness_dict[colonist]["grieving_2"]:
-		await get_tree().create_timer(5).timeout
+		await get_tree().create_timer(60).timeout
 		if colonist in happiness_dict:
 			happiness_dict[colonist]["grieving_2"] = false
 	value_changed.emit()
