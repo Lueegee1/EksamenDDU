@@ -29,9 +29,9 @@ func hard_reset():
 	if parsed_json_save_data != OK: #checks if the json was parsed succesfully
 		has_save = false
 	if has_save:
-		var saved_data = json_save_data.data
 		if FileAccess.file_exists(SAVE_FILE):
 			DirAccess.remove_absolute(SAVE_FILE)
+			Global.SceneChanger.load_scene("Menu")
 			
 func _on_button_pressed() -> void:
 	$CanvasLayer/Popup.visible = true
@@ -88,7 +88,9 @@ func update_labels():
 		$CanvasLayer/GameSpeed.editable = true
 	else:
 		$CanvasLayer/GameSpeed.editable = false
+		Global.tick_interval = 1
 		$CanvasLayer/GameSpeed/SpeedLabel.text = "Get one win to change game speed"
+	$CanvasLayer/GameSpeed.value = Global.tick_interval
 	
 	value_changed =false
 
@@ -127,4 +129,10 @@ func _on_game_speed_value_changed(value: float) -> void:
 func _on_texture_button_pressed() -> void:
 	Global.GameManager.save_game()
 	queue_free()
+	pass # Replace with function body.
+
+
+func _on_save_and_quit_pressed() -> void:
+	await Global.GameManager.save_game()
+	Global.SceneChanger.load_scene("Menu")
 	pass # Replace with function body.

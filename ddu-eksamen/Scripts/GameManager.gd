@@ -185,10 +185,31 @@ func get_colonist_sprite():
 func _load_building_positions() -> void:
 	for marker in building_markers_node.get_children():
 		building_positions[marker.name.to_lower()] = marker.global_position
-
-
+func clear_all_dictionaries() -> void:
+	colonist_instances = {}
+	colonist_dict = {}
+	workers_dict = {}
+	happiness_dict = {}
+	sprite_dict = {}
+	position_dict = {}
+	workstation_dictionary = {}
+	building_positions = {}
+	housing_dictionary = {
+		"not_built": {
+			"capacity": 100,
+			"assigned": []
+		}
+	}
+	working_colonist = []
+	current_positions = []
+	Global.decorations=-10
+	Global.research_points = 1000
+	Global.food = 10000
+	Global.plant_matter = 10000
+	Global.minerals = 10000
 func _ready():
 	Global.GameManager = self
+	clear_all_dictionaries()
 	value_changed.connect(save_game)
 	load_names_from_json("res://data/names.json")
 	load_traits_from_json("res://data/traits.json")
@@ -371,6 +392,7 @@ func load_game() -> bool:
 	return true
 	
 func new_game() -> void:
+	clear_all_dictionaries()
 	var has_save = true
 	if not FileAccess.file_exists(SAVE_FILE): #checker om save filen eksiterer
 		has_save = false
@@ -411,6 +433,9 @@ func _process(delta: float) -> void:
 				to_erase.append(i)
 		for i in to_erase:
 			colonist_instances.erase(i)
+	#sounds
+	var range_mod=7.66 #solved so range is -50 to 10db	
+	$Maintheme.volume_db = -50 + range_mod*log(Global.volume) + range_mod*log(Global.volume_music)
 	pass
 
 func _on_tick_timer_timeout() -> void:

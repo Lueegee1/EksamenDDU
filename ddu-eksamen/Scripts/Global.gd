@@ -10,9 +10,9 @@ const SAVE_FILE = "user://database.json"
 var timer: float = 0
 var tick_interval: float = 1.0
 var load_game = false
-var volume = 50
-var volume_music = 50
-var volume_effect = 50
+var volume = 20
+var volume_music = 20
+var volume_effect = 20
 
 var UI
 var SceneChanger

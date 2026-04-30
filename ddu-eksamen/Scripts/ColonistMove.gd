@@ -16,6 +16,7 @@ var turn = 1
 var direction_timer = 0.0
 var direction_interval = 2
 var turn_speed = 0.5
+var moving_randomly = true
 
 func setup(sprt, nme, pos):
 	colonist_name = nme
@@ -162,12 +163,24 @@ func colonist_move(delta: float) -> void:
 				wandered = true
 				var new_target = get_random_rest_position()
 				agent.target_position = new_target
+			
+			if wandered and rested and moving_randomly:
+				#changed destination randomly
+				if not int(Global.GameManager.current_tick)%5>0:
+					#print("PIKMIN " +str(wandered))
+					if randf_range(0,99)<=5:
+						var new_target = get_random_building_position()
+						agent.target_position = new_target
+						moving_randomly = false
+					
 			_step_agent(delta)
 			if wandered and not rested and agent.is_navigation_finished():
 				wandered = false
+				moving_randomly = true
 				colonist_rest()
 			if wandered and rested and agent.is_navigation_finished():
 				wandered = false
+				moving_randomly = true
 				state = "idle"
 			
 func _process(delta: float) -> void:

@@ -1,12 +1,18 @@
 [gd_scene format=3 uid="uid://biniyuyws61oh"]
 
 [ext_resource type="Script" uid="uid://yiwn2p28vtwm" path="res://Scripts/Settings.gd" id="1_4hxq3"]
-[ext_resource type="LabelSettings" uid="uid://bwv2mgkq08ssg" path="res://Assets/RessourceLabel.tres" id="2_flfri"]
 [ext_resource type="Texture2D" uid="uid://dsq0jh0ac8php" path="res://Assets/temp files/buttons/Sprite-0003-Sheet1.png" id="3_w1nw0"]
 [ext_resource type="Texture2D" uid="uid://b23bnaarcphjh" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet1.png" id="4_w1nw0"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_fv8yg"]
 font_size = 40
+
+[sub_resource type="LabelSettings" id="LabelSettings_w1nw0"]
+font_size = 32
+
+[sub_resource type="LabelSettings" id="LabelSettings_mjqtt"]
+font_size = 32
+font_color = Color(1, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_yrknh"]
 font_size = 48
@@ -81,6 +87,21 @@ offset_bottom = 5.0
 text = "Get one win to change game speed"
 label_settings = SubResource("LabelSettings_fv8yg")
 
+[node name="SaveAndQuit" type="Button" parent="CanvasLayer" unique_id=1083101552]
+offset_left = 9.0
+offset_top = 27.0
+offset_right = 258.0
+offset_bottom = 162.0
+
+[node name="Label" type="Label" parent="CanvasLayer/SaveAndQuit" unique_id=1057293991]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 41.0
+offset_right = 228.0
+offset_bottom = 86.0
+text = "Save and quit"
+label_settings = SubResource("LabelSettings_w1nw0")
+
 [node name="Button" type="Button" parent="CanvasLayer" unique_id=1441950121]
 offset_left = 734.623
 offset_top = 656.0
@@ -94,7 +115,7 @@ offset_top = 64.0
 offset_right = 302.377
 offset_bottom = 109.0
 text = "Hard reset?"
-label_settings = ExtResource("2_flfri")
+label_settings = SubResource("LabelSettings_mjqtt")
 
 [node name="Popup" type="Control" parent="CanvasLayer" unique_id=1926207612]
 visible = false
@@ -112,19 +133,19 @@ color = Color(0.16206557, 0.1620656, 0.16206557, 1)
 
 [node name="WarningText" type="Label" parent="CanvasLayer/Popup" unique_id=1151162167]
 layout_mode = 0
-offset_left = 9.0
-offset_top = 16.0
-offset_right = 1919.0
-offset_bottom = 129.0
+offset_left = 116.0
+offset_top = 30.0
+offset_right = 1804.0
+offset_bottom = 143.0
 text = "Are you SURE you want to hard reset the game? This will delete all saved data, including
-                                                                                  previous wins"
+                                                                         previous wins"
 label_settings = SubResource("LabelSettings_fv8yg")
 
 [node name="Button" type="Button" parent="CanvasLayer/Popup/WarningText" unique_id=384836955]
 layout_mode = 0
-offset_left = 1194.0
+offset_left = 1116.0
 offset_top = 326.0
-offset_right = 1483.0
+offset_right = 1405.0
 offset_bottom = 465.0
 
 [node name="Label" type="Label" parent="CanvasLayer/Popup/WarningText/Button" unique_id=172867757]
@@ -138,9 +159,9 @@ label_settings = SubResource("LabelSettings_yrknh")
 
 [node name="Button2" type="Button" parent="CanvasLayer/Popup/WarningText" unique_id=117591640]
 layout_mode = 0
-offset_left = 448.0
+offset_left = 370.0
 offset_top = 326.0
-offset_right = 737.0
+offset_right = 659.0
 offset_bottom = 465.0
 
 [node name="Label" type="Label" parent="CanvasLayer/Popup/WarningText/Button2" unique_id=1316963092]
@@ -164,6 +185,7 @@ texture_pressed = ExtResource("4_w1nw0")
 [connection signal="value_changed" from="CanvasLayer/Volume2" to="." method="_on_volume_2_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/Volume3" to="." method="_on_volume_3_value_changed"]
 [connection signal="value_changed" from="CanvasLayer/GameSpeed" to="." method="_on_game_speed_value_changed"]
+[connection signal="pressed" from="CanvasLayer/SaveAndQuit" to="." method="_on_save_and_quit_pressed"]
 [connection signal="pressed" from="CanvasLayer/Button" to="." method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Popup/WarningText/Button" to="." method="_on_hard_reset_pressed"]
 [connection signal="pressed" from="CanvasLayer/Popup/WarningText/Button2" to="." method="_on_cancel_pressed"]
