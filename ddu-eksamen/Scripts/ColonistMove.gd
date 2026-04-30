@@ -192,5 +192,9 @@ func _process(delta: float) -> void:
 
 
 func _on_texture_button_pressed() -> void:
+	Global.UI.build_open = false
+	Global.UI.research_open = false
+	Global.UI.colonist_open = true
 	Global.UI._on_button_pressed(Global.UI.buttons[8])
+	
 	pass # Replace with function body.

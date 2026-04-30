@@ -158,6 +158,7 @@ func _process(delta: float) -> void:
 	
 
 func _on_button_pressed(button):
+	Global.GameManager.Click()
 	if button == buttons[0]:
 		print("button 1")
 	if button == buttons[1]:

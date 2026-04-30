@@ -41,6 +41,7 @@ func _process(delta: float) -> void:
 
 
 func _on_description_button_pressed() -> void:
+	Global.GameManager.Click()
 	if $Group2.visible != true:
 		$Group1.visible = false
 		$Group2.visible = true
@@ -51,5 +52,6 @@ func _on_description_button_pressed() -> void:
 
 
 func _on_research_button_pressed() -> void:
+	Global.GameManager.Click()
 	Global.GameManager.research(research)
 	pass # Replace with function body.

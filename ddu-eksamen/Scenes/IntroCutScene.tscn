@@ -104,6 +104,7 @@
 [ext_resource type="Texture2D" uid="uid://ddeltjrcv5vs3" path="res://Assets/BootAnimation/frame_100_delay-0.1s.png" id="101_ka3sa"]
 [ext_resource type="Texture2D" uid="uid://dwqneknnv7k84" path="res://Assets/BootAnimation/frame_101_delay-0.1s.png" id="102_0iryt"]
 [ext_resource type="Texture2D" uid="uid://dkyiy52a7nl0o" path="res://Assets/BootAnimation/frame_102_delay-0.1s.png" id="103_7x6oq"]
+[ext_resource type="AudioStream" uid="uid://dp0oofnhwv64x" path="res://Assets/Sounds/IntroScene.mp3" id="105_8ehyr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4bmn0"]
 animations = [{
@@ -432,5 +433,9 @@ sprite_frames = SubResource("SpriteFrames_4bmn0")
 autoplay = "default"
 frame = 102
 frame_progress = 1.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1990814547]
+stream = ExtResource("105_8ehyr")
+autoplay = true
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

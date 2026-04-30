@@ -3,6 +3,7 @@ extends Node
 # Setting Up Dictionaries, Lists and Variables -----------------------------------------------------------------------
 var colonist_instances: Dictionary = {}
 @onready var colonist_container = $UI/Colonistholder
+@onready var click = $ButtonClick
 const colonist_body_scene = preload("res://Scenes/Colonists.tscn")
 var food_security_constant: float = 25.0
 var data: Dictionary = {}
@@ -371,7 +372,8 @@ func load_game() -> bool:
 		Global.volume= globals.get("volume")
 		Global.volume_music= globals.get("volume_music")
 		Global.volume_effect= globals.get("volume_effect")
-		
+	
+	print(housing_dictionary)
 	game_loaded = true
 	
 
@@ -436,6 +438,7 @@ func _process(delta: float) -> void:
 	#sounds
 	var range_mod=7.66 #solved so range is -50 to 10db	
 	$Maintheme.volume_db = -50 + range_mod*log(Global.volume) + range_mod*log(Global.volume_music)
+	click.volume_db = -60 + range_mod*log(Global.volume) + range_mod*log(Global.volume_effect)
 	pass
 
 func _on_tick_timer_timeout() -> void:
@@ -981,3 +984,5 @@ func sick_tick():
 			
 			if randi_range(0,100) +5*researches[22]["researched"] > 99:
 				happiness_dict[colonist]["sick"] = false
+func Click():
+	click.play()

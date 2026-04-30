@@ -13,13 +13,15 @@ func setup(number):
 	index = number
 	current_price = Global.GameManager.house_price
 	$Group1/Label.text = "House " + str(number)
-	$Group1/Label2.text = "Cost " + "
+	$Group1/Label2.text = "  Cost: " + "
 	" + str(Global.GameManager.house_price[0]) +"
 	" + str(Global.GameManager.house_price[1])
+	if "house" +str(index) in Global.GameManager.housing_dictionary:
+		level =int(Global.GameManager.housing_dictionary["house"+str(index)]["capacity"])
 	pass
 
 func update_price_label():
-	$Group1/Label2.text = "Cost " + "
+	$Group1/Label2.text = "    Cost: " + "
 	" + str(current_price[0]) +"
 	" + str(current_price[1])
 
@@ -42,12 +44,13 @@ func update_price():
 func update_buttons():
 	if Global.minerals < current_price[0] or Global.plant_matter < current_price[1]:
 		$Group1/TextureButton2.disabled = true
-	if level == 1 and Global.GameManager.researches[7]["researched"] == 0:
+	if level == 0 and Global.GameManager.researches[7]["researched"] == 0:
 		$Group1/TextureButton2.disabled = true
-	if level == 2 and Global.GameManager.researches[9]["researched"] == 0:
+	if level == 1 and Global.GameManager.researches[9]["researched"] == 0:
 		$Group1/TextureButton2.disabled = true
 	else:
 		$Group1/TextureButton2.disabled = false
+	
 
 
 func update_name():
@@ -72,10 +75,12 @@ func _process(delta: float) -> void:
 	update_buttons()
 	update_price()
 	update_name()
+
 	pass
 
 
 func _on_build_button_pressed() -> void:
+	Global.GameManager.Click()
 	match level:
 		2: return
 		1: Global.GameManager.upgrade_building("house"+str(index)); level +=1

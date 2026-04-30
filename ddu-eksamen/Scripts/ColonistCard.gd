@@ -15,6 +15,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func _on_work_pressed(id) -> void:
+	Global.GameManager.Click()
 	var popup = workbutton.get_popup()
 	var index = popup.get_item_index(id)
 	
@@ -39,6 +40,7 @@ func _on_work_pressed(id) -> void:
 	print(name_of_colonist + " was assigned to " + Global.GameManager.workers_dict[name_of_colonist])
 
 func _on_house_pressed(id) -> void:
+	Global.GameManager.Click()
 	var popup = housebutton.get_popup()
 	var index = popup.get_item_index(id)
 	var house: String
@@ -188,6 +190,7 @@ func setup(colonist_name, colonist_sprite):
 	pass
 
 func _on_action_pressed(id):
+	Global.GameManager.Click()
 	match id:
 		0: Global.GameManager.kill_colonist(name_of_colonist, "axe")
 		1: Global.GameManager.kill_colonist(name_of_colonist, "injection")
@@ -281,9 +284,16 @@ func show_hide_psych():
 
 
 func _on_gene_button_pressed() -> void:
+	Global.GameManager.Click()
 	show_hide_genes()
 
 
 func _on_psych_button_pressed() -> void:
+	Global.GameManager.Click()
 	show_hide_psych()
+	pass # Replace with function body.
+
+
+func _on_about_to_popup() -> void:
+	Global.GameManager.Click()
 	pass # Replace with function body.

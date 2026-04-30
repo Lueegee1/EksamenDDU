@@ -20,6 +20,10 @@
 [ext_resource type="Texture2D" uid="uid://cj1xcfb0qnj0a" path="res://Assets/temp files/buttons/checkbutton.png" id="17_krje8"]
 [ext_resource type="Texture2D" uid="uid://bof7pvd4tu0yp" path="res://Assets/temp files/buttons/Sprite-0003-Sheet4.png" id="19_n3nbb"]
 [ext_resource type="Texture2D" uid="uid://cvntgiahcs3h3" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet4.png" id="20_dm44m"]
+[ext_resource type="Texture2D" uid="uid://dno26u0libpru" path="res://Assets/temp files/buttons/Sprite-0003-Sheet7.png" id="21_du1yi"]
+[ext_resource type="Texture2D" uid="uid://bronxu1ra3c4l" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet7.png" id="22_c0stj"]
+[ext_resource type="AudioStream" uid="uid://djlsfhh2p2oiy" path="res://Assets/Sounds/Title_Screen.mp3" id="23_c0stj"]
+[ext_resource type="AudioStream" uid="uid://b3go3dlsiyn1p" path="res://Assets/Sounds/Click.mp3" id="24_3feh0"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_x0ao6"]
 vertices = PackedVector2Array(115.046875, 99.52344, 142.92969, 108.85156, 89.109375, 109.97656, 81.03906, 0.6875, 85.57031, -7.859375, 89.453125, 34.773438, 58.390625, 91.07031, 84.65625, 87.46875, 59.140625, 108.546875, 24.242188, 96.64844, 59.742188, 18.992188, 59.5625, 52, 52.65625, 38.203125, 70.25, -9.109375, 76.03906, -30.40625, 124.25781, 53.679688, 128.57813, 54.90625, 132.67188, 57.390625, 130.03125, 60.273438, 112.64844, 67.078125, 118.828125, 54.46875, 97.02344, -20.429688, 95.203125, -41.976563, 120.8125, -51.25, 136, -61.398438, 138.96094, -56.929688, 137.25781, -50.070313, 112.921875, -34.96875, 51.171875, -41.976563, 34.757813, -30.40625, 35.507813, -48.976563, 61.90625, 71.99219, 83.359375, 75.47656, 41.773438, 108.03125, 26.53125, 110.38281, 11.6484375, 101.640625, 14.71875, 112.6875, -4.6171875, 113.359375, 0.703125, 101.25781, -21.671875, 91.359375, -19.179688, 111.27344, -28.382813, 106.97656, -30.609375, 96.13281, -23.9375, 71.74219, -32.328125, 85.328125, -31.640625, 75.39844, -31.640625, 58.390625, -22.070313, 52.890625, -17.09375, 21.210938, -32.273438, 50.132813, -26.75, 31.640625, 103.671875, 54.078125, 99.78906, 64.39844, 21.148438, -15.3828125, 24.03125, -56.710938, 29.039063, -57.359375, 29.398438, 5.59375, 2.328125, 15.15625, 1.109375, 7.578125, 29.648438, 21.421875, 44.898438, 29.90625, -4.0703125, 7.296875, -8.9375, 12.046875, -32.210938, 9.8828125, -28.4375, 9.2734375, -22.78125, 9.2734375, -37.28125, 24.179688, -47.796875, 22.882813, -55.609375, 7.2578125, -68.60156, 2.578125, -70.859375, 27.453125, -93.4375, 22.859375, -108.52344, 14.65625, -102.421875, 8.203125, -84.00781, -6, -107.421875, 24.421875, -106.1875, 36.398438, -115.84375, 48.296875, -118.42969, 48.859375, -120.75781, 46.65625, -123.671875, 43.367188, -123.171875, 40.46875, -116.47656, 31.359375, -83.078125, -20.367188, -103.578125, -4.4765625, -98.49219, -16.539063, -88.99219, -28.5, -93.27344, -34.773438, -97.390625, -30.320313, -96.86719, -35.328125, -96.63281, -35.492188)
@@ -226,5 +230,23 @@ offset_bottom = 184.0
 text = "awdawd"
 label_settings = SubResource("LabelSettings_n3nbb")
 
+[node name="Button8" type="TextureButton" parent="MenuUI" unique_id=341608714]
+offset_left = 1802.0
+offset_right = 1834.0
+offset_bottom = 32.0
+scale = Vector2(4, 4)
+texture_normal = ExtResource("21_du1yi")
+texture_pressed = ExtResource("22_c0stj")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1578675420]
+stream = ExtResource("23_c0stj")
+autoplay = true
+parameters/looping = true
+
+[node name="ButtonClick" type="AudioStreamPlayer2D" parent="." unique_id=993122573]
+stream = ExtResource("24_3feh0")
+max_polyphony = 10
+
 [connection signal="pressed" from="MenuUI/ButtonGroup/Button1" to="." method="_on_button_1_pressed"]
 [connection signal="pressed" from="MenuUI/ButtonGroup/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="MenuUI/Button8" to="." method="_on_button_8_pressed"]

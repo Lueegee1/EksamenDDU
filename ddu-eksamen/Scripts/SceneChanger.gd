@@ -2,7 +2,7 @@ extends Node
 
 @export var default_scene = "Menu"
 @onready var scene := $'Scene'
-
+var current_scene
 var scene_instance
 
 func _ready():
@@ -19,7 +19,7 @@ func load_scene(scene_name: String) -> void:
 	var path := 'res://Scenes/%s.tscn' % scene_name
 	var scene_resource = load(path)
 	assert(scene_resource, 'Tried to load scene, but provided scene path was not found')
-
+	current_scene = scene_name
 	scene_instance = scene_resource.instantiate()
 	call_deferred("_add_scene")
 

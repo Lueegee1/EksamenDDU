@@ -214,5 +214,8 @@ offset_bottom = 173.0
 texture_normal = ExtResource("8_stsfk")
 texture_pressed = ExtResource("8_stsfk")
 
+[connection signal="about_to_popup" from="Group1/WorkButton" to="." method="_on_about_to_popup"]
+[connection signal="about_to_popup" from="Group1/HouseButton" to="." method="_on_about_to_popup"]
+[connection signal="about_to_popup" from="Group1/ActionButton" to="." method="_on_about_to_popup"]
 [connection signal="pressed" from="Group2/TextureButton2" to="." method="_on_gene_button_pressed"]
 [connection signal="pressed" from="Group3/TextureButton3" to="." method="_on_psych_button_pressed"]

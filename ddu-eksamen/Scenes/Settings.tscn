@@ -174,10 +174,10 @@ text = "NO!"
 label_settings = SubResource("LabelSettings_yrknh")
 
 [node name="TextureButton" type="TextureButton" parent="CanvasLayer" unique_id=453327048]
-offset_left = 1792.0
-offset_right = 1824.0
+offset_left = 1863.0001
+offset_right = 1895.0001
 offset_bottom = 32.0
-scale = Vector2(4, 4)
+scale = Vector2(1.8, 1.8)
 texture_normal = ExtResource("3_w1nw0")
 texture_pressed = ExtResource("4_w1nw0")
 

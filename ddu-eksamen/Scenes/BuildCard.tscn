@@ -79,9 +79,9 @@ label_settings = SubResource("LabelSettings_dhpgx")
 
 [node name="TextureButton2" type="TextureButton" parent="Group1" unique_id=1871101407]
 layout_mode = 0
-offset_left = 208.0
+offset_left = 229.0
 offset_top = 55.5
-offset_right = 240.0
+offset_right = 261.0
 offset_bottom = 87.5
 scale = Vector2(3, 3)
 texture_normal = ExtResource("4_ctjep")

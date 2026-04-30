@@ -8,12 +8,16 @@ func _ready() -> void:
 	value_changed = true
 	pass # Replace with function body.
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	update_labels()
 	pass
 
+func Click():
+	if Global.SceneChanger.current_scene=="Menu":
+		get_parent().Click()
+	if Global.SceneChanger.current_scene=="Game":
+		get_parent().get_parent().Click()
 func hard_reset():
 	var has_save = true
 	if not FileAccess.file_exists(SAVE_FILE): #checker om save filen eksiterer
@@ -34,6 +38,7 @@ func hard_reset():
 			Global.SceneChanger.load_scene("Menu")
 			
 func _on_button_pressed() -> void:
+	Click()
 	$CanvasLayer/Popup.visible = true
 	
 	pass # Replace with function body.
@@ -47,6 +52,7 @@ func _on_volume_value_changed(value: float) -> void:
 
 
 func _on_hard_reset_pressed() -> void:
+	Click()
 	hard_reset()
 	value_changed = true
 	$CanvasLayer/Popup.visible = false
@@ -54,6 +60,7 @@ func _on_hard_reset_pressed() -> void:
 
 
 func _on_cancel_pressed() -> void:
+	Click()
 	$CanvasLayer/Popup.visible = false
 	pass # Replace with function body.
 
@@ -127,12 +134,18 @@ func _on_game_speed_value_changed(value: float) -> void:
 
 
 func _on_texture_button_pressed() -> void:
-	Global.GameManager.save_game()
+	Click()
+	if Global.SceneChanger.current_scene == "Game":
+		Global.GameManager.save_game()
 	queue_free()
 	pass # Replace with function body.
 
 
 func _on_save_and_quit_pressed() -> void:
-	await Global.GameManager.save_game()
-	Global.SceneChanger.load_scene("Menu")
+	Click()
+	if Global.SceneChanger.current_scene == "Game":
+		await Global.GameManager.save_game()
+		Global.SceneChanger.load_scene("Menu")
+	else:
+		queue_free()
 	pass # Replace with function body.
