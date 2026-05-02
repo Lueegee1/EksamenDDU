@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://barv34ofqxwg1"]
 
 [ext_resource type="Script" uid="uid://r5gr2qn7nuh1" path="res://Scripts/ResearchCard.gd" id="1_f2vpl"]
-[ext_resource type="Texture2D" uid="uid://wf57ycnil5u2" path="res://icon.svg" id="2_04l2y"]
 [ext_resource type="Texture2D" uid="uid://t8q6w2csfxu7" path="res://Assets/temp files/buttons/Sprite-0003-Sheet8.png" id="2_xehxn"]
 [ext_resource type="Texture2D" uid="uid://csbv60p3aqecs" path="res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet8.png" id="3_f2vpl"]
 [ext_resource type="Texture2D" uid="uid://o4vdmvl4xjwm" path="res://Assets/temp files/buttons/questionbutton.png" id="5_04l2y"]
@@ -12,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://dur8b0uxs7y3l" path="res://Assets/temp files/RessourceMineral.png" id="8_t2adk"]
 [ext_resource type="Texture2D" uid="uid://bxjgcbn2upuq3" path="res://Assets/temp files/RessourceFood.png" id="9_702vc"]
 [ext_resource type="Texture2D" uid="uid://bmoqx0h8pnt85" path="res://Assets/temp files/RessourcePlantmatter.png" id="10_he12q"]
+[ext_resource type="Texture2D" uid="uid://dsq0jh0ac8php" path="res://Assets/temp files/buttons/Sprite-0003-Sheet1.png" id="10_m3l1j"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_dhpgx"]
 font_size = 20
@@ -25,7 +25,7 @@ custom_minimum_size = Vector2(415, 175)
 layout_mode = 3
 anchors_preset = 0
 offset_right = 415.0
-offset_bottom = 175.0
+offset_bottom = 179.0
 script = ExtResource("1_f2vpl")
 
 [node name="Group1" type="Control" parent="." unique_id=2109116533]
@@ -33,17 +33,11 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="Sprite" type="Sprite2D" parent="Group1" unique_id=1149236437]
-visible = false
-position = Vector2(64, 100)
-texture = ExtResource("2_04l2y")
-
 [node name="Label" type="Label" parent="Group1" unique_id=796735701]
 layout_mode = 0
 offset_right = 173.0
-offset_bottom = 59.0
-text = "Name of research
-"
+offset_bottom = 28.0
+text = "Name of research"
 label_settings = SubResource("LabelSettings_dhpgx")
 
 [node name="Label2" type="Label" parent="Group1" unique_id=43062341]
@@ -61,49 +55,57 @@ horizontal_alignment = 2
 
 [node name="Label3" type="Label" parent="Group1" unique_id=386586081]
 layout_mode = 0
-offset_left = 132.0
-offset_top = 140.0
-offset_right = 226.0
-offset_bottom = 168.0
+offset_left = 135.0
+offset_top = 40.0
+offset_right = 229.0
+offset_bottom = 68.0
 text = "Research:"
 label_settings = SubResource("LabelSettings_dhpgx")
 horizontal_alignment = 2
 
 [node name="TextureButton" type="TextureButton" parent="Group1" unique_id=1360335245]
+z_index = 8
 layout_mode = 0
-offset_left = 235.0
-offset_top = 140.0
-offset_right = 267.0
-offset_bottom = 172.0
+offset_left = 135.0
+offset_top = 68.0
+offset_right = 167.0
+offset_bottom = 100.0
+scale = Vector2(3, 3)
+texture_normal = ExtResource("2_xehxn")
+texture_pressed = ExtResource("3_f2vpl")
+texture_disabled = ExtResource("3_f2vpl")
+
+[node name="TextureButton3" type="TextureButton" parent="Group1" unique_id=1184018684]
+visible = false
+layout_mode = 0
+offset_left = 2.0000153
+offset_top = 38.0
+offset_right = 34.000015
+offset_bottom = 70.0
+scale = Vector2(4, 4)
 texture_normal = ExtResource("2_xehxn")
 texture_pressed = ExtResource("3_f2vpl")
 texture_disabled = ExtResource("3_f2vpl")
 
 [node name="Label4" type="Label" parent="Group1" unique_id=1870785312]
 layout_mode = 0
-offset_left = 131.0
-offset_top = 110.0
-offset_right = 232.0
-offset_bottom = 138.0
+offset_left = 236.0
+offset_top = 40.0
+offset_right = 337.0
+offset_bottom = 68.0
 text = "View desc:"
 label_settings = SubResource("LabelSettings_dhpgx")
 horizontal_alignment = 2
 
 [node name="TextureButton2" type="TextureButton" parent="Group1" unique_id=1871101407]
 layout_mode = 0
-offset_left = 235.0
-offset_top = 110.0
-offset_right = 267.0
-offset_bottom = 142.0
+offset_left = 236.0
+offset_top = 68.0
+offset_right = 268.0
+offset_bottom = 100.0
+scale = Vector2(3, 3)
 texture_normal = ExtResource("5_mp2fs")
 texture_pressed = ExtResource("5_04l2y")
-
-[node name="TextureRect" type="TextureRect" parent="Group1" unique_id=298410664]
-layout_mode = 0
-offset_top = 38.0
-offset_right = 128.0
-offset_bottom = 166.0
-texture = ExtResource("2_04l2y")
 
 [node name="SpriteGroup" type="Control" parent="Group1" unique_id=1207684350]
 anchors_preset = 0
@@ -130,6 +132,24 @@ position = Vector2(404, 75)
 scale = Vector2(2, 2)
 texture = ExtResource("10_he12q")
 flip_h = true
+
+[node name="1" type="TextureButton" parent="Group1" unique_id=412210269]
+visible = false
+z_index = 100
+layout_mode = 0
+offset_top = 37.0
+offset_right = 32.0
+offset_bottom = 69.0
+scale = Vector2(4, 4)
+texture_normal = ExtResource("10_m3l1j")
+
+[node name="TextureRect" type="TextureRect" parent="Group1" unique_id=689515245]
+layout_mode = 0
+offset_left = -1.0
+offset_top = 35.0
+offset_right = 127.0
+offset_bottom = 163.0
+texture = ExtResource("10_m3l1j")
 
 [node name="Group2" type="Control" parent="." unique_id=1699188147]
 visible = false
@@ -172,5 +192,6 @@ texture_normal = ExtResource("7_cwaj0")
 texture_pressed = ExtResource("6_mp2fs")
 
 [connection signal="pressed" from="Group1/TextureButton" to="." method="_on_research_button_pressed"]
+[connection signal="pressed" from="Group1/TextureButton3" to="." method="_on_research_button_pressed"]
 [connection signal="pressed" from="Group1/TextureButton2" to="." method="_on_description_button_pressed"]
 [connection signal="pressed" from="Group2/TextureButton2" to="." method="_on_description_button_pressed"]

@@ -10,8 +10,11 @@ var research
 func setup(index):
 	research = index
 	if Global.GameManager.researches[index]["icons"] != "":
-		sprite.texture = load(Global.GameManager.researches[index]["icons"])
-	sprite.size = Vector2(128,128)
+		sprite.texture = load(Global.GameManager.researches[index]["icons"]) as Texture2D
+	#match sprite.texture_normal:
+	#	"res://.godot/imported/Sprite-0003-Sheet8.png-71f00e160e62b4cdf7fe7e7ba903cadc.ctex": sprite.texture_pressed = load("res://.godot/imported/Sprite-0003-Sheet-Sheet8.png-4830186536b01167384e402b91dc8ba6.ctex") as Texture2D
+	#	"res://Assets/temp files/buttons/Sprite-0003-Sheet3.png": sprite.texture_pressed = load("res://Assets/temp files/buttons/Sprite-0003-Sheet-Sheet3.png") as Texture2D
+#	sprite.size = Vector2(128,128)
 	nametag.text = Global.GameManager.researches[index]["name"]
 	if Global.GameManager.researches[index]["description"] != "":
 		discription.text = Global.GameManager.researches[index]["description"]

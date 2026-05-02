@@ -13,7 +13,7 @@ var load_game = false
 var volume = 20
 var volume_music = 20
 var volume_effect = 20
-
+var data
 var UI
 var SceneChanger
 var GameManager
@@ -40,9 +40,11 @@ func load_globals() -> bool:
 		Global.volume= globals.get("volume")
 		Global.volume_music= globals.get("volume_music")
 		Global.volume_effect= globals.get("volume_effect")
+		
 		return true
 	else:
 		return false
+
 func _ready() -> void:
 	load_globals()
 

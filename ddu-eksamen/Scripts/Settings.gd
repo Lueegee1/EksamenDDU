@@ -74,6 +74,7 @@ func _on_volume_2_value_changed(value: float) -> void:
 
 
 func _on_volume_3_value_changed(value: float) -> void:
+
 	Global.volume_effect = value
 	value_changed = true
 

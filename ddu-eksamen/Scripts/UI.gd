@@ -2,7 +2,7 @@ extends CanvasLayer
 
 @onready var happiness_bar = $"HappinessBar/HappinessBarColorRect"
 @onready var bar_sprite_1 = $HappinessBar/BarSprite1
-@onready var buttons = $MenuButtons.get_children()
+@onready var buttons = $RootMenu/MenuButtons.get_children()
 @onready var root_menu = $RootMenu
 @onready var build_menu = $RootMenu/BuildScroll
 @onready var research_menu = $RootMenu/ResearchScroll
@@ -46,16 +46,12 @@ func position_elements() -> void:
 	
 	#Buttons
 	for button in buttons:
-		button.z_index = 8
-	buttons[0].set_position(Vector2(0, screen_dim.y/5+10-31)+menu_offset) 
-	buttons[1].set_position(Vector2(31, screen_dim.y/5+10-31)+menu_offset)
-	buttons[2].set_position(Vector2(root_closed_pos.x*0.285, 0))
-	buttons[3].set_position(Vector2(root_closed_pos.x*0.285+(1*0.45*30),0))
-	buttons[4].set_position(Vector2(0, screen_dim.y/5+10)+menu_offset)
-	buttons[5].set_position(Vector2(root_closed_pos.x*0.285+(2*0.45*30),0))
-	buttons[6].set_position(Vector2(31*2, screen_dim.y/5+10)+menu_offset)
-	buttons[7].set_position(Vector2(root_open_pos.x*0.285,0) + Vector2(4*0.45*31,0))	
-	buttons[8].set_position(Vector2(screen_dim.x/5+74, screen_dim.y/12))
+		button.z_index = 80
+	#buttons[2].set_position(Vector2(root_closed_pos.x*0.285, 0))
+	#buttons[3].set_position(Vector2(root_closed_pos.x*0.285+(1*0.45*30),0))
+	#buttons[5].set_position(Vector2(root_closed_pos.x*0.285+(2*0.45*30),0))
+	#buttons[7].set_position(Vector2(root_open_pos.x*0.285,0) + Vector2(4*0.45*31,0))	
+	#buttons[8].set_position(Vector2(screen_dim.x/5+74, screen_dim.y/12))
 	
 	#Menus
 	for button in buttons:
@@ -73,16 +69,18 @@ func update_menus(delta: float) -> void:
 	var root_pos
 	if root_open:
 		root_pos = root_open_pos
+		$RootMenu/MenuButtons/Button9/Menubackground.visible = true
+		$RootMenu/MenuButtons/Button3.visible = true
+
 	else:
 		root_pos = root_closed_pos
-	var speed = 500 # pixels per second
+	if root_menu.position.x == root_closed_pos.x:
+		$RootMenu/MenuButtons/Button9/Menubackground.visible = false
+		$RootMenu/MenuButtons/Button3.visible = false
 
+	var speed = 500 # pixels per second
+	root_menu.visible = true
 	root_menu.position.x = move_toward(root_menu.position.x, root_pos.x, speed * delta)
-	buttons[2].position.x =move_toward(buttons[2].position.x,root_pos.x*0.285, 0.27*speed*delta)
-	buttons[3].position.x =move_toward(buttons[3].position.x,root_pos.x*0.285+(1*0.45*30), 0.27*speed*delta)
-	buttons[5].position.x =move_toward(buttons[5].position.x,root_pos.x*0.285+(2*0.45*30), 0.27*speed*delta)
-	buttons[8].position.x = move_toward(buttons[8].position.x, (screen_dim.x/5+78) +(2+root_pos.x**1.001-root_closed_pos.x**1.001)/4, 0.255*speed*delta)
-	
 	
 	build_menu.visible = build_open
 	research_menu.visible = research_open
@@ -112,6 +110,8 @@ func update_menus(delta: float) -> void:
 			$RootMenu/ResearchScroll/ResearchMenu.add_child(card)
 			card.setup(research)
 			research_card_dict[research] = card
+			#await get_tree().process_frame
+			#$RootMenu/ResearchScroll/ResearchMenu.queue_sort()
 
 	var to_remove2 = []
 	for research in research_card_dict:

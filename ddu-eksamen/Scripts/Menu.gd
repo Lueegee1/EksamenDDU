@@ -12,19 +12,26 @@ func _on_button_1_pressed() -> void:
 	var has_save = true
 	if not FileAccess.file_exists(SAVE_FILE): #checker om save filen eksiterer
 		has_save = false
+		_on_button_2_pressed()
+
 	var file = FileAccess.open(SAVE_FILE, FileAccess.READ) #opens the file and saves it in read mode as variable file and checks if opening
 #it was succesfull
 	if file == null:
 		has_save = false
+		_on_button_2_pressed()
+		return
 	var save_text = file.get_as_text()
 	file.close()
 	var json_save_data = JSON.new()
 	var parsed_json_save_data = json_save_data.parse(save_text)
 	if parsed_json_save_data != OK: #checks if the json was parsed succesfully
 		has_save = false
+		_on_button_2_pressed()
+		return
 	if has_save:
 		var saved_data = json_save_data.data
 		if "colony" not in saved_data:
+			_on_button_2_pressed()
 			return
 		var colony = saved_data["colony"]
 		if colony.has("colonist_dict"):
@@ -73,11 +80,21 @@ func load_wins():
 	else:
 		return
 func _ready() -> void:
+	Global.load_globals()
 	load_wins()
 	$MenuUI/Label.text = str(wins)
 
 var range_mod=7.66
 func _process(delta: float) -> void:
+	if Global.volume == null:
+		Global.volume = 20
+	if Global.volume_effect == null:
+		Global.volume_effect = 20
+	if Global.volume_music == null:
+		Global.volume_music = 20
+	
+	
+	$AudioStreamPlayer2D.volume_db = -50 + range_mod*log(Global.volume) + range_mod*log(Global.volume_music)
 	click.volume_db = -60 + range_mod*log(Global.volume) + range_mod*log(Global.volume_effect)
 	pass
 

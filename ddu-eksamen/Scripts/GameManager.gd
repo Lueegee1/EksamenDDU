@@ -54,7 +54,7 @@ signal value_changed
 const SAVE_FILE = "user://database.json"
 var is_starving = false
 var building_positions: Dictionary = {}
-var building_markers_node: Node  
+var building_markers_node: Node 
 # Loading Data from JSON Files ----------------------------------------------------------------------------------
 
 func load_names_from_json(path: String) -> void:
@@ -213,10 +213,10 @@ func clear_all_dictionaries() -> void:
 	working_colonist = []
 	current_positions = []
 	Global.decorations=-10
-	Global.research_points = 100000
-	Global.food = 100000
-	Global.plant_matter = 100000
-	Global.minerals = 100000
+	Global.research_points = 0
+	Global.food = 10
+	Global.plant_matter = 0
+	Global.minerals = 0
 func _ready():
 	Global.GameManager = self
 	clear_all_dictionaries()
@@ -336,14 +336,14 @@ func load_game() -> bool:
 		Global.plant_matter = resources.get("plant_matter", 0)
 		Global.minerals = resources.get("minerals", 0)
 		Global.research_points = resources.get("research_points", 0)
-		Global.decorations = resources.get("decorations", 0)
+	#	Global.decorations = resources.get("decorations", 0)
 	#checks if saved_data has the modifier variables and loads them into the game
-	if saved_data.has("modifiers"):
-		var modifiers = saved_data["modifiers"]
-		research_prod_modifier = modifiers.get("research", 0.1)
-		plant_prod_modifier = modifiers.get("plant", 1.0)
-		food_prod_modifier = modifiers.get("food", 1.0)
-		minerals_prod_modifier = modifiers.get("minerals", 1.0)
+	#if saved_data.has("modifiers"):
+	#	var modifiers = saved_data["modifiers"]
+	#	research_prod_modifier = modifiers.get("research", 0.1)
+	#	plant_prod_modifier = modifiers.get("plant", 1.0)
+	#	food_prod_modifier = modifiers.get("food", 1.0)
+	#	minerals_prod_modifier = modifiers.get("minerals", 1.0)
 	# tick and hungry yes/no 
 	if saved_data.has("simulation"): #checks if saved data has tick and is_starving saved
 		var simulation = saved_data["simulation"]
@@ -406,6 +406,15 @@ func load_game() -> bool:
 			apply_research(i)
 	for i in colonist_dict:
 		grieving(i)
+	for house in housing_dictionary:
+		match house:
+			"not_built": pass
+			"house1": $UI/Background/House1.frame =housing_dictionary[house]["capacity"]-1; $UI/Background/House1.visible = true
+			"house2": $UI/Background/House2.frame= housing_dictionary[house]["capacity"]-1; $UI/Background/House2.visible = true
+			"house3": $UI/Background/House3.frame= housing_dictionary[house]["capacity"]-1; $UI/Background/House3.visible = true
+			"house4": $UI/Background/House4.frame= housing_dictionary[house]["capacity"]-1; $UI/Background/House4.visible = true
+
+
 	return true
 	
 func new_game() -> void:
@@ -790,6 +799,12 @@ func build_new_building(type: String) -> bool:
 				"capacity": 1,
 				"assigned": []
 			}
+			match house_count:
+				0: $UI/Background/House1.visible = true
+				1: $UI/Background/House2.visible = true
+				2: $UI/Background/House3.visible = true
+				3: $UI/Background/House4.visible = true
+			
 
 			resource_consumption("minerals", house_price[0])
 			resource_consumption("plant_matter", house_price[1])
@@ -827,7 +842,13 @@ func upgrade_building(building: String) -> bool:
 
 		resource_consumption("minerals", house_upgrade1_price[0])
 		resource_consumption("plant_matter", house_upgrade1_price[1])
+		match building:
+			"house1": $UI/Background/House1.frame = 1
+			"house2": $UI/Background/House2.frame = 1
+			"house3": $UI/Background/House3.frame = 1
+			"house4": $UI/Background/House4.frame = 1
 
+		
 		value_changed.emit()
 		return true
 
@@ -858,7 +879,7 @@ func apply_research(index):
 		# PLANTS
 		6:
 			plant_prod_modifier *= 5
-			$UI/Background/Path/Trees.frame = 1
+			$UI/Background/Trees.frame = 1
 		18:	
 			plant_prod_modifier *= 10
 
@@ -867,28 +888,32 @@ func apply_research(index):
 		3:
 			food_prod_modifier *= 1.15
 			$UI/Background/Farm.frame = 1
+			$UI/Background/Farm/Details.visible = false
 		5:
 			food_prod_modifier *= 1.25
-			$UI/Background/Farm.frame = 2
+			$UI/Background/Farm.frame = 1
+			$UI/Background/Farm/Details.visible = false
 
 		13:
 			food_prod_modifier *= 1.30
 			$UI/Background/Farm.frame = 2
+			$UI/Background/Farm/Details.visible = true
 
 		21:
 			food_prod_modifier *= 1.50
 			$UI/Background/Farm.frame = 2
-
+			$UI/Background/Farm/Details.visible = true
 
 		# MINERALS
 		2:
 			minerals_prod_modifier *= 1
+			$UI/Background/Cave/Details/Minecart.visible = true
 		8:
 			minerals_prod_modifier *= 5
-			$UI/Background/Cave.frame =1
+			$UI/Background/Cave/Details/Pickaxe.visible = true
 		16:
 			minerals_prod_modifier *= 10
-			$UI/Background/Cave.frame = 2
+			$UI/Background/Cave/Details/Drill.visible = true
 
 		#Decor
 		4:
