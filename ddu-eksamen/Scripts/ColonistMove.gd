@@ -64,7 +64,7 @@ func colonist_work_day():
 	Global.GameManager.update_position()
 	state = "working"
 	sprite.skew = 0
-	if colonist_name not in Global.GameManager.colonist_dict[colonist_name]:
+	if colonist_name not in Global.GameManager.colonist_dict:
 		return
 	if "workaholic" in Global.GameManager.colonist_dict[colonist_name]:
 		await get_tree().create_timer((Global.GameManager.workday_lenght*1.5)/Global.tick_interval).timeout

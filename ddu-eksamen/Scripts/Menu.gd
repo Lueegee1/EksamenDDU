@@ -9,10 +9,36 @@ func Click():
 
 func _on_button_1_pressed() -> void:
 	Click()
-	#Global.SceneChanger.load_scene("IntroCutScene")
-	Global.load_game = true
-	Global.SceneChanger.load_scene("Game")
-	
+	var has_save = true
+	if not FileAccess.file_exists(SAVE_FILE): #checker om save filen eksiterer
+		has_save = false
+	var file = FileAccess.open(SAVE_FILE, FileAccess.READ) #opens the file and saves it in read mode as variable file and checks if opening
+#it was succesfull
+	if file == null:
+		has_save = false
+	var save_text = file.get_as_text()
+	file.close()
+	var json_save_data = JSON.new()
+	var parsed_json_save_data = json_save_data.parse(save_text)
+	if parsed_json_save_data != OK: #checks if the json was parsed succesfully
+		has_save = false
+	if has_save:
+		var saved_data = json_save_data.data
+		if "colony" not in saved_data:
+			return
+		var colony = saved_data["colony"]
+		if colony.has("colonist_dict"):
+			var colonist_dict = colony.get("colonist_dict")
+			if len(colonist_dict) < 1:
+				has_save= false
+	if has_save:
+		Global.load_game = true
+		Global.SceneChanger.load_scene("Game")
+	else:
+		Global.load_game = false
+		Global.SceneChanger.load_scene("IntroCutScene")
+
+		
 
 func _on_button_2_pressed() -> void:
 	Click()

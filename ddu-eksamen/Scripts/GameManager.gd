@@ -107,9 +107,18 @@ func win_game(flag):
 	if flag not in wins:
 		wins.append(flag)
 	game_won = true
+	if flag == "religion":
+		await get_tree().create_timer(1).timeout
+	save_game()
+	new_game()
+	Global.SceneChanger.load_scene("Menu")
+
 	
 func lose_game():
 	if Global.average_happiness == 5 or colonist_dict.size() == 0:
+		save_game()
+		new_game()
+		Global.SceneChanger.load_scene("Menu")
 		print("Game lost")
 
 
@@ -204,10 +213,10 @@ func clear_all_dictionaries() -> void:
 	working_colonist = []
 	current_positions = []
 	Global.decorations=-10
-	Global.research_points = 1000
-	Global.food = 10000
-	Global.plant_matter = 10000
-	Global.minerals = 10000
+	Global.research_points = 100000
+	Global.food = 100000
+	Global.plant_matter = 100000
+	Global.minerals = 100000
 func _ready():
 	Global.GameManager = self
 	clear_all_dictionaries()
@@ -283,6 +292,9 @@ func save_game() -> bool:
 			"volume": Global.volume,
 			"volume_music": Global.volume_music,
 			"volume_effect": Global.volume_effect,
+		},
+		"state_of_game": {
+			"game_won": game_won
 		}
 	}
 	var file = FileAccess.open(SAVE_FILE, FileAccess.WRITE)
@@ -372,6 +384,9 @@ func load_game() -> bool:
 		Global.volume= globals.get("volume")
 		Global.volume_music= globals.get("volume_music")
 		Global.volume_effect= globals.get("volume_effect")
+	if saved_data.has("state_of_game"):
+		var state_of_game= saved_data["state_of_game"]
+		game_won = state_of_game.get("game_won")
 	
 	print(housing_dictionary)
 	game_loaded = true
@@ -420,6 +435,7 @@ func new_game() -> void:
 			wins = preserved_wins
 		if FileAccess.file_exists(SAVE_FILE):
 			DirAccess.remove_absolute(SAVE_FILE)
+			save_game()
 			
 	
 func string_to_vector2(s: String) -> Vector2:
