@@ -216,7 +216,7 @@ func clear_all_dictionaries() -> void:
 	Global.research_points = 0
 	Global.food = 10
 	Global.plant_matter = 0
-	Global.minerals = 0
+	Global.minerals =0
 func _ready():
 	Global.GameManager = self
 	clear_all_dictionaries()
