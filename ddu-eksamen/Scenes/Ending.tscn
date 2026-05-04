@@ -1,20 +1,69 @@
 [gd_scene format=3 uid="uid://cgexpy5hajmmb"]
 
-[ext_resource type="Script" uid="uid://jrosuj65r0ah" path="res://Scenes/Ending.gd" id="1_sbbak"]
+[ext_resource type="Script" uid="uid://jrosuj65r0ah" path="res://Scripts/Ending.gd" id="1_sbbak"]
+[ext_resource type="Texture2D" uid="uid://cxi6as0y76lll" path="res://Assets/Animations/Cult/frame_00_delay-0.5s.jpg" id="2_gqayu"]
 [ext_resource type="Texture2D" uid="uid://ci3vl8nwqylcp" path="res://Assets/Animations/Eugenics/frame_00_delay-0.5s.jpg" id="2_p2pql"]
+[ext_resource type="Texture2D" uid="uid://blu5eswuddu53" path="res://Assets/Animations/Cult/frame_01_delay-0.5s.jpg" id="3_ikq0p"]
 [ext_resource type="Texture2D" uid="uid://cq3cvjsjtl481" path="res://Assets/Animations/Eugenics/frame_01_delay-0.5s.jpg" id="3_rhdxo"]
 [ext_resource type="Texture2D" uid="uid://ct2w7fpq2d7hx" path="res://Assets/Animations/Eugenics/frame_02_delay-0.5s.jpg" id="4_saccv"]
+[ext_resource type="Texture2D" uid="uid://kyffqtld17f5" path="res://Assets/Animations/Cult/frame_02_delay-0.5s.jpg" id="4_v0ioq"]
+[ext_resource type="Texture2D" uid="uid://n7d2t3ih6d8n" path="res://Assets/Animations/Cult/frame_03_delay-0.5s.jpg" id="5_4joa1"]
 [ext_resource type="Texture2D" uid="uid://bmep4bxyiabfa" path="res://Assets/Animations/Eugenics/frame_03_delay-0.5s.jpg" id="5_hsdwk"]
+[ext_resource type="Texture2D" uid="uid://xbfliy8xlgnj" path="res://Assets/Animations/Cult/frame_04_delay-0.5s.jpg" id="6_mrisa"]
 [ext_resource type="Texture2D" uid="uid://bud83u381g1s1" path="res://Assets/Animations/Eugenics/frame_04_delay-0.5s.jpg" id="6_sd2ch"]
+[ext_resource type="Texture2D" uid="uid://mooqm4vwqrqi" path="res://Assets/Animations/Cult/frame_05_delay-5s.jpg" id="7_gsr5n"]
 [ext_resource type="Texture2D" uid="uid://c1h1j5mvl4by6" path="res://Assets/Animations/Eugenics/frame_05_delay-5s.jpg" id="7_npthc"]
 [ext_resource type="Texture2D" uid="uid://bm0ice5ksk20s" path="res://Assets/Animations/Eugenics/frame_06_delay-0.5s.jpg" id="8_t61j0"]
+[ext_resource type="Texture2D" uid="uid://bjgqirjtlae4p" path="res://Assets/Animations/Cult/frame_06_delay-0.5s.jpg" id="8_usfmx"]
+[ext_resource type="Texture2D" uid="uid://6rpuaosajalm" path="res://Assets/Animations/Cult/frame_07_delay-0.5s.jpg" id="9_ibijw"]
 [ext_resource type="Texture2D" uid="uid://bpauvicbxraoo" path="res://Assets/Animations/Eugenics/frame_07_delay-0.5s.jpg" id="9_ng17g"]
 [ext_resource type="Texture2D" uid="uid://bauvvxl1we45v" path="res://Assets/Animations/Eugenics/frame_08_delay-0.5s.jpg" id="10_77iv6"]
+[ext_resource type="Texture2D" uid="uid://chpeuon1342ar" path="res://Assets/Animations/Cult/frame_08_delay-0.5s.jpg" id="10_sw385"]
 [ext_resource type="Texture2D" uid="uid://bj0732bx5nbb6" path="res://Assets/Animations/Eugenics/frame_09_delay-0.5s.jpg" id="11_c22xa"]
+[ext_resource type="Texture2D" uid="uid://cf1kyjahn0pit" path="res://Assets/Animations/Cult/frame_09_delay-0.5s.jpg" id="11_vx6j0"]
+[ext_resource type="Texture2D" uid="uid://qg6vjrp8gg8b" path="res://Assets/Animations/Cult/frame_10_delay-0.5s.jpg" id="12_il6gk"]
 [ext_resource type="Texture2D" uid="uid://cyxosmwofsrtx" path="res://Assets/Animations/Eugenics/frame_10_delay-0.5s.jpg" id="12_x8opx"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gqayu"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_gqayu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ikq0p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_v0ioq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_4joa1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_mrisa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_gsr5n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_usfmx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ibijw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_sw385")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_vx6j0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_il6gk")
+}],
+"loop": false,
+"name": &"Cult",
+"speed": 1.1
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_p2pql")
@@ -49,7 +98,7 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("12_x8opx")
 }],
-"loop": true,
+"loop": false,
 "name": &"Eugenics",
 "speed": 1.1
 }]
@@ -61,5 +110,5 @@ script = ExtResource("1_sbbak")
 position = Vector2(963, 541)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_gqayu")
-animation = &"Eugenics"
-autoplay = "Eugenics"
+animation = &"Cult"
+autoplay = "Cult"
