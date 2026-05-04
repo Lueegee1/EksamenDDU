@@ -72,7 +72,7 @@ func colonist_work_day():
 	rested = false
 	state = "going_home"
 func colonist_rest():
-	Global.GameManager.update_postion()
+	Global.GameManager.update_position()
 	state = "resting"
 	sprite.skew = 0
 	sprite.rotation = 0
@@ -187,9 +187,12 @@ func _process(delta: float) -> void:
 	colonist_move(delta*5)
 	if state == "working":
 		wiggle(delta)
+	
 	pass
 	
-
+func is_position_in_navregion(pos: Vector2, region: NavigationRegion2D) -> bool:
+	var closest_point = NavigationServer2D.map_get_closest_point(region.get_navigation_map(), pos)
+	return pos.distance_to(closest_point) < 1.0
 
 func _on_texture_button_pressed() -> void:
 	Global.UI.build_open = false

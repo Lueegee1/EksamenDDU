@@ -17,6 +17,7 @@ var data
 var UI
 var SceneChanger
 var GameManager
+var win_flag
 
 func load_globals() -> bool:
 	print("Save file exists: ", FileAccess.file_exists(SAVE_FILE))

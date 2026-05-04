@@ -1,0 +1,65 @@
+[gd_scene format=3 uid="uid://cgexpy5hajmmb"]
+
+[ext_resource type="Script" uid="uid://jrosuj65r0ah" path="res://Scenes/Ending.gd" id="1_sbbak"]
+[ext_resource type="Texture2D" uid="uid://ci3vl8nwqylcp" path="res://Assets/Animations/Eugenics/frame_00_delay-0.5s.jpg" id="2_p2pql"]
+[ext_resource type="Texture2D" uid="uid://cq3cvjsjtl481" path="res://Assets/Animations/Eugenics/frame_01_delay-0.5s.jpg" id="3_rhdxo"]
+[ext_resource type="Texture2D" uid="uid://ct2w7fpq2d7hx" path="res://Assets/Animations/Eugenics/frame_02_delay-0.5s.jpg" id="4_saccv"]
+[ext_resource type="Texture2D" uid="uid://bmep4bxyiabfa" path="res://Assets/Animations/Eugenics/frame_03_delay-0.5s.jpg" id="5_hsdwk"]
+[ext_resource type="Texture2D" uid="uid://bud83u381g1s1" path="res://Assets/Animations/Eugenics/frame_04_delay-0.5s.jpg" id="6_sd2ch"]
+[ext_resource type="Texture2D" uid="uid://c1h1j5mvl4by6" path="res://Assets/Animations/Eugenics/frame_05_delay-5s.jpg" id="7_npthc"]
+[ext_resource type="Texture2D" uid="uid://bm0ice5ksk20s" path="res://Assets/Animations/Eugenics/frame_06_delay-0.5s.jpg" id="8_t61j0"]
+[ext_resource type="Texture2D" uid="uid://bpauvicbxraoo" path="res://Assets/Animations/Eugenics/frame_07_delay-0.5s.jpg" id="9_ng17g"]
+[ext_resource type="Texture2D" uid="uid://bauvvxl1we45v" path="res://Assets/Animations/Eugenics/frame_08_delay-0.5s.jpg" id="10_77iv6"]
+[ext_resource type="Texture2D" uid="uid://bj0732bx5nbb6" path="res://Assets/Animations/Eugenics/frame_09_delay-0.5s.jpg" id="11_c22xa"]
+[ext_resource type="Texture2D" uid="uid://cyxosmwofsrtx" path="res://Assets/Animations/Eugenics/frame_10_delay-0.5s.jpg" id="12_x8opx"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_gqayu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_p2pql")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_rhdxo")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_saccv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_hsdwk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_sd2ch")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_npthc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_t61j0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_ng17g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_77iv6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_c22xa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_x8opx")
+}],
+"loop": true,
+"name": &"Eugenics",
+"speed": 1.1
+}]
+
+[node name="Ending" type="Node2D" unique_id=1499847083]
+script = ExtResource("1_sbbak")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=97325925]
+position = Vector2(963, 541)
+scale = Vector2(4, 4)
+sprite_frames = SubResource("SpriteFrames_gqayu")
+animation = &"Eugenics"
+autoplay = "Eugenics"

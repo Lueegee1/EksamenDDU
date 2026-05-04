@@ -39,16 +39,16 @@
 [ext_resource type="Texture2D" uid="uid://bwf7cqvcu1ljb" path="res://Assets/Map/Farm/BushesAndCrops.png" id="35_oo65k"]
 [ext_resource type="Texture2D" uid="uid://cv8cuqfqfv5rw" path="res://Assets/Map/Mine/Minecart.png" id="35_smnwb"]
 [ext_resource type="Texture2D" uid="uid://l8qgrahwtlje" path="res://Assets/Map/Mine/Pickaxe.png" id="36_lkuj1"]
-[ext_resource type="Texture2D" uid="uid://cjcue2womh0nr" path="res://Assets/ResearchBase.png" id="36_oo65k"]
 [ext_resource type="Texture2D" uid="uid://dwy8g7hh76jk8" path="res://Assets/Map/Farm/Crops.png" id="36_smnwb"]
 [ext_resource type="Texture2D" uid="uid://dl2oabro3h1vq" path="res://Assets/Map/Farm/Fence.png" id="37_lkuj1"]
-[ext_resource type="Texture2D" uid="uid://b4kkverb4ixft" path="res://Assets/ResearchUpg1.png" id="37_smnwb"]
 [ext_resource type="Texture2D" uid="uid://wbbq4unsi0oe" path="res://Assets/Map/Farm/ShadowUnderFence.png" id="38_lklsk"]
 [ext_resource type="Texture2D" uid="uid://rjn0jbilt5uq" path="res://Assets/Map/Housing/Telt.png" id="42_lklsk"]
 [ext_resource type="Texture2D" uid="uid://b0a0mx12jnekl" path="res://Assets/Map/Housing/WoodenHouse.png" id="43_34hf4"]
 [ext_resource type="Texture2D" uid="uid://darhnl5wlrlqq" path="res://Assets/Map/Housing/WoodenHouseWithChimney.png" id="44_jamva"]
 [ext_resource type="AudioStream" uid="uid://22u7jenerijs" path="res://Assets/Sounds/DDU - final.mp3" id="44_mi7vx"]
+[ext_resource type="Texture2D" uid="uid://di231c2cu4fpk" path="res://Assets/Map/Ressearch/RessearchCarpet.png" id="45_e2w45"]
 [ext_resource type="AudioStream" uid="uid://b3go3dlsiyn1p" path="res://Assets/Sounds/Click.mp3" id="45_t2joc"]
+[ext_resource type="Texture2D" uid="uid://vo23634jpb0l" path="res://Assets/Map/Ressearch/College.png" id="46_oo65k"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_18uti"]
 vertices = PackedVector2Array(32.4375, 45.867188, 36.070313, 49.742188, 40.101563, 57.820313, 40.617188, 62.226563, 35.78125, 62.671875, 3.7421875, 65.61719, 2.421875, 48.25, 4.3125, 44.742188, 8.2109375, 42.289063, 8.53125, 42.21875, 23.78125, 41.046875, 78.96094, 8.1328125, 98.09375, -6.2734375, 87.35156, 37.203125, 78.390625, 51.28125, 114.85156, 99.453125, 143.53906, 109.046875, 143.39844, 109.109375, 89.796875, 116.859375, 105.03125, 95.078125, 4.6484375, -25.398438, 5.7265625, -38.953125, 8.2421875, -61.132813, 18.257813, -79.97656, 36.226563, -70.39844, 48.242188, -57.578125, 51.007813, -10.3125, 42.65625, -1.6796875, 22.148438, 9.8671875, 58.390625, 91.07031, 68.578125, 79.84375, 94.86719, 86.85156, 63.617188, 118.72656, 40.671875, 118.97656, -7.8125, 25.140625, -14.609375, -8.6875, -12.4765625, -10.6328125, -4.09375, -3.3203125, 0.6171875, 23.421875, 68.78906, -2.2734375, 69.72656, -53.539063, 99.96875, -49.0625, 108.13281, 45.34375, 111.67969, 58.796875, 97.890625, 74.53125, 60.320313, 80.5625, 140.42188, 44.421875, 149.82031, 53.132813, 150.53906, 68.828125, 144.85938, 70.84375, 118.3125, 70.38281, 131.17969, 49.242188, 24.242188, 96.64844, 28.132813, 119.421875, 19.96875, 117.3125, 11.6484375, 101.640625, 0.703125, 101.25781, -3.109375, 116.796875, -19.84375, 115.21875, -21.671875, 91.359375, -35.398438, 110.421875, -43.640625, 104.47656, -45.617188, 87.96875, -23.9375, 71.74219, -47.210938, 78.421875, -21.898438, 51.171875, -50.320313, 65.3125, -48.578125, 52.359375, -38.09375, -8.71875, -24.851563, -4.3984375, -18.617188, 35.5625, -17.960938, 43.90625, -51.148438, 42.273438, -52.75, 30.71875, -50.257813, -7.046875, 120.171875, -62.328125, 133.99219, -64.4375, 141.14063, -53.617188, 145.03906, -46.96875, 128.38281, -28.828125, 112.328125, -15.3671875, -10.7734375, 30.609375, -57.890625, -9.15625, -70.671875, 11.4921875, -73.84375, -0.0078125, -83.99219, -6.328125, -96.21094, 25.796875, -107.421875, 24.421875, -108.52344, 14.65625, -102.421875, 8.203125, -106.1875, 36.398438, -115.84375, 48.296875, -118.42969, 48.859375, -120.75781, 46.65625, -123.671875, 43.367188, -123.171875, 40.46875, -116.47656, 31.359375, -83.09375, -20.367188, -103.578125, -4.4765625, -98.49219, -16.539063, -88.99219, -28.5, -93.27344, -34.773438, -97.390625, -30.320313, -96.86719, -35.328125, -96.63281, -35.492188)
@@ -120,12 +120,12 @@ animations = [{
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("36_oo65k")
+"texture": ExtResource("45_e2w45")
 }, {
 "duration": 1.0,
-"texture": ExtResource("37_smnwb")
+"texture": ExtResource("46_oo65k")
 }],
-"loop": true,
+"loop": false,
 "name": &"default",
 "speed": 5.0
 }]
@@ -419,6 +419,7 @@ navigation_polygon = SubResource("NavigationPolygon_18uti")
 travel_cost = 0.0
 
 [node name="Path" type="Sprite2D" parent="UI/Background" unique_id=1161066330]
+z_index = 1
 position = Vector2(153.75, 100.25)
 texture = ExtResource("29_audqb")
 
@@ -469,7 +470,6 @@ position = Vector2(-33.5, -20)
 texture = ExtResource("36_lkuj1")
 
 [node name="Farm" type="AnimatedSprite2D" parent="UI/Background" unique_id=924806731]
-z_index = 10
 position = Vector2(-4.5, 150.5)
 sprite_frames = SubResource("SpriteFrames_34hf4")
 frame_progress = 0.19964567
@@ -518,8 +518,9 @@ position = Vector2(145, 86)
 sprite_frames = SubResource("SpriteFrames_jamva")
 
 [node name="Research" type="AnimatedSprite2D" parent="UI/Background" unique_id=2117808265]
+visible = false
 light_mask = 0
-position = Vector2(211.24998, 86.49999)
+position = Vector2(291.75, 172.25)
 scale = Vector2(0.7135417, 0.97962964)
 sprite_frames = SubResource("SpriteFrames_m15vq")
 

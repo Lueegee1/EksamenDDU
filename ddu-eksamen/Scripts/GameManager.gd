@@ -216,7 +216,7 @@ func clear_all_dictionaries() -> void:
 	Global.research_points = 0
 	Global.food = 10
 	Global.plant_matter = 0
-	Global.minerals =0
+	Global.minerals = 0
 func _ready():
 	Global.GameManager = self
 	clear_all_dictionaries()
@@ -865,12 +865,16 @@ func apply_research(index):
 		# RESEARCH
 		1:
 			research_prod_modifier += 0.05
-			$UI/Background/Research.frame = 1
+			$UI/Background/Research.frame = 0
+			$UI/Background/Research.visible = true
 		29:
 			research_prod_modifier += 0.1
+			
 
 		10:
 			research_prod_modifier += 0.20
+			$UI/Background/Research.frame = 1
+			$UI/Background/Research.visible = true
 
 		14:
 			research_prod_modifier += 0.05
