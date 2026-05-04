@@ -45,6 +45,7 @@
 [ext_resource type="Texture2D" uid="uid://spr1oks5ygv1" path="res://Assets/Animations/EndingCutsceneBiopods/EndingCutsceneBiopods11.png" id="23_cego2"]
 [ext_resource type="Texture2D" uid="uid://brlqhgqofvywa" path="res://Assets/Animations/EndingCutsceneEugenics/EndingCutsceneEugenics11.png" id="23_ly3h7"]
 [ext_resource type="Texture2D" uid="uid://dqxan28sg4sta" path="res://Assets/DeathCutscene/DeathCutscene11.png" id="23_xk8si"]
+[ext_resource type="AudioStream" uid="uid://djlsfhh2p2oiy" path="res://Assets/Sounds/Title_Screen.mp3" id="46_oflxd"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gqayu"]
 animations = [{
@@ -254,5 +255,10 @@ position = Vector2(963, 541)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_gqayu")
 animation = &"Death"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1256357846]
+stream = ExtResource("46_oflxd")
+autoplay = true
+parameters/looping = true
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

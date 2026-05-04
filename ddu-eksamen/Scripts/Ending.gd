@@ -12,9 +12,11 @@ func _ready() -> void:
 		
 	pass # Replace with function body.
 
-
+var range_mod=7.66
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	$AudioStreamPlayer2D.volume_db = -50 + range_mod*log(Global.volume) + range_mod*log(Global.volume_music)
+
 	pass
 
 

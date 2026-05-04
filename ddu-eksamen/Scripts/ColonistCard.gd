@@ -55,10 +55,9 @@ func _on_house_pressed(id) -> void:
 	for i in popup.item_count:
 		popup.set_item_checked(i, false)
 	
-	# Check the one that was pressed
-		popup.set_item_checked(index, true)
-		#print(Global.GameManager.housing_dictionary[house])
-		Global.GameManager.assign_colonist_to_house(name_of_colonist, house)
+	popup.set_item_checked(index, true)
+	#print(Global.GameManager.housing_dictionary[house])
+	Global.GameManager.assign_colonist_to_house(name_of_colonist, house)
 		
 func update_work_checkbox(workplace: String) -> void:
 	var popup = workbutton.get_popup()
@@ -248,7 +247,10 @@ func update_psych():
 			temp_text += " " + issues[i] + ","
 		else:
 			temp_text += " and " + issues[i] +"."
-	$Group3/Label5.text = temp_text
+	if len(issues) >0:
+		$Group3/Label5.text = temp_text
+	else:
+		$Group3/Label5.text = str(name_of_colonist) + " is content with their situation"
 
 func _process(delta: float) -> void:
 	if not is_instance_valid(self):

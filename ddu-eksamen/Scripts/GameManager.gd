@@ -89,6 +89,7 @@ func load_researches_from_json(path: String) -> void:
 func game_condition_tick():
 	if Global.average_happiness == 100:
 		win_game("genes")
+		return
 	lose_game()
 	
 func win_game(flag):
@@ -105,7 +106,7 @@ func win_game(flag):
 		flag = "Euginics"
 	if flag == "genes" and not flag_killed:
 		print("Game Won: Luck")
-		flag = "Luck"
+		flag = "Euginics"
 	if flag not in wins:
 		wins.append(flag)
 	game_won = true
@@ -118,6 +119,8 @@ func win_game(flag):
 
 	
 func lose_game():
+	if game_won:
+		return
 	if Global.average_happiness == 5 or colonist_dict.size() == 0:
 		save_game()
 		new_game()
@@ -217,10 +220,10 @@ func clear_all_dictionaries() -> void:
 	working_colonist = []
 	current_positions = []
 	Global.decorations=-10
-	Global.research_points = 500
-	Global.food = 10000
-	Global.plant_matter = 10000 
-	Global.minerals = 10000
+	Global.research_points = 0
+	Global.food = 10
+	Global.plant_matter = 0
+	Global.minerals = 0
 func _ready():
 	Global.GameManager = self
 	clear_all_dictionaries()
@@ -876,7 +879,7 @@ func upgrade_building(building: String) -> bool:
 	return false
 
 func can_afford_upgrade(building: String) -> bool:
-	return Global.minerals >= house_upgrade1_price[1] and Global.plant_matter >= house_upgrade1_price[0]
+	return Global.minerals >= house_upgrade1_price[0] and Global.plant_matter >= house_upgrade1_price[1]
 	
 	
 # apply research buff
@@ -982,13 +985,13 @@ func ritual_sacrifice():
 		kill_colonist(colonist, "axe")
 
 func happiness_tick():
-	var happy_base = 20
-	happy_base += Global.decorations
-	if Global.food < 1:
-		happy_base-=10
-	else:
-		happy_base+=10
 	for colonist in happiness_dict:
+		var happy_base = 20
+		happy_base += Global.decorations
+		if Global.food < 1:
+			happy_base-=10
+		else:
+			happy_base+=10
 		#Lazy not to rewrite here
 		if Global.food < 1:
 			happiness_dict[colonist]["starving"] = true

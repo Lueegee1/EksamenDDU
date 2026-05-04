@@ -82,7 +82,22 @@ func load_wins():
 func _ready() -> void:
 	Global.load_globals()
 	load_wins()
-	$MenuUI/Label.text = str(wins)
+	var temp: String
+	var count = 0
+	for i in wins:
+		count +=1
+		if count == len(wins) and count == 1:
+			temp = "the " + str(i) + " ending"
+		if count != len(wins) and count == 1:
+			temp += "the " + str(i) + " "
+		if count != len(wins) and count != 1:
+			temp += str(i) + " "
+		if count == len(wins) and count != 1:
+			temp += "and " + str(i) + " endings"
+	if temp == "":
+		$MenuUI/Label.text =""
+	else:
+		$MenuUI/Label.text = "You have achieved " + temp
 
 var range_mod=7.66
 func _process(delta: float) -> void:
@@ -107,3 +122,8 @@ func _on_button_8_pressed() -> void:
 	menu.z_index = 100
 	menu.position = Vector2(0,0)
 	menu.visible = true
+
+
+func _on_texture_button_pressed() -> void:
+	get_tree().quit()
+	pass # Replace with function body.

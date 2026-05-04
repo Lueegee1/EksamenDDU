@@ -42,15 +42,13 @@ func update_price():
 	pass
  
 func update_buttons():
-	if Global.minerals < current_price[0] or Global.plant_matter < current_price[1]:
-		$Group1/TextureButton2.disabled = true
+	var can_afford = Global.minerals >= current_price[0] and Global.plant_matter >= current_price[1]
+	var research_ok = true
 	if level == 0 and Global.GameManager.researches[7]["researched"] == 0:
-		$Group1/TextureButton2.disabled = true
+		research_ok = false
 	if level == 1 and Global.GameManager.researches[9]["researched"] == 0:
-		$Group1/TextureButton2.disabled = true
-	else:
-		$Group1/TextureButton2.disabled = false
-	
+		research_ok = false
+	$Group1/TextureButton2.disabled = not (can_afford and research_ok)
 
 
 func update_name():

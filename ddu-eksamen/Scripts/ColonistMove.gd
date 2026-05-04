@@ -68,6 +68,9 @@ func colonist_work_day():
 		return
 	if "workaholic" in Global.GameManager.colonist_dict[colonist_name]:
 		await get_tree().create_timer((Global.GameManager.workday_lenght*1.5)/Global.tick_interval).timeout
+		rested = false
+		state = "going_home"
+		return
 	await get_tree().create_timer((Global.GameManager.workday_lenght)/Global.tick_interval).timeout
 	rested = false
 	state = "going_home"

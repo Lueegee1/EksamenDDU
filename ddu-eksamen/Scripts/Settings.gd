@@ -26,6 +26,7 @@ func hard_reset():
 #it was succesfull
 	if file == null:
 		has_save = false
+		return
 	var save_text = file.get_as_text()
 	file.close()
 	var json_save_data = JSON.new()
