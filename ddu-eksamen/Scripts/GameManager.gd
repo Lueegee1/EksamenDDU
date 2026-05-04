@@ -96,8 +96,10 @@ func win_game(flag):
 		return
 	if flag == "pod":
 		print("Game Won: Pod")
+		flag= "Pod"
 	if flag == "religion":
 		print("Game Won: Religion")
+		flag = "Cult"
 	if flag == "genes" and flag_killed:
 		print("Game Won: Euginics")
 		flag = "Euginics"
@@ -109,16 +111,18 @@ func win_game(flag):
 	game_won = true
 	if flag == "religion":
 		await get_tree().create_timer(1).timeout
+	Global.win_flag = flag
 	save_game()
 	new_game()
-	Global.SceneChanger.load_scene("Menu")
+	Global.SceneChanger.load_scene("Ending")
 
 	
 func lose_game():
 	if Global.average_happiness == 5 or colonist_dict.size() == 0:
 		save_game()
 		new_game()
-		Global.SceneChanger.load_scene("Menu")
+		Global.win_flag= "Death"
+		Global.SceneChanger.load_scene("Ending")
 		print("Game lost")
 
 
@@ -213,10 +217,10 @@ func clear_all_dictionaries() -> void:
 	working_colonist = []
 	current_positions = []
 	Global.decorations=-10
-	Global.research_points = 0
-	Global.food = 10
-	Global.plant_matter = 0
-	Global.minerals = 0
+	Global.research_points = 500
+	Global.food = 10000
+	Global.plant_matter = 10000 
+	Global.minerals = 10000
 func _ready():
 	Global.GameManager = self
 	clear_all_dictionaries()
@@ -368,7 +372,11 @@ func load_game() -> bool:
 		position_dict = colony.get("position_dict", {})
 		for colonist_name in colonist_dict:
 			#print(str(sprite_dict) + str(position_dict))
-			setup_colonist_body(colonist_name, sprite_dict[colonist_name], string_to_vector2(position_dict[colonist_name]))
+			print(str(colonist_name)+str(position_dict[colonist_name]))
+			if position_dict[colonist_name] == "(0.0, 0.0)":
+				setup_colonist_body(colonist_name, sprite_dict[colonist_name], null)
+			else:
+				setup_colonist_body(colonist_name, sprite_dict[colonist_name], string_to_vector2(position_dict[colonist_name]))
 		for key in trait_dict:
 			trait_dict[int(key)] = trait_dict[key]
 			
@@ -409,11 +417,23 @@ func load_game() -> bool:
 	for house in housing_dictionary:
 		match house:
 			"not_built": pass
-			"house1": $UI/Background/House1.frame =housing_dictionary[house]["capacity"]-1; $UI/Background/House1.visible = true
-			"house2": $UI/Background/House2.frame= housing_dictionary[house]["capacity"]-1; $UI/Background/House2.visible = true
-			"house3": $UI/Background/House3.frame= housing_dictionary[house]["capacity"]-1; $UI/Background/House3.visible = true
-			"house4": $UI/Background/House4.frame= housing_dictionary[house]["capacity"]-1; $UI/Background/House4.visible = true
-
+			"house1": $UI/Background/Houses/House1.frame =housing_dictionary[house]["capacity"]-1; $UI/Background/Houses/House1.visible = true; 
+			"house2": $UI/Background/Houses/House2.frame= housing_dictionary[house]["capacity"]-1; $UI/Background/Houses/House2.visible = true;
+			"house3": $UI/Background/Houses/House3.frame= housing_dictionary[house]["capacity"]-1; $UI/Background/Houses/House3.visible = true; 
+			"house4": $UI/Background/Houses/House4.frame= housing_dictionary[house]["capacity"]-1; $UI/Background/Houses/House4.visible = true;
+		match housing_dictionary[house]["capacity"]:
+			1.0: match house:
+				"not_built": pass
+				"house1":$UI/Background/Houses/House1/ShadowUnderTelt.visible = true
+				"house2":$UI/Background/Houses/House2/ShadowUnderTelt.visible = true
+				"house3":$UI/Background/Houses/House3/ShadowUnderTelt.visible = true
+				"house4":$UI/Background/Houses/House4/ShadowUnderTelt.visible = true
+			2.0: match house:
+				"not_built": pass
+				"house1": $UI/Background/Houses/House1/ShadowUnderWoodenHouse.visible = true; print("Shadow1House")
+				"house2": $UI/Background/Houses/House2/ShadowUnderWoodenHouse.visible = true; print("Shadow2House")
+				"house3": $UI/Background/Houses/House3/ShadowUnderWoodenHouse.visible = true; print("Shadow3House")
+				"house4": $UI/Background/Houses/House4/ShadowUnderWoodenHouse.visible = true; print("Shadow4House")
 
 	return true
 	
@@ -687,6 +707,7 @@ func kill_colonist(colonist_name: String, method):
 			grieving(colonist)
 	update_sprite()
 	flag_killed = true
+	lose_game()
 	
 func grieving(colonist):
 	if 14 in colonist_dict[colonist] or 14.0 in colonist_dict[colonist]:
@@ -800,10 +821,10 @@ func build_new_building(type: String) -> bool:
 				"assigned": []
 			}
 			match house_count:
-				0: $UI/Background/House1.visible = true
-				1: $UI/Background/House2.visible = true
-				2: $UI/Background/House3.visible = true
-				3: $UI/Background/House4.visible = true
+				0: $UI/Background/Houses/House1.visible = true; $UI/Background/Houses/House1/ShadowUnderTelt.visible = true
+				1: $UI/Background/Houses/House2.visible = true; $UI/Background/Houses/House2/ShadowUnderTelt.visible = true
+				2: $UI/Background/Houses/House3.visible = true; $UI/Background/Houses/House3/ShadowUnderTelt.visible = true
+				3: $UI/Background/Houses/House4.visible = true; $UI/Background/Houses/House4/ShadowUnderTelt.visible = true
 			
 
 			resource_consumption("minerals", house_price[0])
@@ -843,10 +864,10 @@ func upgrade_building(building: String) -> bool:
 		resource_consumption("minerals", house_upgrade1_price[0])
 		resource_consumption("plant_matter", house_upgrade1_price[1])
 		match building:
-			"house1": $UI/Background/House1.frame = 1
-			"house2": $UI/Background/House2.frame = 1
-			"house3": $UI/Background/House3.frame = 1
-			"house4": $UI/Background/House4.frame = 1
+			"house1": $UI/Background/Houses/House1.frame = 1; $UI/Background/Houses/House1/ShadowUnderWoodenHouse.visible = true; $UI/Background/Houses/House1/ShadowUnderTelt.visible = false;
+			"house2": $UI/Background/Houses/House2.frame = 1; $UI/Background/Houses/House2/ShadowUnderWoodenHouse.visible = true; $UI/Background/Houses/House2/ShadowUnderTelt.visible = false;
+			"house3": $UI/Background/Houses/House3.frame = 1; $UI/Background/Houses/House3/ShadowUnderWoodenHouse.visible = true; $UI/Background/Houses/House3/ShadowUnderTelt.visible = false;
+			"house4": $UI/Background/Houses/House4.frame = 1; $UI/Background/Houses/House4/ShadowUnderWoodenHouse.visible = true; $UI/Background/Houses/House4/ShadowUnderTelt.visible = false;
 
 		
 		value_changed.emit()
@@ -886,17 +907,16 @@ func apply_research(index):
 			$UI/Background/Trees.frame = 1
 		18:	
 			plant_prod_modifier *= 10
+			$UI/Background/Trees/ForestShack.visible = true
 
 
 		# FOOD
 		3:
 			food_prod_modifier *= 1.15
 			$UI/Background/Farm.frame = 1
-			$UI/Background/Farm/Details.visible = false
 		5:
 			food_prod_modifier *= 1.25
 			$UI/Background/Farm.frame = 1
-			$UI/Background/Farm/Details.visible = false
 
 		13:
 			food_prod_modifier *= 1.30
@@ -922,12 +942,16 @@ func apply_research(index):
 		#Decor
 		4:
 			Global.decorations +=5
+			$UI/Background/Decor/Flowers.visible = true
 		11: 
 			Global.decorations +=5
+			$UI/Background/Decor/Statue.visible = true
 		12:
 			Global.decorations +=5
+			$UI/Background/Decor/Fountain.visible = true
 		17:
 			Global.decorations +=5
+			$UI/Background/Decor/Lanterns.visible = true
 		
 		#Ending 3
 		28:

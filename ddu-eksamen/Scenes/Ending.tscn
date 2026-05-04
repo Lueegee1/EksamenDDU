@@ -1,28 +1,50 @@
 [gd_scene format=3 uid="uid://cgexpy5hajmmb"]
 
 [ext_resource type="Script" uid="uid://jrosuj65r0ah" path="res://Scripts/Ending.gd" id="1_sbbak"]
-[ext_resource type="Texture2D" uid="uid://cxi6as0y76lll" path="res://Assets/Animations/Cult/frame_00_delay-0.5s.jpg" id="2_gqayu"]
-[ext_resource type="Texture2D" uid="uid://ci3vl8nwqylcp" path="res://Assets/Animations/Eugenics/frame_00_delay-0.5s.jpg" id="2_p2pql"]
-[ext_resource type="Texture2D" uid="uid://blu5eswuddu53" path="res://Assets/Animations/Cult/frame_01_delay-0.5s.jpg" id="3_ikq0p"]
-[ext_resource type="Texture2D" uid="uid://cq3cvjsjtl481" path="res://Assets/Animations/Eugenics/frame_01_delay-0.5s.jpg" id="3_rhdxo"]
-[ext_resource type="Texture2D" uid="uid://ct2w7fpq2d7hx" path="res://Assets/Animations/Eugenics/frame_02_delay-0.5s.jpg" id="4_saccv"]
-[ext_resource type="Texture2D" uid="uid://kyffqtld17f5" path="res://Assets/Animations/Cult/frame_02_delay-0.5s.jpg" id="4_v0ioq"]
-[ext_resource type="Texture2D" uid="uid://n7d2t3ih6d8n" path="res://Assets/Animations/Cult/frame_03_delay-0.5s.jpg" id="5_4joa1"]
-[ext_resource type="Texture2D" uid="uid://bmep4bxyiabfa" path="res://Assets/Animations/Eugenics/frame_03_delay-0.5s.jpg" id="5_hsdwk"]
-[ext_resource type="Texture2D" uid="uid://xbfliy8xlgnj" path="res://Assets/Animations/Cult/frame_04_delay-0.5s.jpg" id="6_mrisa"]
-[ext_resource type="Texture2D" uid="uid://bud83u381g1s1" path="res://Assets/Animations/Eugenics/frame_04_delay-0.5s.jpg" id="6_sd2ch"]
-[ext_resource type="Texture2D" uid="uid://mooqm4vwqrqi" path="res://Assets/Animations/Cult/frame_05_delay-5s.jpg" id="7_gsr5n"]
-[ext_resource type="Texture2D" uid="uid://c1h1j5mvl4by6" path="res://Assets/Animations/Eugenics/frame_05_delay-5s.jpg" id="7_npthc"]
-[ext_resource type="Texture2D" uid="uid://bm0ice5ksk20s" path="res://Assets/Animations/Eugenics/frame_06_delay-0.5s.jpg" id="8_t61j0"]
-[ext_resource type="Texture2D" uid="uid://bjgqirjtlae4p" path="res://Assets/Animations/Cult/frame_06_delay-0.5s.jpg" id="8_usfmx"]
-[ext_resource type="Texture2D" uid="uid://6rpuaosajalm" path="res://Assets/Animations/Cult/frame_07_delay-0.5s.jpg" id="9_ibijw"]
-[ext_resource type="Texture2D" uid="uid://bpauvicbxraoo" path="res://Assets/Animations/Eugenics/frame_07_delay-0.5s.jpg" id="9_ng17g"]
-[ext_resource type="Texture2D" uid="uid://bauvvxl1we45v" path="res://Assets/Animations/Eugenics/frame_08_delay-0.5s.jpg" id="10_77iv6"]
-[ext_resource type="Texture2D" uid="uid://chpeuon1342ar" path="res://Assets/Animations/Cult/frame_08_delay-0.5s.jpg" id="10_sw385"]
-[ext_resource type="Texture2D" uid="uid://bj0732bx5nbb6" path="res://Assets/Animations/Eugenics/frame_09_delay-0.5s.jpg" id="11_c22xa"]
-[ext_resource type="Texture2D" uid="uid://cf1kyjahn0pit" path="res://Assets/Animations/Cult/frame_09_delay-0.5s.jpg" id="11_vx6j0"]
-[ext_resource type="Texture2D" uid="uid://qg6vjrp8gg8b" path="res://Assets/Animations/Cult/frame_10_delay-0.5s.jpg" id="12_il6gk"]
-[ext_resource type="Texture2D" uid="uid://cyxosmwofsrtx" path="res://Assets/Animations/Eugenics/frame_10_delay-0.5s.jpg" id="12_x8opx"]
+[ext_resource type="Texture2D" uid="uid://bs68lcu0u2r0h" path="res://Assets/Animations/EndingCutsceneCult/EndingCutsceneCult1.png" id="2_gqayu"]
+[ext_resource type="Texture2D" uid="uid://qalv0ja8uxds" path="res://Assets/Animations/EndingCutsceneCult/EndingCutsceneCult2.png" id="3_ikq0p"]
+[ext_resource type="Texture2D" uid="uid://b48cyugbbbvo2" path="res://Assets/Animations/EndingCutsceneCult/EndingCutsceneCult3.png" id="4_v0ioq"]
+[ext_resource type="Texture2D" uid="uid://bsplpnpd6brpd" path="res://Assets/Animations/EndingCutsceneCult/EndingCutsceneCult4.png" id="5_4joa1"]
+[ext_resource type="Texture2D" uid="uid://1qubf3ehq06n" path="res://Assets/Animations/EndingCutsceneCult/EndingCutsceneCult5.png" id="6_mrisa"]
+[ext_resource type="Texture2D" uid="uid://carlbq6fef324" path="res://Assets/Animations/EndingCutsceneCult/EndingCutsceneCult6.png" id="7_gsr5n"]
+[ext_resource type="Texture2D" uid="uid://426lx6n0sp70" path="res://Assets/Animations/EndingCutsceneCult/EndingCutsceneCult7.png" id="8_usfmx"]
+[ext_resource type="Texture2D" uid="uid://b7337es3jqia4" path="res://Assets/Animations/EndingCutsceneCult/EndingCutsceneCult8.png" id="9_ibijw"]
+[ext_resource type="Texture2D" uid="uid://cfi10uo2g4yxq" path="res://Assets/Animations/EndingCutsceneCult/EndingCutsceneCult9.png" id="10_sw385"]
+[ext_resource type="Texture2D" uid="uid://db6al1yo7k73s" path="res://Assets/Animations/EndingCutsceneCult/EndingCutsceneCult10.png" id="11_vx6j0"]
+[ext_resource type="Texture2D" uid="uid://4g3ktf2lbxc5" path="res://Assets/Animations/EndingCutsceneCult/EndingCutsceneCult11.png" id="12_il6gk"]
+[ext_resource type="Texture2D" uid="uid://d3obksgo4xd1n" path="res://Assets/Animations/EndingCutsceneBiopods/EndingCutsceneBiopods1.png" id="13_82x1v"]
+[ext_resource type="Texture2D" uid="uid://bvnqnirxrt7lr" path="res://Assets/Animations/EndingCutsceneEugenics/EndingCutsceneEugenics1.png" id="13_bms8e"]
+[ext_resource type="Texture2D" uid="uid://ckl8d7klv23jn" path="res://Assets/DeathCutscene/DeathCutscene1.png" id="13_ly3h7"]
+[ext_resource type="Texture2D" uid="uid://c4ef7oqi3gbaq" path="res://Assets/Animations/EndingCutsceneEugenics/EndingCutsceneEugenics2.png" id="14_7nngd"]
+[ext_resource type="Texture2D" uid="uid://ybeaglmwevom" path="res://Assets/Animations/EndingCutsceneBiopods/EndingCutsceneBiopods2.png" id="14_bms8e"]
+[ext_resource type="Texture2D" uid="uid://djdys1iii13p3" path="res://Assets/DeathCutscene/DeathCutscene2.png" id="14_oflxd"]
+[ext_resource type="Texture2D" uid="uid://b6gb3hp1rt50m" path="res://Assets/Animations/EndingCutsceneBiopods/EndingCutsceneBiopods3.png" id="15_7nngd"]
+[ext_resource type="Texture2D" uid="uid://cykhg5kplvclc" path="res://Assets/Animations/EndingCutsceneEugenics/EndingCutsceneEugenics3.png" id="15_7s78a"]
+[ext_resource type="Texture2D" uid="uid://bpm414mcij5gm" path="res://Assets/DeathCutscene/DeathCutscene3.png" id="15_fqmaa"]
+[ext_resource type="Texture2D" uid="uid://lifiwtt2svka" path="res://Assets/Animations/EndingCutsceneBiopods/EndingCutsceneBiopods4.png" id="16_7s78a"]
+[ext_resource type="Texture2D" uid="uid://cc2d103puxmny" path="res://Assets/DeathCutscene/DeathCutscene4.png" id="16_84hs2"]
+[ext_resource type="Texture2D" uid="uid://drqia0gm0umsp" path="res://Assets/Animations/EndingCutsceneEugenics/EndingCutsceneEugenics4.png" id="16_t5dff"]
+[ext_resource type="Texture2D" uid="uid://cisjvvvnejdy0" path="res://Assets/DeathCutscene/DeathCutscene5.png" id="17_cibqw"]
+[ext_resource type="Texture2D" uid="uid://dxy4xbo08a111" path="res://Assets/Animations/EndingCutsceneEugenics/EndingCutsceneEugenics5.png" id="17_n7ys5"]
+[ext_resource type="Texture2D" uid="uid://bc2no2mo6v8qa" path="res://Assets/Animations/EndingCutsceneBiopods/EndingCutsceneBiopods5.png" id="17_t5dff"]
+[ext_resource type="Texture2D" uid="uid://b0vacvkii7reb" path="res://Assets/Animations/EndingCutsceneEugenics/EndingCutsceneEugenics6.png" id="18_dpi3t"]
+[ext_resource type="Texture2D" uid="uid://dw0j0xji5umc0" path="res://Assets/DeathCutscene/DeathCutscene6.png" id="18_ksdpr"]
+[ext_resource type="Texture2D" uid="uid://dy4250mvx2hi0" path="res://Assets/Animations/EndingCutsceneBiopods/EndingCutsceneBiopods6.png" id="18_n7ys5"]
+[ext_resource type="Texture2D" uid="uid://dhl8jp0aimjfm" path="res://Assets/Animations/EndingCutsceneBiopods/EndingCutsceneBiopods7.png" id="19_dpi3t"]
+[ext_resource type="Texture2D" uid="uid://cv4235p6o006g" path="res://Assets/DeathCutscene/DeathCutscene7.png" id="19_jgswn"]
+[ext_resource type="Texture2D" uid="uid://cylld61gm8x4x" path="res://Assets/Animations/EndingCutsceneEugenics/EndingCutsceneEugenics7.png" id="19_yx6yk"]
+[ext_resource type="Texture2D" uid="uid://bws48xresbio3" path="res://Assets/DeathCutscene/DeathCutscene8.png" id="20_dtomq"]
+[ext_resource type="Texture2D" uid="uid://dhkhtvnwpf3k3" path="res://Assets/Animations/EndingCutsceneEugenics/EndingCutsceneEugenics8.png" id="20_ry02o"]
+[ext_resource type="Texture2D" uid="uid://bhrlsd7xechxu" path="res://Assets/Animations/EndingCutsceneBiopods/EndingCutsceneBiopods8.png" id="20_yx6yk"]
+[ext_resource type="Texture2D" uid="uid://cpcoyeogtgtb0" path="res://Assets/DeathCutscene/DeathCutscene9.png" id="21_ey0av"]
+[ext_resource type="Texture2D" uid="uid://2fia6b27py5c" path="res://Assets/Animations/EndingCutsceneBiopods/EndingCutsceneBiopods9.png" id="21_ry02o"]
+[ext_resource type="Texture2D" uid="uid://d1x8auqwbgad1" path="res://Assets/Animations/EndingCutsceneEugenics/EndingCutsceneEugenics9.png" id="21_uujky"]
+[ext_resource type="Texture2D" uid="uid://ckf6eluamyw4m" path="res://Assets/DeathCutscene/DeathCutscene10.png" id="22_8culx"]
+[ext_resource type="Texture2D" uid="uid://2kn1tbt8w585" path="res://Assets/Animations/EndingCutsceneEugenics/EndingCutsceneEugenics10.png" id="22_cego2"]
+[ext_resource type="Texture2D" uid="uid://budk5xrqwypck" path="res://Assets/Animations/EndingCutsceneBiopods/EndingCutsceneBiopods10.png" id="22_uujky"]
+[ext_resource type="Texture2D" uid="uid://spr1oks5ygv1" path="res://Assets/Animations/EndingCutsceneBiopods/EndingCutsceneBiopods11.png" id="23_cego2"]
+[ext_resource type="Texture2D" uid="uid://brlqhgqofvywa" path="res://Assets/Animations/EndingCutsceneEugenics/EndingCutsceneEugenics11.png" id="23_ly3h7"]
+[ext_resource type="Texture2D" uid="uid://dqxan28sg4sta" path="res://Assets/DeathCutscene/DeathCutscene11.png" id="23_xk8si"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_gqayu"]
 animations = [{
@@ -41,6 +63,18 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": ExtResource("6_mrisa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_gsr5n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_gsr5n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_gsr5n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_gsr5n")
 }, {
 "duration": 1.0,
 "texture": ExtResource("7_gsr5n")
@@ -66,40 +100,149 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_p2pql")
+"texture": ExtResource("13_ly3h7")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_rhdxo")
+"texture": ExtResource("14_oflxd")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_saccv")
+"texture": ExtResource("15_fqmaa")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_hsdwk")
+"texture": ExtResource("16_84hs2")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_sd2ch")
+"texture": ExtResource("17_cibqw")
 }, {
 "duration": 1.0,
-"texture": ExtResource("7_npthc")
+"texture": ExtResource("18_ksdpr")
 }, {
 "duration": 1.0,
-"texture": ExtResource("8_t61j0")
+"texture": ExtResource("18_ksdpr")
 }, {
 "duration": 1.0,
-"texture": ExtResource("9_ng17g")
+"texture": ExtResource("18_ksdpr")
 }, {
 "duration": 1.0,
-"texture": ExtResource("10_77iv6")
+"texture": ExtResource("18_ksdpr")
 }, {
 "duration": 1.0,
-"texture": ExtResource("11_c22xa")
+"texture": ExtResource("18_ksdpr")
 }, {
 "duration": 1.0,
-"texture": ExtResource("12_x8opx")
+"texture": ExtResource("19_jgswn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_dtomq")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_ey0av")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_8culx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_xk8si")
+}],
+"loop": false,
+"name": &"Death",
+"speed": 1.1
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_bms8e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_7nngd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_7s78a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_t5dff")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_n7ys5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_dpi3t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_yx6yk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_yx6yk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_yx6yk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_yx6yk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_ry02o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_uujky")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_cego2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_ly3h7")
 }],
 "loop": false,
 "name": &"Eugenics",
+"speed": 1.1
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_82x1v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_bms8e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_7nngd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_7s78a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_t5dff")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_n7ys5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_n7ys5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_n7ys5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_n7ys5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_n7ys5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_dpi3t")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_yx6yk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_ry02o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_uujky")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_cego2")
+}],
+"loop": false,
+"name": &"Pod",
 "speed": 1.1
 }]
 
@@ -110,5 +253,6 @@ script = ExtResource("1_sbbak")
 position = Vector2(963, 541)
 scale = Vector2(4, 4)
 sprite_frames = SubResource("SpriteFrames_gqayu")
-animation = &"Cult"
-autoplay = "Cult"
+animation = &"Death"
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
