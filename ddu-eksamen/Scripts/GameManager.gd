@@ -112,10 +112,15 @@ func win_game(flag):
 	game_won = true
 	if flag == "religion":
 		await get_tree().create_timer(1).timeout
-	Global.win_flag = flag
-	save_game()
-	new_game()
-	Global.SceneChanger.load_scene("Ending")
+		Global.win_flag = flag
+		save_game()
+		new_game()
+		Global.SceneChanger.load_scene("Ending")
+	else:
+		Global.win_flag = flag
+		save_game()
+		new_game()
+		Global.SceneChanger.load_scene("Ending")
 
 	
 func lose_game():

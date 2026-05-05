@@ -36,7 +36,7 @@
 	"34": {"name":"Appoint leader","cost":[16,0,0,0],"requirements":[33],"description": "Appoint a leader to worship you to the very end...", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet3.png", "researched":0, "conflicts": []},
 	"35": {"name":"Toil for your god","cost":[24,0,0,0],"requirements":[34],"description": "Teach your colonists that they need to work harder to please their god.", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet3.png", "researched":0, "conflicts": []},
 	"36": {"name":"A sacrifice for your god","cost":[32,0,0,500],"requirements":[34],"description": "Sacrifice a propper feast to your god.", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet3.png", "researched":0, "conflicts": []},
-	"37": {"name":"Ascend for your god","cost":[24,750,0,0],"requirements":[36, 24],"description": "Your colony will reach ascension, while your leader stays and basks in the glory", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet3.png", "researched":0, "conflicts": []},
+	"37": {"name":"Ascend for your god","cost":[24,0,0,750],"requirements":[36, 24],"description": "Your colony will reach ascension, while your leader stays and basks in the glory", "icons": "res://Assets/temp files/buttons/Sprite-0003-Sheet3.png", "researched":0, "conflicts": []},
 
 	}
 } 

@@ -56,11 +56,15 @@ func get_random_building_position() -> Vector2:
 func get_random_rest_position() -> Vector2:
 	var keys = building_positions.keys()
 	var filtered = keys.filter(func(x): return x not in ["farm", "research_lab", "mine", "forest"])
+	print(filtered)
 	var random_key = filtered.pick_random()
 	#print(building_positions[random_key])
 	return building_positions[random_key]
 	
 func colonist_work_day():
+	print(state)
+	if not rested:
+		return
 	Global.GameManager.update_position()
 	state = "working"
 	sprite.skew = 0
@@ -71,9 +75,11 @@ func colonist_work_day():
 		rested = false
 		state = "going_home"
 		return
-	await get_tree().create_timer((Global.GameManager.workday_lenght)/Global.tick_interval).timeout
-	rested = false
-	state = "going_home"
+	else:
+		await get_tree().create_timer((Global.GameManager.workday_lenght)/Global.tick_interval).timeout
+		rested = false
+		state = "going_home"
+		return
 func colonist_rest():
 	Global.GameManager.update_position()
 	state = "resting"
@@ -111,7 +117,7 @@ func _step_agent(delta) -> void:
 func colonist_move(delta: float) -> void:
 	if colonist_name in Global.GameManager.workers_dict:
 		assignment = Global.GameManager.workers_dict[colonist_name]
-	if rested:
+	if rested and state != "working":
 		match assignment:
 			"farm": state = "going_to_work"
 			"plants": state = "going_to_work"
@@ -132,7 +138,8 @@ func colonist_move(delta: float) -> void:
 
 		"going_to_work":
 			agent.target_position = get_workstation_position(assignment)
-			if agent.is_navigation_finished():
+			if agent.is_navigation_finished() and rested:
+				print(state)
 				state = "working"
 				colonist_work_day()
 			else:
@@ -142,6 +149,7 @@ func colonist_move(delta: float) -> void:
 			var target = get_home_position(colonist_name)
 			if target == null:
 				state= "wandering"
+				("Now im wandering")
 				agent.target_position = Vector2.ZERO
 				return
 			agent.target_position = target
@@ -157,14 +165,14 @@ func colonist_move(delta: float) -> void:
 			pass
 
 		"wandering":
-			
 			if agent.target_position == Vector2.ZERO or agent.is_navigation_finished() and not wandered and rested:
 				wandered = true
 				var new_target = get_random_building_position()
 				agent.target_position = new_target
 			if agent.target_position == Vector2.ZERO or agent.is_navigation_finished() and not wandered and not rested:
 				wandered = true
-				var new_target = get_random_rest_position()
+				print("Going to rest")
+				var new_target = get_random_building_position()
 				agent.target_position = new_target
 			
 			if wandered and rested and moving_randomly:
@@ -180,6 +188,7 @@ func colonist_move(delta: float) -> void:
 			if wandered and not rested and agent.is_navigation_finished():
 				wandered = false
 				moving_randomly = true
+				print("Resting now")
 				colonist_rest()
 			if wandered and rested and agent.is_navigation_finished():
 				wandered = false
@@ -190,6 +199,7 @@ func _process(delta: float) -> void:
 	colonist_move(delta*5)
 	if state == "working":
 		wiggle(delta)
+	#print(str(colonist_name) + str(state))
 	
 	pass
 	
