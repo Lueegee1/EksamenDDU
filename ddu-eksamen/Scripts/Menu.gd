@@ -97,7 +97,7 @@ func _ready() -> void:
 	if temp == "":
 		$MenuUI/Label.text =""
 	else:
-		$MenuUI/Label.text = "You have achieved " + temp
+		$MenuUI/Label.text = "You have achieved " + temp +" thats " + str(len(wins)) + " out of 3"
 
 var range_mod=7.66
 func _process(delta: float) -> void:

@@ -26,16 +26,12 @@ func _on_work_pressed(id) -> void:
 	# Check the one that was pressed
 	popup.set_item_checked(index, true)
 	var workplace: String
-	if id == 0:
-		workplace = "farm"
-	if id == 1:
-		workplace = "mine"
-	if id == 2:
-		workplace = "plants"
-	if id ==3:
-		workplace = "research_lab"
-	if id ==4:
-		workplace = "unemployed"
+	match id:
+		0: workplace = "farm"
+		1: workplace = "mine"
+		2: workplace = "plants"
+		3: workplace = "research_lab"
+		4: workplace = "unemployed"
 	Global.GameManager.assign_colonist_to_workplace(name_of_colonist, workplace)
 	print(name_of_colonist + " was assigned to " + Global.GameManager.workers_dict[name_of_colonist])
 

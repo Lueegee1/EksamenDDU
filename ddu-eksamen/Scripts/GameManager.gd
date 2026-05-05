@@ -165,7 +165,16 @@ func get_new_colony(colony_population):
 		var trait_array: Array = generate_starter_trait_array() # the trait array
 		colonist_dict[colonist_name] = trait_array #adds them to the colonist dict
 		workers_dict[colonist_name] = "unemployed" #adds them as unemployed to the workers dict
-		happiness_dict[colonist_name] = {"happiness": base_happiness, "sick" : false, "grieving_1": false, "homeless" : false, "surgery": false, "grieving_2": false, "starving": false}
+		happiness_dict[colonist_name] = {"happiness": base_happiness, "sick" : false, 
+		"grieving_1": false, "homeless" : false, "surgery": false, 
+		"grieving_2": false, "starving": false}
+		#Pseudokode
+		#colonists[colonist_name]["genes"] = trait_array
+		#colonists[colonist_name]["job"] = "unemployed"
+		#colonists[colonist_name]["happiness_factors"] = "{"happiness": base_happiness, 
+		#"sick" : false, 
+		#"grieving_1": false, "homeless" : false, "surgery": false, 
+		#"grieving_2": false, "starving": false}"
 		setup_colonist_body(colonist_name, get_colonist_sprite(), null)
 # Next lines of code are purely for printing to console
 		print("Created colonist # ", colonist +1, " Their name is ", colonist_name)
@@ -290,12 +299,12 @@ func save_game() -> bool:
 		"research": { #saves research
 			"researches": researches
 		},
-		"modifiers": {
-			"research": research_prod_modifier,
-			"plant": plant_prod_modifier,
-			"food": food_prod_modifier,
-			"minerals": minerals_prod_modifier
-		},
+		#"modifiers": {
+		#	"research": research_prod_modifier,
+		#	"plant": plant_prod_modifier,
+		#	"food": food_prod_modifier,
+		#	"minerals": minerals_prod_modifier
+		#},
 		"achieved_wins": {
 			"wins": wins
 		},
@@ -589,12 +598,12 @@ func get_new_resource(resource: String, productivity: float):
 # Research funtions
 
 func meet_research_requirements(index):
+	if researches[index]["researched"]==1:
+		return false
 	for i in researches[index]["conflicts"]:
 		i = int(i)
 		if researches[i]["researched"] == 1:
 			return false
-	if researches[index]["researched"]==1:
-		return false
 	for i in researches[index]["requirements"]:
 		i = int(i)
 		if researches[i]["researched"] == 0:
@@ -602,8 +611,6 @@ func meet_research_requirements(index):
 	return true
 
 func can_afford_research(index):
-	#if loading_save:
-	#	index = str(index)
 	var price_array = researches[index]["cost"]
 	if Global.research_points< price_array[0]:
 		return false
@@ -627,7 +634,7 @@ func research(index: int):
 		apply_research(index)
 		value_changed.emit()
 	else:
-		print("Couldnt afford research")
+		print("Couldnt research, or couldnt afford research")
 
 # Breeding and killing
 func breeding() ->bool: #functions that calculates if two colonist are gonna breed together and returns false if somebody didnt and somebody did
